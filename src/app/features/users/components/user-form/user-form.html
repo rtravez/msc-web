@@ -1,0 +1,137 @@
+<div class="user-form-container">
+  <h2>{{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <!-- Identification -->
+      <div class="form-group">
+        <label for="identification">{{ 'users.identification' | translate }} *</label>
+        <input pInputText id="identification" type="text" formControlName="identification"
+               [placeholder]="'users.form.identificationHint' | translate" class="w-full" />
+        @if (isFieldInvalid('identification')) {
+          <small class="text-red-500">
+            {{ getFieldError('identification') }}
+          </small>
+        }
+      </div>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">{{ 'users.form.usernameLabel' | translate }}</label>
+        <input pInputText id="username" type="text" formControlName="username" [placeholder]="'users.form.usernameHint' | translate"
+               class="w-full" />
+        @if (isFieldInvalid('username')) {
+          <small class="text-red-500">
+            {{ getFieldError('username') }}
+          </small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">{{ 'users.form.passwordLabel' | translate }} {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label>
+        <input pInputText id="password" type="password" formControlName="password" [placeholder]="'users.form.passwordHint' | translate"
+               class="w-full" />
+        @if (isFieldInvalid('password')) {
+          <small class="text-red-500">
+            {{ getFieldError('password') }}
+          </small>
+        }
+      </div>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">{{ 'users.form.nameLabel' | translate }}</label>
+        <input pInputText id="name" type="text" formControlName="name" [placeholder]="'users.form.nameHint' | translate"
+               class="w-full" />
+        @if (isFieldInvalid('name')) {
+          <small class="text-red-500">
+            {{ getFieldError('name') }}
+          </small>
+        }
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="lastname">{{ 'users.form.lastnameLabel' | translate }}</label>
+        <input pInputText id="lastname" type="text" formControlName="lastname" [placeholder]="'users.form.nameHint' | translate"
+               class="w-full" />
+        @if (isFieldInvalid('lastname')) {
+          <small class="text-red-500">
+            {{ getFieldError('lastname') }}
+          </small>
+        }
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">{{ 'users.address' | translate }}</label>
+        <input pInputText id="address" type="text" formControlName="address" [placeholder]="'users.form.addressHint' | translate"
+               class="w-full" />
+      </div>
+
+      <!-- Telephone -->
+      <div class="form-group">
+        <label for="telephone">{{ 'users.telephone' | translate }}</label>
+        <input pInputText id="telephone" type="tel" formControlName="telephone"
+               [placeholder]="'users.form.telephoneHint' | translate" class="w-full" />
+        @if (isFieldInvalid('telephone')) {
+          <small class="text-red-500">
+            {{ getFieldError('telephone') }}
+          </small>
+        }
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label for="gender">{{ 'users.form.gender' | translate }}</label>
+        <p-select id="gender" [options]="genderOptions" optionLabel="label" optionValue="value"
+                  formControlName="gender" [placeholder]="'users.form.selectGender' | translate" [showClear]="true">
+          <ng-template #item let-option>
+            {{ option.label | translate }}
+          </ng-template>
+          <ng-template #selectedItem let-option>
+            {{ option?.label | translate }}
+          </ng-template>
+        </p-select>
+      </div>
+
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">{{ 'users.form.age' | translate }}</label>
+        <p-inputNumber id="age" formControlName="age" [min]="0" [max]="150" placeholder="0-150"></p-inputNumber>
+        @if (isFieldInvalid('age')) {
+          <small class="text-red-500">
+            {{ getFieldError('age') }}
+          </small>
+        }
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label for="status">{{ 'users.form.status' | translate }}</label>
+        <p-select id="status" [options]="statusOptions" optionLabel="label" optionValue="value"
+                  formControlName="status" [placeholder]="'users.form.selectStatus' | translate">
+          <ng-template #item let-option>
+            {{ option.label | translate }}
+          </ng-template>
+          <ng-template #selectedItem let-option>
+            {{ option?.label | translate }}
+          </ng-template>
+        </p-select>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <p-button [label]="isEditMode ? ('common.update' | translate) : ('common.create' | translate)" icon="pi pi-check" type="submit"
+                [disabled]="!userForm.valid || isLoading">
+      </p-button>
+      <p-button [label]="'common.cancel' | translate" icon="pi pi-times" type="button" severity="secondary" (onClick)="onCancel()"
+                [disabled]="isLoading">
+      </p-button>
+    </div>
+  </form>
+
+  <p-toast></p-toast>
+</div>

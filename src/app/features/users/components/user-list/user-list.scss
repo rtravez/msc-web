@@ -1,0 +1,132 @@
+.user-list-container {
+    padding: 1.5rem;
+    min-height: 100vh;
+    background-color: var(--surface-color, #ffffff);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color, #333);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    input {
+        font-size: 0.95rem;
+        height: 2.5rem;
+        width: 100%;
+    }
+}
+
+.p-input-icon-left {
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-user-button,
+.icon-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.icon-action-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+}
+
+.new-user-button svg,
+.icon-action-button svg {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.py-4 {
+    padding: 1rem 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+// PrimeNG 22 specific styles
+::ng-deep {
+    .p-table {
+        .p-datatable-thead > tr > th {
+            padding: 1rem 0.75rem;
+            background-color: var(--surface-100, #f3f4f6);
+            border-bottom: 2px solid var(--primary-color, #3b82f6);
+        }
+
+        .p-datatable-tbody > tr > td {
+            padding: 1rem 0.75rem;
+            border-bottom: 1px solid var(--surface-border, #e5e7eb);
+        }
+
+        .p-datatable-tbody > tr:hover {
+            background-color: var(--surface-50, #f9fafb);
+        }
+    }
+
+    .p-toolbar {
+        border-radius: var(--border-radius, 6px);
+        margin-bottom: 1.5rem;
+    }
+
+    .p-dialog {
+        .p-dialog-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--surface-border, #e5e7eb);
+        }
+
+        .p-dialog-content {
+            padding: 1.5rem;
+        }
+    }
+
+    .p-tag {
+        border-radius: var(--border-radius, 6px);
+        padding: 0.25rem 0.75rem;
+        font-weight: 500;
+    }
+}
+

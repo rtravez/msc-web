@@ -1,0 +1,100 @@
+<div class="user-list-container">
+  <p-toolbar class="mb-4">
+    <ng-template #start>
+      <h1>{{ 'users.title' | translate }}</h1>
+    </ng-template>
+    <ng-template #end>
+      <p-button icon="pi pi-user" severity="success" [outlined]="false" (onClick)="showNewUserDialog()"
+                [pTooltip]="'users.new' | translate" [label]="'users.new' | translate"
+                class="new-user-button">
+      </p-button>
+    </ng-template>
+  </p-toolbar>
+
+  <!-- Search Bar -->
+  <div class="search-container mb-4">
+    <label for="searchInput" class="sr-only">{{ 'users.title' | translate }}</label>
+    <span class="p-input-icon-left w-full">
+     <p-iconfield iconPosition="left">
+      <p-inputicon class="pi pi-search" />
+      <input id="searchInput" type="text" pInputText [(ngModel)]="searchValue" (input)="onSearch($event)"
+             [placeholder]="'users.search' | translate" class="w-full" />
+    </p-iconfield>
+    </span>
+  </div>
+
+  <!-- Users Table -->
+  <p-table [value]="filteredUsers()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10"
+           [globalFilterFields]="['name','username','identification']">
+    <ng-template #header>
+      <tr>
+        <th scope="col" pSortableColumn="identification">
+          {{ 'users.identification' | translate }}
+          <p-sortIcon field="identification"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="username">
+          {{ 'users.username' | translate }}
+          <p-sortIcon field="username"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="name">
+          {{ 'users.name' | translate }}
+          <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th scope="col" pSortableColumn="lastname">
+          {{ 'users.lastname' | translate }}
+          <p-sortIcon field="lastname"></p-sortIcon>
+        </th>
+        <th scope="col">{{ 'users.telephone' | translate }}</th>
+        <th scope="col">{{ 'users.gender' | translate }}</th>
+        <th scope="col">{{ 'users.address' | translate }}</th>
+        <th scope="col" pSortableColumn="status">
+          {{ 'users.status' | translate }}
+          <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th scope="col">{{ 'users.actions' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-user>
+      <tr>
+        <td>{{ user.identification }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.telephone }}</td>
+        <td>{{ user.gender }}</td>
+        <td>{{ user.address }}</td>
+        <td>
+          <p-tag [value]="(user.status ? 'users.active' : 'users.inactive') | translate" [severity]="user.status ? 'success' : 'danger'">
+          </p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <p-button icon="pi pi-pencil" aria-label="Editar" [rounded]="true" severity="warn" (onClick)="editUser(user)"
+                      [pTooltip]="'users.edit' | translate">
+            </p-button>
+            <p-button icon="pi pi-trash" aria-label="Eliminar" [rounded]="true" severity="danger"
+                      (onClick)="confirmDelete(user)"
+                      [pTooltip]="'users.delete' | translate">
+            </p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Form Dialog -->
+  <p-dialog [visible]="showFormDialog()" [header]="(isEditMode() ? 'users.editTitle' : 'users.createTitle') | translate" [modal]="true"
+            [style]="{'width': '90vw'}" [maximizable]="true" [baseZIndex]="10000" [closeOnEscape]="true"
+            (visibleChange)="showFormDialog.set($event)" (onHide)="closeDialog()">
+
+    <app-user-form [user]="selectedUser()" [isEditMode]="isEditMode()" [isLoading]="isSubmitting()"
+                   (submitted)="onUserFormSubmitted($event)" (cancelled)="closeDialog()">
+    </app-user-form>
+  </p-dialog>
+
+  <!-- Confirmation Dialog -->
+  <p-confirm-dialog />
+
+  <!-- Toast Notifications -->
+  <p-toast position="top-right"></p-toast>
+</div>

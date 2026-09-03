@@ -1,0 +1,41 @@
+<main class="dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>{{ 'dashboard.brand' | translate }}</h2>
+            </div>
+            <div class="nav-links">
+                <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    {{ 'dashboard.home' | translate }}
+                </a>
+                <a routerLink="/users" routerLinkActive="active"> {{ 'dashboard.users' | translate }} </a>
+            </div>
+            <div class="nav-actions">
+                <div class="language-switcher" role="group" [attr.aria-label]="'common.language' | translate">
+                    <button type="button" [class.active]="language.currentLanguage() === 'es'" (click)="setLanguage('es')">ES</button>
+                    <button type="button" [class.active]="language.currentLanguage() === 'en'" (click)="setLanguage('en')">EN</button>
+                </div>
+                <button pButton type="button" [label]="'dashboard.logout' | translate" icon="pi pi-sign-out" (click)="logout()"></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-content">
+        <div class="welcome-card">
+            <p class="eyebrow">{{ 'dashboard.workspace' | translate }}</p>
+            <h1>{{ 'dashboard.activeSession' | translate }}</h1>
+            <p>{{ 'dashboard.description' | translate }}</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="pi pi-users"></i>
+                    </div>
+                    <h3>{{ 'dashboard.userManagement' | translate }}</h3>
+                    <p>{{ 'dashboard.userDescription' | translate }}</p>
+                    <button pButton type="button" routerLink="/users" class="p-button-sm">{{ 'dashboard.goToUsers' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

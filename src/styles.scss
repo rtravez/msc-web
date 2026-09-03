@@ -1,0 +1,29 @@
+@import "primeicons/primeicons.css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    --ink: #172126;
+    --muted: #657278;
+    --paper: #f7f5ef;
+    --panel: #fffefa;
+    --teal: #0f766e;
+    --teal-dark: #115e59;
+    --coral: #e7785b;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+}
+
+button,
+input {
+    font: inherit;
+}

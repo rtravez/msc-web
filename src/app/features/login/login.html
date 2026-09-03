@@ -1,0 +1,24 @@
+<main class="login-shell">
+  <section class="brand-panel">
+    <span class="mark">MSC</span>
+    <p class="eyebrow">{{ 'login.workspace' | translate }}</p>
+    <h1 [innerHTML]="'login.headline' | translate"></h1>
+    <p class="brand-copy">{{ 'login.description' | translate }}</p>
+    <div class="signal"><span></span><span></span><span></span><span></span><span></span></div>
+  </section>
+  <section class="access-panel">
+    <div class="access-card">
+      <div class="language-switcher" role="group" [attr.aria-label]="'common.language' | translate">
+        <button type="button" [class.active]="language.currentLanguage() === 'es'" (click)="setLanguage('es')">ES</button>
+        <button type="button" [class.active]="language.currentLanguage() === 'en'" (click)="setLanguage('en')">EN</button>
+      </div>
+      <p class="eyebrow">{{ 'login.secureAccess' | translate }}</p>
+      <h2>{{ 'login.title' | translate }}</h2>
+      <p class="intro">{{ 'login.intro' | translate }}</p>
+      <button pButton type="button" (click)="login()" [disabled]="loading()">
+        <span>{{ (loading() ? 'login.connecting' : 'login.continue') | translate }}</span><strong>↗</strong>
+      </button>
+      <p class="note">{{ 'login.note' | translate }}</p>
+    </div>
+  </section>
+</main>
