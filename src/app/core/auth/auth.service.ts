@@ -3,6 +3,7 @@ import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { authConfig, authorizationEndpoint, tokenEndpoint } from './auth.config';
+import { LanguageService } from '../i18n/language.service';
 
 interface TokenResponse {
   access_token: string;
@@ -17,6 +18,7 @@ export class AuthService {
   private readonly document = inject(DOCUMENT);
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly language = inject(LanguageService);
   private readonly storageKey = 'msc.oauth.tokens';
   readonly isAuthenticated = signal(this.readTokens() !== null);
 
@@ -30,6 +32,7 @@ export class AuthService {
     const params = new URLSearchParams({
       response_type: 'code', client_id: authConfig.clientId, redirect_uri: authConfig.redirectUri,
       scope: authConfig.scope, state, code_challenge: challenge, code_challenge_method: 'S256',
+      lang: this.language.currentLanguage() === 'en' ? 'en-US' : 'es-EC',
     });
     this.document.location.href = `${authorizationEndpoint}?${params}`;
   }
