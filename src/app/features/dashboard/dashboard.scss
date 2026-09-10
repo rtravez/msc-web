@@ -1,0 +1,42 @@
+.navbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.02em;
+}
+
+.brand-mark {
+  font-size: .85rem;
+  letter-spacing: .12em;
+}
+
+.navbar-nav .nav-link {
+  font-size: .9rem;
+}
+
+.letter-spacing {
+  letter-spacing: .12em;
+}
+
+h1,
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.04em;
+}
+
+.feature-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+@media (max-width: 575.98px) {
+  .dashboard-navbar .container {
+    align-items: flex-start;
+  }
+
+  .navbar-brand {
+    font-size: .9rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: .75rem;
+  }
+}

@@ -1,0 +1,70 @@
+.brand-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-panel::after {
+  content: '';
+  position: absolute;
+  right: -10rem;
+  bottom: -10rem;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid rgba(var(--bs-white-rgb), .25);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3rem rgba(var(--bs-white-rgb), .06), 0 0 0 6rem rgba(var(--bs-white-rgb), .04);
+}
+
+.brand-mark,
+h1,
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.brand-mark,
+.letter-spacing {
+  letter-spacing: .12em;
+}
+
+.brand-content,
+.signal {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2 {
+  line-height: .98;
+  letter-spacing: -.05em;
+}
+
+h1 em {
+  color: var(--bs-warning);
+  font-style: normal;
+}
+
+.brand-copy {
+  max-width: 24rem;
+  opacity: .8;
+}
+
+.signal span {
+  display: block;
+  width: .35rem;
+  height: 1rem;
+}
+
+.signal span:nth-child(2) { height: 1.8rem; }
+.signal span:nth-child(3) { height: 2.7rem; }
+.signal span:nth-child(4) { height: 2rem; }
+.signal span:nth-child(5) { height: 3.5rem; }
+
+.access-card {
+  max-width: 26rem;
+}
+
+@media (max-width: 991.98px) {
+  .brand-panel {
+    min-height: 21rem;
+  }
+}
