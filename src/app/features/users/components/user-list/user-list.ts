@@ -20,6 +20,7 @@ import { User, UserRequest } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
+import { MainLayout } from '../../../../layout/main-layout/main-layout';
 
 
 @Component({
@@ -42,6 +43,7 @@ import { Router } from '@angular/router';
     IconFieldModule,
     InputIconModule,
     TranslatePipe,
+    MainLayout
   ],
   providers: [MessageService, ConfirmationService],
 })

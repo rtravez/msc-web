@@ -1,40 +1,5 @@
-<main class="dashboard-page min-vh-100 bg-body-tertiary">
-  <nav class="navbar navbar-expand-md navbar-dark bg-primary border-bottom" aria-label="Main navigation">
-    <div class="container py-2">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" routerLink="/dashboard">
-        <span class="brand-mark text-warning">MSC</span>
-        <span>{{ 'dashboard.brand' | translate }}</span>
-      </a>
-
-      <div class="d-flex align-items-center gap-2 gap-sm-3 ms-auto">
-        <div class="navbar-nav flex-row gap-1 me-1">
-          <a class="nav-link px-2" routerLink="/dashboard" routerLinkActive="active"
-             [routerLinkActiveOptions]="{ exact: true }">
-            <i class="pi pi-home me-1" aria-hidden="true"></i>{{ 'dashboard.home' | translate }}
-          </a>
-          <a class="nav-link px-2" routerLink="/users" routerLinkActive="active">
-            <i class="pi pi-users me-1" aria-hidden="true"></i>{{ 'dashboard.users' | translate }}
-          </a>
-        </div>
-
-        <div class="btn-group btn-group-sm" role="group" [attr.aria-label]="'common.language' | translate">
-          <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'es'"
-                  [class.btn-outline-light]="language.currentLanguage() !== 'es'" (click)="setLanguage('es')">ES</button>
-          <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'en'"
-                  [class.btn-outline-light]="language.currentLanguage() !== 'en'" (click)="setLanguage('en')">EN</button>
-        </div>
-
-        <button type="button" class="btn btn-outline-light btn-sm" (click)="logout()"
-                [attr.title]="'dashboard.logout' | translate">
-          <i class="pi pi-sign-out" aria-hidden="true"></i>
-          <span class="d-none d-lg-inline ms-2">{{ 'dashboard.logout' | translate }}</span>
-          <span class="visually-hidden d-lg-none">{{ 'dashboard.logout' | translate }}</span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <section class="container py-5">
+<app-main-layout>
+  <section class="dashboard-page">
     <div class="row align-items-center g-4 g-lg-5">
       <div class="col-12 col-lg-7">
         <p class="text-uppercase fw-bold small text-primary-emphasis letter-spacing mb-3">
@@ -61,4 +26,4 @@
       </div>
     </div>
   </section>
-</main>
+</app-main-layout>

@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-body {
+  min-height: 0;
+}
+
+.app-content {
+  min-width: 0;
+}
+
+@media (max-width: 991.98px) {
+  .app-body {
+    flex-direction: column;
+  }
+}

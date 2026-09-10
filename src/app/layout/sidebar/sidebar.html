@@ -1,0 +1,15 @@
+<aside class="app-sidebar bg-white border-end h-100 p-3" aria-label="Sidebar navigation">
+  <div class="d-flex flex-column gap-3">
+    <p class="sidebar-label mb-0 text-uppercase fw-bold text-secondary small">Workspace</p>
+    <nav class="nav flex-column gap-2">
+      <a class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="pi pi-home" aria-hidden="true"></i>
+        <span>{{ 'dashboard.home' | translate }}</span>
+      </a>
+      <a class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark" routerLink="/users" routerLinkActive="active">
+        <i class="pi pi-users" aria-hidden="true"></i>
+        <span>{{ 'dashboard.users' | translate }}</span>
+      </a>
+    </nav>
+  </div>
+</aside>

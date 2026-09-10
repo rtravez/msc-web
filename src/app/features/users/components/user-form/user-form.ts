@@ -24,6 +24,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { UserService } from '../../services/user.service';
+import { MainLayout } from '../../../../layout/main-layout/main-layout';
 
 /**
  * User form component for creating and editing users
@@ -43,6 +44,7 @@ import { UserService } from '../../services/user.service';
     ToastModule,
     TooltipModule,
     TranslatePipe,
+    MainLayout
 
   ],
   templateUrl: './user-form.html',
