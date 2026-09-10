@@ -42,25 +42,26 @@ export class UserService {
 
   /**
    * Find user by identification
-   * POST /api/users/findUserByIdentification
+   * GET /api/users/identification?identification={value}
    * @param identification - User identification number
    */
-  findUserByIdentification(identification: string): Observable<User> {
-    return this.http.post<UserResponse>(
-      `${this.apiUrl}/findUserByIdentification`,
-      { identification }
-    ).pipe(
+  getUserByIdentification(identification: string): Observable<User> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/identification`, {
+      params: { identification }
+    }).pipe(
       map(user => ({ ...user }))
     );
   }
 
   /**
    * Get user by ID
-   * Convenience method that uses findUserByIdentification
-   * @param identification - User identification
+   * GET /api/users/{id}
+   * @param userId - User ID
    */
-  getUserById(identification: string): Observable<User> {
-    return this.findUserByIdentification(identification);
+  getUserById(userId: number): Observable<User> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/${userId}`).pipe(
+      map(user => ({ ...user }))
+    );
   }
 
   /**

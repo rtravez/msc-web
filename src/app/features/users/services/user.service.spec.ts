@@ -21,6 +21,24 @@ describe('UserService', () => {
     httpMock.verify();
   });
 
+  it('should fetch user by identification using the query parameter endpoint', () => {
+    service.getUserByIdentification('1712345678').subscribe();
+
+    const req = httpMock.expectOne('/mscServices/api/users/identification?identification=1712345678');
+    expect(req.request.method).toBe('GET');
+    expect(req.request.params.get('identification')).toBe('1712345678');
+    req.flush({
+      userId: 7,
+      username: 'jdoe',
+      identification: '1712345678',
+      name: 'John',
+      lastname: 'Doe',
+      address: 'Main St',
+      telephone: '0999999999',
+      status: true,
+    });
+  });
+
   it('should send update request to the user id URL', () => {
     const request: UserRequest = {
       userId: 7,
