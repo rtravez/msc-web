@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 import { BaseResponsePage } from '../../../core/models/base-response-page.interface';
 import { BaseResponseDto } from '../../../core/models/base-response.interface';
 import { User, UserRequest, UserResponse } from '../models/user.interface';
@@ -14,7 +15,7 @@ import { User, UserRequest, UserResponse } from '../models/user.interface';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly apiUrl = '/mscServices/api/users';
+  private readonly apiUrl = `${environment.apiBaseUrl}/api/users`;
   private readonly http = inject(HttpClient);
 
   /**
