@@ -24,17 +24,11 @@ export class UserService {
   getAllUsers(page = 0, size = 20): Observable<BaseResponsePage<User>> {
     return this.http.get<BaseResponseDto<BaseResponsePage<UserResponse>>>(`${this.apiUrl}?page=${page}&size=${size}`).pipe(
       map(response => {
-        const pageData = response?.data ?? {
-          content: [],
-          totalElements: 0,
-          totalPages: 0,
-          number: page,
-          size,
-        };
+        const pageData = response.data;
 
         return {
           ...pageData,
-          content: (pageData.content ?? []).map((user) => ({ ...user })),
+          content: pageData.content.map((user) => ({ ...user })),
         };
       })
     );
@@ -46,10 +40,10 @@ export class UserService {
    * @param identification - User identification number
    */
   getUserByIdentification(identification: string): Observable<User> {
-    return this.http.get<UserResponse>(`${this.apiUrl}/identification`, {
+    return this.http.get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/identification`, {
       params: { identification }
     }).pipe(
-      map(user => ({ ...user }))
+      map((response) => this.unwrapUser(response))
     );
   }
 
@@ -59,8 +53,8 @@ export class UserService {
    * @param userId - User ID
    */
   getUserById(userId: number): Observable<User> {
-    return this.http.get<UserResponse>(`${this.apiUrl}/${userId}`).pipe(
-      map(user => ({ ...user }))
+    return this.http.get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`).pipe(
+      map((response) => this.unwrapUser(response))
     );
   }
 
@@ -70,8 +64,8 @@ export class UserService {
    * @param user - User data to create
    */
   createUser(user: UserRequest): Observable<User> {
-    return this.http.post<UserResponse>(this.apiUrl, user).pipe(
-      map(response => ({ ...response }))
+    return this.http.post<BaseResponseDto<UserResponse>>(this.apiUrl, user).pipe(
+      map((response) => this.unwrapUser(response))
     );
   }
 
@@ -82,8 +76,8 @@ export class UserService {
    * @param request - User data to update
    */
   updateUser(userId: number, request: UserRequest): Observable<User> {
-    return this.http.put<UserResponse>(`${this.apiUrl}/${userId}`, request).pipe(
-      map(response => ({ ...response }))
+    return this.http.put<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`, request).pipe(
+      map((response) => this.unwrapUser(response))
     );
   }
 
@@ -94,5 +88,9 @@ export class UserService {
    */
   deleteUser(userId: number): Observable<BaseResponseDto<number>> {
     return this.http.delete<BaseResponseDto<number>>(`${this.apiUrl}/${userId}`);
+  }
+
+  private unwrapUser(response: BaseResponseDto<UserResponse>): User {
+    return { ...response.data };
   }
 }
