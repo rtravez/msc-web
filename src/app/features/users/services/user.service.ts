@@ -92,7 +92,7 @@ export class UserService {
    * DELETE /api/users/{id}
    * @param userId - User ID to delete
    */
-  deleteUser(userId: number): Observable<BaseResponseDto<any>> {
-    return this.http.delete<BaseResponseDto<any>>(`${this.apiUrl}/${userId}`);
+  deleteUser(userId: number): Observable<BaseResponseDto<number>> {
+    return this.http.delete<BaseResponseDto<number>>(`${this.apiUrl}/${userId}`);
   }
 }
