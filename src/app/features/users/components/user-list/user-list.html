@@ -33,7 +33,6 @@
             [first]="currentPage() * pageSize()"
             [rowsPerPageOptions]="[10, 20, 50]"
             (onPage)="onPageChange($event)"
-            [globalFilterFields]="['name', 'username', 'identification']"
           >
             <ng-template #header>
               <tr>
