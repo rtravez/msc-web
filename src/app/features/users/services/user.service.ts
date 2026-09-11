@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -24,9 +24,9 @@ export class UserService {
    */
   getAllUsers(page = 0, size = 20): Observable<BaseResponsePage<User>> {
     return this.http
-      .get<BaseResponseDto<BaseResponsePage<UserResponse>>>(
-        `${this.apiUrl}?page=${page}&size=${size}`,
-      )
+      .get<BaseResponseDto<BaseResponsePage<UserResponse>>>(this.apiUrl, {
+        params: new HttpParams().set('page', page).set('size', size),
+      })
       .pipe(
         map((response) => {
           const pageData = response.data;
