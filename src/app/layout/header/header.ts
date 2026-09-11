@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { LanguageService, SupportedLanguage } from '../../core/i18n/language.service';
@@ -7,7 +7,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TranslatePipe],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

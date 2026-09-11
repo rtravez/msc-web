@@ -13,19 +13,6 @@
     </div>
 
     <div class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto" [class.mobile-open]="mobileMenuOpen">
-      <nav class="navbar-nav d-flex align-items-center gap-2 gap-lg-3"
-        [attr.aria-label]="'accessibility.mainNavigation' | translate">
-        <a class="nav-link px-2 py-2 rounded-2" routerLink="/dashboard" routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }">
-          <i class="pi pi-home me-1" aria-hidden="true"></i>
-          <span>{{ 'dashboard.home' | translate }}</span>
-        </a>
-        <a class="nav-link px-2 py-2 rounded-2" routerLink="/users" routerLinkActive="active">
-          <i class="pi pi-users me-1" aria-hidden="true"></i>
-          <span>{{ 'dashboard.users' | translate }}</span>
-        </a>
-      </nav>
-
       <div class="d-flex align-items-center gap-2 ms-lg-3">
         <div class="btn-group btn-group-sm" role="group" [attr.aria-label]="'common.language' | translate">
           <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'es'"
