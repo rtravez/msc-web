@@ -18,7 +18,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
-import { AccountRequest } from '../../models/account.interface';
+import { Account, AccountRequest } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
 type AccountFormControls = {
@@ -107,18 +107,23 @@ export class AccountForm implements OnInit {
     this.isLoading.set(true);
     this.accountService.getAccountById(accountId).subscribe({
       next: (account) => {
-        this.accountForm.patchValue({
-          accountId: account.accountId,
-          accountNumber: account.accountNumber,
-          accountType: account.accountType,
-          initialBalance: account.initialBalance,
-        });
+        this.populateForm(account);
         this.isLoading.set(false);
       },
       error: () => {
         this.isLoading.set(false);
         this.returnToAccountsWithError();
       },
+    });
+  }
+
+  private populateForm(account: Account): void {
+    this.accountForm.patchValue({
+      accountId: account.accountId,
+      accountNumber: account.accountNumber,
+      accountType: account.accountType,
+      initialBalance: account.initialBalance,
+      identification: account.identification,
     });
   }
 

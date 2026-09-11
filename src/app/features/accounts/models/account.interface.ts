@@ -4,6 +4,7 @@ export interface AccountResponse {
   accountNumber: number;
   accountType: string;
   initialBalance: number;
+  identification: string;
   name?: string;
   lastname?: string;
   status: boolean;

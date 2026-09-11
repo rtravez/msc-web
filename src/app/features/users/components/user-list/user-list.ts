@@ -14,7 +14,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
 
@@ -43,7 +42,6 @@ export class UserList implements OnInit, OnDestroy {
   private readonly messageService = inject(MessageService);
   private readonly confirmationService = inject(ConfirmationService);
   private readonly translate = inject(TranslateService);
-  private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
   users = signal<User[]>([]);
