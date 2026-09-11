@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
@@ -12,9 +12,16 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   styleUrl: './header.scss',
 })
 export class Header {
+  @Output() readonly toggleSidebar = new EventEmitter<void>();
+
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   protected readonly language = inject(LanguageService);
+  protected mobileMenuOpen = false;
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
 
   logout(): void {
     this.auth.logout();

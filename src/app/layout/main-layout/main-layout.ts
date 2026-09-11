@@ -10,4 +10,10 @@ import { Sidebar } from '../sidebar/sidebar';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayout { }
+export class MainLayout {
+  protected sidebarOpen = true;
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+}
