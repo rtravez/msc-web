@@ -5,6 +5,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  DestroyRef,
   inject,
   SimpleChanges,
 } from '@angular/core';
@@ -21,10 +22,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { User, UserRequest } from '../../models/user.interface';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * User form component for creating and editing users
@@ -62,9 +64,11 @@ export class UserForm implements OnInit, OnChanges {
   private readonly fb = inject(FormBuilder);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly authService = inject(AuthService);
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
+  private readonly destroyRef = inject(DestroyRef);
 
   isSubmitting = false;
 
@@ -80,11 +84,19 @@ export class UserForm implements OnInit, OnChanges {
   ];
 
   ngOnInit() {
-    this.loadUserFromNavigationState();
-    this.initializeForm();
-    if (this.isEditMode && this.user) {
-      this.populateForm();
-    }
+    this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
+      const userId = this.getUserIdFromRoute(params.get('id'));
+      this.isEditMode = userId !== null;
+      this.initializeForm();
+
+      if (userId !== null) {
+        this.loadUser(userId);
+      } else if (params.has('id')) {
+        this.returnToUsersWithLoadError();
+      } else if (this.user) {
+        this.populateForm();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -96,14 +108,36 @@ export class UserForm implements OnInit, OnChanges {
     }
   }
 
-  private loadUserFromNavigationState(): void {
-    const navigationUser = this.router.currentNavigation()?.extras.state?.['user']
-      ?? history.state?.['user'];
+  private getUserIdFromRoute(id: string | null): number | null {
+    if (!id || !/^\d+$/.test(id)) return null;
 
-    if (navigationUser) {
-      this.user = { ...navigationUser };
-      this.isEditMode = true;
-    }
+    const userId = Number(id);
+    return Number.isSafeInteger(userId) && userId > 0 ? userId : null;
+  }
+
+  private loadUser(userId: number): void {
+    this.isLoading = true;
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        this.user = user;
+        this.populateForm();
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.returnToUsersWithLoadError();
+      },
+    });
+  }
+
+  private returnToUsersWithLoadError(): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: this.translate.instant('common.error'),
+      detail: this.translate.instant('users.loadError'),
+      life: 5000,
+    });
+    void this.router.navigate(['/users']);
   }
 
   private initializeForm() {
@@ -210,6 +244,10 @@ export class UserForm implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
+    if (this.isEditMode && this.userForm.getRawValue().userId == null) {
+      return;
+    }
+
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;
@@ -268,10 +306,5 @@ export class UserForm implements OnInit, OnChanges {
   onCancel(): void {
     this.cancelled.emit();
     void this.router.navigate(['/users']);
-  }
-
-  logout(): void {
-    this.authService.logout();
-    void this.router.navigateByUrl('/login');
   }
 }
