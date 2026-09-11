@@ -30,6 +30,15 @@ export class UserService {
       .pipe(
         map((response) => {
           const pageData = response.data;
+          if (!pageData?.content) {
+            return {
+              content: [],
+              totalElements: 0,
+              totalPages: 0,
+              number: page,
+              size,
+            };
+          }
 
           return {
             ...pageData,
