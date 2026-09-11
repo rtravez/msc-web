@@ -5,6 +5,8 @@ export const environment = {
     issuer: '/authServices',
     clientId: 'rtravez-web',
     scope: 'openid profile read',
-    redirectUri: 'http://localhost:4200/callback',
+    // Se resuelve en tiempo de ejecución como `${window.location.origin}/callback`.
+    // Así coincide con el dominio público donde se publique la aplicación.
+    redirectUri: '',
   },
 };
