@@ -9,6 +9,19 @@
     "error": "Error",
     "success": "Success"
   },
+  "accessibility": {
+    "toggleSidebar": "Toggle sidebar",
+    "mainNavigation": "Main navigation",
+    "toggleNavigation": "Toggle navigation menu",
+    "sidebarNavigation": "Sidebar navigation"
+  },
+  "layout": {
+    "workspace": "Workspace"
+  },
+  "footer": {
+    "copyright": "© 2026 MSC Management",
+    "rightsReserved": "All rights reserved"
+  },
   "login": {
     "workspace": "Customer workspace",
     "headline": "Your operation,<br><em>in motion.</em>",

@@ -9,6 +9,19 @@
     "error": "Error",
     "success": "Éxito"
   },
+  "accessibility": {
+    "toggleSidebar": "Mostrar u ocultar barra lateral",
+    "mainNavigation": "Navegación principal",
+    "toggleNavigation": "Mostrar u ocultar menú de navegación",
+    "sidebarNavigation": "Navegación lateral"
+  },
+  "layout": {
+    "workspace": "Espacio de trabajo"
+  },
+  "footer": {
+    "copyright": "© 2026 MSC Management",
+    "rightsReserved": "Todos los derechos reservados"
+  },
   "login": {
     "workspace": "Espacio de trabajo para clientes",
     "headline": "Tu operación,<br><em>en movimiento.</em>",

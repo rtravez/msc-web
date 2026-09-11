@@ -140,7 +140,9 @@ export class UserList implements OnInit, OnDestroy {
           console.error('Error deleting user:', error);
 
           const errorMessage =
-            error.error?.errors?.[0] || error.error?.message || 'Error al eliminar el usuario';
+            error.error?.errors?.[0] ||
+            error.error?.message ||
+            this.translate.instant('users.deleteError');
 
           this.messageService.add({
             severity: 'error',

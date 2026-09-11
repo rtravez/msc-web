@@ -83,7 +83,7 @@
                   <div class="d-flex justify-content-center gap-2">
                     <p-button
                       icon="pi pi-pencil"
-                      aria-label="'users.edit' | translate"
+                      [attr.aria-label]="'users.edit' | translate"
                       [rounded]="true"
                       severity="warn"
                       (onClick)="editUser(user)"
@@ -92,7 +92,7 @@
                     </p-button>
                     <p-button
                       icon="pi pi-trash"
-                      aria-label="'users.delete' | translate"
+                      [attr.aria-label]="'users.delete' | translate"
                       [rounded]="true"
                       severity="danger"
                       (onClick)="confirmDelete(user)"

@@ -231,7 +231,10 @@ export class UserForm implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail: error.error?.errors?.[0] ?? error.error?.message ?? 'Error al guardar el usuario',
+          detail:
+            error.error?.errors?.[0] ??
+            error.error?.message ??
+            this.translate.instant('users.saveError'),
           life: 5000,
         });
       },
