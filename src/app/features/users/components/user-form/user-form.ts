@@ -1,13 +1,8 @@
 import {
   Component,
   DestroyRef,
-  EventEmitter,
   inject,
-  Input,
-  OnChanges,
   OnInit,
-  Output,
-  SimpleChanges
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,12 +10,10 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
-import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { User, UserRequest } from '../../models/user.interface';
-import { DialogService } from 'primeng/dynamicdialog';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -29,7 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * User form component for creating and editing users
- * Reusable component with reactive forms and validation
+ * Route component for creating and editing users with reactive forms and validation
  */
 @Component({
   selector: 'app-user-form',
@@ -41,7 +34,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     InputTextModule,
     InputNumberModule,
     SelectModule,
-    TextareaModule,
     ToastModule,
     TooltipModule,
     TranslatePipe,
@@ -50,15 +42,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
-  providers: [MessageService, ConfirmationService, DialogService],
+  providers: [MessageService],
 })
-export class UserForm implements OnInit, OnChanges {
-  @Input() user: User | null = null;
-  @Input() isEditMode = false;
-  @Input() isLoading = false;
-  @Output() submitted = new EventEmitter<UserRequest>();
-  @Output() cancelled = new EventEmitter<void>();
-
+export class UserForm implements OnInit {
   userForm!: FormGroup;
   private readonly fb = inject(FormBuilder);
   private readonly translate = inject(TranslateService);
@@ -69,6 +55,8 @@ export class UserForm implements OnInit, OnChanges {
   private readonly destroyRef = inject(DestroyRef);
 
   isSubmitting = false;
+  isEditMode = false;
+  isLoading = false;
 
   readonly genderOptions = [
     { label: 'users.form.male', value: 'M' },
@@ -91,19 +79,8 @@ export class UserForm implements OnInit, OnChanges {
         this.loadUser(userId);
       } else if (params.has('id')) {
         this.returnToUsersWithLoadError();
-      } else if (this.user) {
-        this.populateForm();
       }
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['isEditMode'] || changes['user']) {
-      this.initializeForm();
-      if (this.isEditMode && this.user) {
-        this.populateForm();
-      }
-    }
   }
 
   private getUserIdFromRoute(id: string | null): number | null {
@@ -117,8 +94,7 @@ export class UserForm implements OnInit, OnChanges {
     this.isLoading = true;
     this.userService.getUserById(userId).subscribe({
       next: (user) => {
-        this.user = user;
-        this.populateForm();
+        this.populateForm(user);
         this.isLoading = false;
       },
       error: () => {
@@ -205,21 +181,19 @@ export class UserForm implements OnInit, OnChanges {
     });
   }
 
-  private populateForm() {
-    if (this.user) {
-      this.userForm.patchValue({
-        userId: this.user.userId,
-        identification: this.user.identification,
-        username: this.user.username,
-        name: this.user.name,
-        lastname: this.user.lastname,
-        address: this.user.address,
-        telephone: this.user.telephone,
-        gender: this.user.gender,
-        age: this.user.age,
-        status: this.user.status
-      });
-    }
+  private populateForm(user: User): void {
+    this.userForm.patchValue({
+      userId: user.userId,
+      identification: user.identification,
+      username: user.username,
+      name: user.name,
+      lastname: user.lastname,
+      address: user.address,
+      telephone: user.telephone,
+      gender: user.gender,
+      age: user.age,
+      status: user.status
+    });
   }
 
   isFieldInvalid(fieldName: string): boolean {
@@ -302,7 +276,6 @@ export class UserForm implements OnInit, OnChanges {
   }
 
   onCancel(): void {
-    this.cancelled.emit();
     void this.router.navigate(['/users']);
   }
 }

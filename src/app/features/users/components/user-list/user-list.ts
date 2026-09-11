@@ -4,19 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { User, UserRequest } from '../../models/user.interface';
+import { User } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
@@ -33,15 +28,10 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
     FormsModule,
     TableModule,
     ButtonModule,
-    DialogModule,
     ConfirmDialogModule,
     ToastModule,
-    InputTextModule,
-    ToolbarModule,
     TagModule,
     TooltipModule,
-    IconFieldModule,
-    InputIconModule,
     TranslatePipe,
     MainLayout
   ],
@@ -62,8 +52,6 @@ export class UserList implements OnInit, OnDestroy {
   pageSize = signal(10);
   isLoading = signal(false);
   isSubmitting = signal(false);
-  isEditMode = signal(false);
-  selectedUser = signal<User | null>(null);
 
   private readonly destroy$ = new Subject<void>();
 
@@ -110,13 +98,9 @@ export class UserList implements OnInit, OnDestroy {
   }
 
   editUser(user: User) {
-    this.isEditMode.set(true);
-    this.selectedUser.set({ ...user });
-    void this.router.navigate(['/users/edit', user.userId], {
-      state: { user: { ...user } },
-    });
+    void this.router.navigate(['/users/edit', user.userId]);
   }
-  
+
 
   confirmDelete(user: User) {
     this.confirmationService.confirm({
@@ -170,14 +154,6 @@ export class UserList implements OnInit, OnDestroy {
       });
   }
   showNewUser(): void {
-    this.isEditMode.set(false);
-    this.selectedUser.set(null);
     void this.router.navigateByUrl('/users/new');
-  }
-
-
-  logout(): void {
-    this.authService.logout();
-    void this.router.navigateByUrl('/login');
   }
 }
