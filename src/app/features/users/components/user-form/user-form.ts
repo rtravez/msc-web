@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -13,6 +13,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { User, UserRequest } from '../../models/user.interface';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -51,6 +52,7 @@ type UserFormControls = {
     SelectModule,
     ToastModule,
     TooltipModule,
+    ProgressSpinnerModule,
     TranslatePipe,
     MainLayout,
   ],
@@ -70,7 +72,7 @@ export class UserForm implements OnInit {
 
   isSubmitting = false;
   isEditMode = false;
-  isLoading = false;
+  isLoading = signal(false);
 
   readonly genderOptions = [
     { label: 'users.form.male', value: 'M' },
@@ -105,14 +107,14 @@ export class UserForm implements OnInit {
   }
 
   private loadUser(userId: number): void {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.userService.getUserById(userId).subscribe({
       next: (user) => {
         this.populateForm(user);
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
       error: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
         this.returnToUsersWithLoadError();
       },
     });

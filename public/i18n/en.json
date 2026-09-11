@@ -7,7 +7,8 @@
     "create": "Create",
     "update": "Update",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "loading": "Loading..."
   },
   "accessibility": {
     "toggleSidebar": "Toggle sidebar",

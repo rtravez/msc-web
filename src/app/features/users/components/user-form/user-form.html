@@ -29,6 +29,15 @@
 
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4 p-md-5">
+              @if (isLoading()) {
+                <div class="d-flex justify-content-center align-items-center py-5">
+                  <p-progressSpinner
+                    [style]="{ width: '40px', height: '40px' }"
+                    strokeWidth="4"
+                    [ariaLabel]="'common.loading' | translate"
+                  />
+                </div>
+              } @else {
               <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
                 <div class="row g-3">
                   <!-- Identification -->
@@ -226,6 +235,7 @@
                     "
                     icon="pi pi-check"
                     type="submit"
+                    [loading]="isSubmitting"
                     [disabled]="!userForm.valid || isLoading || isSubmitting"
                     severity="primary"
                   >
@@ -236,11 +246,12 @@
                     type="button"
                     severity="secondary"
                     (onClick)="onCancel()"
-                    [disabled]="isLoading"
+                    [disabled]="isLoading || isSubmitting"
                   >
                   </p-button>
                 </div>
               </form>
+              }
             </div>
           </div>
         </div>

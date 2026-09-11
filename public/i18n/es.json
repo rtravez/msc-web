@@ -7,7 +7,8 @@
     "create": "Crear",
     "update": "Actualizar",
     "error": "Error",
-    "success": "Éxito"
+    "success": "Éxito",
+    "loading": "Cargando..."
   },
   "accessibility": {
     "toggleSidebar": "Mostrar u ocultar barra lateral",

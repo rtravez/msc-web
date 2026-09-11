@@ -22,94 +22,104 @@
       <!-- Users Table -->
       <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
-          <p-table
-            class="table-responsive"
-            [value]="filteredUsers()"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            [paginator]="true"
-            [rows]="pageSize()"
-            [totalRecords]="totalRecords()"
-            [lazy]="true"
-            [first]="currentPage() * pageSize()"
-            [rowsPerPageOptions]="[10, 20, 50]"
-            (onPage)="onPageChange($event)"
-          >
-            <ng-template #header>
-              <tr>
-                <th scope="col" pSortableColumn="identification">
-                  {{ 'users.identification' | translate }}
-                  <p-sortIcon field="identification"></p-sortIcon>
-                </th>
-                <th scope="col" pSortableColumn="username">
-                  {{ 'users.username' | translate }}
-                  <p-sortIcon field="username"></p-sortIcon>
-                </th>
-                <th scope="col" pSortableColumn="name">
-                  {{ 'users.name' | translate }}
-                  <p-sortIcon field="name"></p-sortIcon>
-                </th>
-                <th scope="col" pSortableColumn="lastname">
-                  {{ 'users.lastname' | translate }}
-                  <p-sortIcon field="lastname"></p-sortIcon>
-                </th>
-                <th scope="col">{{ 'users.telephone' | translate }}</th>
-                <th scope="col">{{ 'users.gender' | translate }}</th>
-                <th scope="col">{{ 'users.address' | translate }}</th>
-                <th scope="col" pSortableColumn="status">
-                  {{ 'users.status' | translate }}
-                  <p-sortIcon field="status"></p-sortIcon>
-                </th>
-                <th scope="col">{{ 'users.actions' | translate }}</th>
-              </tr>
-            </ng-template>
-            <ng-template #body let-user>
-              <tr>
-                <td>{{ user.identification }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.telephone }}</td>
-                <td>{{ user.gender }}</td>
-                <td>{{ user.address }}</td>
-                <td>
-                  <p-tag
-                    [value]="(user.status ? 'users.active' : 'users.inactive') | translate"
-                    [severity]="user.status ? 'success' : 'danger'"
-                  >
-                  </p-tag>
-                </td>
-                <td>
-                  <div class="d-flex justify-content-center gap-2">
-                    <p-button
-                      icon="pi pi-pencil"
-                      [attr.aria-label]="'users.edit' | translate"
-                      [rounded]="true"
-                      severity="warn"
-                      (onClick)="editUser(user)"
-                      [pTooltip]="'users.edit' | translate"
+          @if (isLoading()) {
+            <div class="d-flex justify-content-center align-items-center py-5">
+              <p-progressSpinner
+                [style]="{ width: '40px', height: '40px' }"
+                strokeWidth="4"
+                [ariaLabel]="'common.loading' | translate"
+              />
+            </div>
+          } @else {
+            <p-table
+              class="table-responsive"
+              [value]="filteredUsers()"
+              [tableStyle]="{ 'min-width': '50rem' }"
+              [paginator]="true"
+              [rows]="pageSize()"
+              [totalRecords]="totalRecords()"
+              [lazy]="true"
+              [first]="currentPage() * pageSize()"
+              [rowsPerPageOptions]="[10, 20, 50]"
+              (onPage)="onPageChange($event)"
+            >
+              <ng-template #header>
+                <tr>
+                  <th scope="col" pSortableColumn="identification">
+                    {{ 'users.identification' | translate }}
+                    <p-sortIcon field="identification"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="username">
+                    {{ 'users.username' | translate }}
+                    <p-sortIcon field="username"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="name">
+                    {{ 'users.name' | translate }}
+                    <p-sortIcon field="name"></p-sortIcon>
+                  </th>
+                  <th scope="col" pSortableColumn="lastname">
+                    {{ 'users.lastname' | translate }}
+                    <p-sortIcon field="lastname"></p-sortIcon>
+                  </th>
+                  <th scope="col">{{ 'users.telephone' | translate }}</th>
+                  <th scope="col">{{ 'users.gender' | translate }}</th>
+                  <th scope="col">{{ 'users.address' | translate }}</th>
+                  <th scope="col" pSortableColumn="status">
+                    {{ 'users.status' | translate }}
+                    <p-sortIcon field="status"></p-sortIcon>
+                  </th>
+                  <th scope="col">{{ 'users.actions' | translate }}</th>
+                </tr>
+              </ng-template>
+              <ng-template #body let-user>
+                <tr>
+                  <td>{{ user.identification }}</td>
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.lastname }}</td>
+                  <td>{{ user.telephone }}</td>
+                  <td>{{ user.gender }}</td>
+                  <td>{{ user.address }}</td>
+                  <td>
+                    <p-tag
+                      [value]="(user.status ? 'users.active' : 'users.inactive') | translate"
+                      [severity]="user.status ? 'success' : 'danger'"
                     >
-                    </p-button>
-                    <p-button
-                      icon="pi pi-trash"
-                      [attr.aria-label]="'users.delete' | translate"
-                      [rounded]="true"
-                      severity="danger"
-                      (onClick)="confirmDelete(user)"
-                      [pTooltip]="'users.delete' | translate"
-                    >
-                    </p-button>
-                  </div>
-                </td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="9">
-                  {{ 'users.emptyState' | translate }}
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
+                    </p-tag>
+                  </td>
+                  <td>
+                    <div class="d-flex justify-content-center gap-2">
+                      <p-button
+                        icon="pi pi-pencil"
+                        [attr.aria-label]="'users.edit' | translate"
+                        [rounded]="true"
+                        severity="warn"
+                        (onClick)="editUser(user)"
+                        [pTooltip]="'users.edit' | translate"
+                      >
+                      </p-button>
+                      <p-button
+                        icon="pi pi-trash"
+                        [attr.aria-label]="'users.delete' | translate"
+                        [rounded]="true"
+                        severity="danger"
+                        (onClick)="confirmDelete(user)"
+                        [pTooltip]="'users.delete' | translate"
+                      >
+                      </p-button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="9">
+                    {{ 'users.emptyState' | translate }}
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          }
         </div>
       </div>
     </div>

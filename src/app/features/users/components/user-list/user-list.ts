@@ -8,6 +8,7 @@ import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -31,6 +32,7 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
     ToastModule,
     TagModule,
     TooltipModule,
+    ProgressSpinnerModule,
     TranslatePipe,
     MainLayout,
   ],
