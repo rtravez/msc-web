@@ -120,7 +120,7 @@ export class AccountList implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: this.translate.instant('common.error'),
-            detail: error.error?.message ?? this.translate.instant('accounts.deleteError'),
+            detail: error.error?.detail ?? this.translate.instant('accounts.deleteError'),
             life: 5000,
           });
         },

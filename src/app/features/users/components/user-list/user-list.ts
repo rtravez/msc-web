@@ -141,7 +141,7 @@ export class UserList implements OnInit, OnDestroy {
 
           const errorMessage =
             error.error?.errors?.[0] ||
-            error.error?.message ||
+            error.error?.detail ||
             this.translate.instant('users.deleteError');
 
           this.messageService.add({

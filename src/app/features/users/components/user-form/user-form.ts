@@ -253,7 +253,7 @@ export class UserForm implements OnInit {
           summary: this.translate.instant('common.error'),
           detail:
             error.error?.errors?.[0] ??
-            error.error?.message ??
+            error.error?.detail ??
             this.translate.instant('users.saveError'),
           life: 5000,
         });

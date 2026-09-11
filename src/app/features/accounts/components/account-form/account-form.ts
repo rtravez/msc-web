@@ -196,7 +196,7 @@ export class AccountForm implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail: error.error?.message ?? this.translate.instant('accounts.saveError'),
+          detail: error.error?.detail ?? this.translate.instant('accounts.saveError'),
           life: 5000,
         });
       },

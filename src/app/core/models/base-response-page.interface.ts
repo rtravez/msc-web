@@ -1,4 +1,4 @@
-export interface BaseResponsePage<T> {
+export interface BaseResponsePage<T = unknown> {
   content: T[];
   totalElements: number;
   totalPages: number;
