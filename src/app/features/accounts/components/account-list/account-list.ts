@@ -66,7 +66,7 @@ export class AccountList implements OnInit {
           this.pageSize.set(pageData.size);
           this.isLoading.set(false);
         },
-        error: () => {
+        error: (error) => {
           this.isLoading.set(false);
           this.messageService.add({
             severity: 'error',
@@ -74,6 +74,7 @@ export class AccountList implements OnInit {
             detail: this.translate.instant('accounts.loadError'),
             life: 5000,
           });
+          console.error('Error loading accounts:', error);
         },
       });
   }
@@ -95,7 +96,17 @@ export class AccountList implements OnInit {
       message: this.translate.instant('accounts.confirmDelete', { number: account.accountNumber }),
       header: this.translate.instant('accounts.confirmTitle'),
       icon: 'pi pi-exclamation-triangle',
-      accept: () => this.deleteAccount(account),
+      accept: () => {
+        this.deleteAccount(account);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: this.translate.instant('accounts.cancelled'),
+          detail: this.translate.instant('accounts.deleteCancelled'),
+          life: 2000,
+        });
+      },
     });
   }
 
@@ -117,10 +128,17 @@ export class AccountList implements OnInit {
         },
         error: (error) => {
           this.isSubmitting.set(false);
+          console.error('Error deleting account:', error);
+
+          const errorMessage =
+            error.error?.errors?.[0] ||
+            error.error?.detail ||
+            this.translate.instant('accounts.deleteError');
+
           this.messageService.add({
             severity: 'error',
             summary: this.translate.instant('common.error'),
-            detail: error.error?.detail ?? this.translate.instant('accounts.deleteError'),
+            detail: errorMessage,
             life: 5000,
           });
         },
