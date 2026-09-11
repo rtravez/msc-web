@@ -1,6 +1,12 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -14,6 +20,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+type UserFormControls = {
+  userId: FormControl<number | null>;
+  identification: FormControl<string>;
+  username: FormControl<string>;
+  password: FormControl<string>;
+  name: FormControl<string>;
+  lastname: FormControl<string>;
+  address: FormControl<string>;
+  telephone: FormControl<string>;
+  gender: FormControl<string | null>;
+  age: FormControl<number | null>;
+  status: FormControl<boolean>;
+};
 
 /**
  * User form component for creating and editing users
@@ -39,8 +59,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   providers: [MessageService],
 })
 export class UserForm implements OnInit {
-  userForm!: FormGroup;
-  private readonly fb = inject(FormBuilder);
+  userForm!: FormGroup<UserFormControls>;
+  private readonly fb = inject(NonNullableFormBuilder);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -108,16 +128,14 @@ export class UserForm implements OnInit {
     void this.router.navigate(['/users']);
   }
 
-  private initializeForm() {
+  private initializeForm(): void {
     this.userForm = this.fb.group({
-      userId: [null],
-      identification: [
-        {
-          value: '',
-          disabled: this.isEditMode,
-        },
-        [Validators.required, Validators.pattern(/^\d+$/), Validators.maxLength(10)],
-      ],
+      userId: new FormControl<number | null>(null),
+      identification: this.fb.control({ value: '', disabled: this.isEditMode }, [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.maxLength(10),
+      ]),
       username: ['', [Validators.required, Validators.maxLength(20)]],
       password: [
         '',
@@ -129,8 +147,8 @@ export class UserForm implements OnInit {
       lastname: ['', [Validators.required, Validators.maxLength(255)]],
       address: ['', [Validators.maxLength(255)]],
       telephone: ['', [Validators.pattern(/^\d{10}$/)]],
-      gender: [null],
-      age: [null, [Validators.min(0), Validators.max(150)]],
+      gender: new FormControl<string | null>(null),
+      age: new FormControl<number | null>(null, [Validators.min(0), Validators.max(150)]),
       status: [true],
     });
   }
@@ -150,14 +168,14 @@ export class UserForm implements OnInit {
     });
   }
 
-  isFieldInvalid(fieldName: string): boolean {
-    const field = this.userForm.get(fieldName);
-    return !!(field && field.invalid && (field.dirty || field.touched));
+  isFieldInvalid(fieldName: keyof UserFormControls): boolean {
+    const field = this.userForm.controls[fieldName];
+    return field.invalid && (field.dirty || field.touched);
   }
 
-  getFieldError(fieldName: string): string {
-    const field = this.userForm.get(fieldName);
-    if (!field?.errors) return '';
+  getFieldError(fieldName: keyof UserFormControls): string {
+    const field = this.userForm.controls[fieldName];
+    if (!field.errors) return '';
 
     if (field.errors['required']) return this.translate.instant('users.form.required');
     if (field.errors['minlength'])
@@ -195,8 +213,8 @@ export class UserForm implements OnInit {
       lastname: formValue.lastname,
       address: formValue.address,
       telephone: formValue.telephone,
-      gender: formValue.gender,
-      age: formValue.age,
+      gender: formValue.gender ?? undefined,
+      age: formValue.age ?? undefined,
       status: formValue.status,
     };
 
