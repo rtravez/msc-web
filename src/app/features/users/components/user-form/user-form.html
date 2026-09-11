@@ -236,7 +236,7 @@
                     icon="pi pi-check"
                     type="submit"
                     [loading]="isSubmitting"
-                    [disabled]="!userForm.valid || isLoading || isSubmitting"
+                    [disabled]="!userForm.valid || isLoading() || isSubmitting"
                     severity="primary"
                   >
                   </p-button>
@@ -246,7 +246,7 @@
                     type="button"
                     severity="secondary"
                     (onClick)="onCancel()"
-                    [disabled]="isLoading || isSubmitting"
+                    [disabled]="isLoading() || isSubmitting"
                   >
                   </p-button>
                 </div>
