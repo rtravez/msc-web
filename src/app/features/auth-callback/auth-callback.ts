@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({ standalone: true, template: '<main class="callback"><p>{{ message() }}</p></main>' })
-export class AuthCallback {
+export class AuthCallback implements OnInit {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
@@ -16,8 +16,7 @@ export class AuthCallback {
     this.message.set(this.translate.instant('callback.validating'));
   }
   async ngOnInit(): Promise<void> {
-    if (!isPlatformBrowser(this.platformId))
-      return;
+    if (!isPlatformBrowser(this.platformId)) return;
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
     const state = params.get('state');
@@ -28,8 +27,7 @@ export class AuthCallback {
     try {
       await this.auth.completeLogin(code, state);
       await this.router.navigateByUrl('/dashboard');
-    }
-    catch {
+    } catch {
       this.message.set(this.translate.instant('callback.failed'));
     }
   }

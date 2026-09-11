@@ -10,9 +10,11 @@
   bottom: -10rem;
   width: 28rem;
   height: 28rem;
-  border: 1px solid rgba(var(--bs-white-rgb), .25);
+  border: 1px solid rgba(var(--bs-white-rgb), 0.25);
   border-radius: 50%;
-  box-shadow: 0 0 0 3rem rgba(var(--bs-white-rgb), .06), 0 0 0 6rem rgba(var(--bs-white-rgb), .04);
+  box-shadow:
+    0 0 0 3rem rgba(var(--bs-white-rgb), 0.06),
+    0 0 0 6rem rgba(var(--bs-white-rgb), 0.04);
 }
 
 .brand-mark,
@@ -23,7 +25,7 @@ h2 {
 
 .brand-mark,
 .letter-spacing {
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
 }
 
 .brand-content,
@@ -34,8 +36,8 @@ h2 {
 
 h1,
 h2 {
-  line-height: .98;
-  letter-spacing: -.05em;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
 }
 
 h1 em {
@@ -45,19 +47,27 @@ h1 em {
 
 .brand-copy {
   max-width: 24rem;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .signal span {
   display: block;
-  width: .35rem;
+  width: 0.35rem;
   height: 1rem;
 }
 
-.signal span:nth-child(2) { height: 1.8rem; }
-.signal span:nth-child(3) { height: 2.7rem; }
-.signal span:nth-child(4) { height: 2rem; }
-.signal span:nth-child(5) { height: 3.5rem; }
+.signal span:nth-child(2) {
+  height: 1.8rem;
+}
+.signal span:nth-child(3) {
+  height: 2.7rem;
+}
+.signal span:nth-child(4) {
+  height: 2rem;
+}
+.signal span:nth-child(5) {
+  height: 3.5rem;
+}
 
 .access-card {
   max-width: 26rem;

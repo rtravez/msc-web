@@ -23,9 +23,11 @@ describe('UserService', () => {
 
   it('should fetch user by identification using the query parameter endpoint', () => {
     let result: User | undefined;
-    service.getUserByIdentification('1712345678').subscribe((user) => result = user);
+    service.getUserByIdentification('1712345678').subscribe((user) => (result = user));
 
-    const req = httpMock.expectOne('/mscServices/api/users/identification?identification=1712345678');
+    const req = httpMock.expectOne(
+      '/mscServices/api/users/identification?identification=1712345678',
+    );
     expect(req.request.method).toBe('GET');
     expect(req.request.params.get('identification')).toBe('1712345678');
     req.flush({
@@ -59,7 +61,7 @@ describe('UserService', () => {
     };
 
     let result: User | undefined;
-    service.updateUser(7, request).subscribe((user) => result = user);
+    service.updateUser(7, request).subscribe((user) => (result = user));
 
     const req = httpMock.expectOne('/mscServices/api/users/7');
     expect(req.request.method).toBe('PUT');

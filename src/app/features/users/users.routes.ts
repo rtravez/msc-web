@@ -7,17 +7,14 @@ import { Routes } from '@angular/router';
 export const usersRoutes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./components/user-list/user-list').then(m => m.UserList)
+    loadComponent: () => import('./components/user-list/user-list').then((m) => m.UserList),
   },
   {
     path: 'new',
-    loadComponent: () =>
-      import('./components/user-form/user-form').then(m => m.UserForm)
+    loadComponent: () => import('./components/user-form/user-form').then((m) => m.UserForm),
   },
   {
     path: 'edit/:id',
-    loadComponent: () =>
-      import('./components/user-form/user-form').then(m => m.UserForm)
-  }
+    loadComponent: () => import('./components/user-form/user-form').then((m) => m.UserForm),
+  },
 ];

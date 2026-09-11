@@ -1,34 +1,73 @@
 <main class="login-page min-vh-100 bg-body-tertiary">
   <div class="container-fluid min-vh-100 p-0">
     <div class="row g-0 min-vh-100">
-      <section class="col-lg-7 brand-panel bg-primary text-white d-flex flex-column p-4 p-md-5" aria-labelledby="login-headline">
+      <section
+        class="col-lg-7 brand-panel bg-primary text-white d-flex flex-column p-4 p-md-5"
+        aria-labelledby="login-headline"
+      >
         <span class="brand-mark fw-bold">MSC</span>
         <div class="brand-content my-auto py-5">
-          <p class="text-uppercase fw-bold small letter-spacing text-info mb-4">{{ 'login.workspace' | translate }}</p>
-          <h1 id="login-headline" class="display-3 fw-bold mb-4" [innerHTML]="'login.headline' | translate"></h1>
+          <p class="text-uppercase fw-bold small letter-spacing text-info mb-4">
+            {{ 'login.workspace' | translate }}
+          </p>
+          <h1
+            id="login-headline"
+            class="display-3 fw-bold mb-4"
+            [innerHTML]="'login.headline' | translate"
+          ></h1>
           <p class="lead brand-copy mb-0">{{ 'login.description' | translate }}</p>
         </div>
-        <div class="signal d-flex align-items-end gap-2" aria-hidden="true"><span class="bg-warning"></span><span class="bg-warning"></span><span class="bg-warning"></span><span class="bg-warning"></span><span class="bg-warning"></span></div>
+        <div class="signal d-flex align-items-end gap-2" aria-hidden="true">
+          <span class="bg-warning"></span><span class="bg-warning"></span
+          ><span class="bg-warning"></span><span class="bg-warning"></span
+          ><span class="bg-warning"></span>
+        </div>
       </section>
 
-      <section class="col-lg-5 d-flex align-items-center justify-content-center p-4 p-md-5 access-panel">
+      <section
+        class="col-lg-5 d-flex align-items-center justify-content-center p-4 p-md-5 access-panel"
+      >
         <div class="card border-0 shadow-sm w-100 access-card">
           <div class="card-body p-4 p-md-5">
             <div class="d-flex justify-content-end mb-5">
-              <div class="btn-group btn-group-sm" role="group" [attr.aria-label]="'common.language' | translate">
-                <button type="button" class="btn" [class.btn-primary]="language.currentLanguage() === 'es'"
-                        [class.btn-outline-primary]="language.currentLanguage() !== 'es'" (click)="setLanguage('es')">ES</button>
-                <button type="button" class="btn" [class.btn-primary]="language.currentLanguage() === 'en'"
-                        [class.btn-outline-primary]="language.currentLanguage() !== 'en'" (click)="setLanguage('en')">EN</button>
+              <div
+                class="btn-group btn-group-sm"
+                role="group"
+                [attr.aria-label]="'common.language' | translate"
+              >
+                <button
+                  type="button"
+                  class="btn"
+                  [class.btn-primary]="language.currentLanguage() === 'es'"
+                  [class.btn-outline-primary]="language.currentLanguage() !== 'es'"
+                  (click)="setLanguage('es')"
+                >
+                  ES
+                </button>
+                <button
+                  type="button"
+                  class="btn"
+                  [class.btn-primary]="language.currentLanguage() === 'en'"
+                  [class.btn-outline-primary]="language.currentLanguage() !== 'en'"
+                  (click)="setLanguage('en')"
+                >
+                  EN
+                </button>
               </div>
             </div>
 
-            <p class="text-uppercase fw-bold small letter-spacing text-primary mb-3">{{ 'login.secureAccess' | translate }}</p>
+            <p class="text-uppercase fw-bold small letter-spacing text-primary mb-3">
+              {{ 'login.secureAccess' | translate }}
+            </p>
             <h2 class="display-6 fw-bold mb-3">{{ 'login.title' | translate }}</h2>
             <p class="text-secondary mb-4">{{ 'login.intro' | translate }}</p>
 
-            <button type="button" class="btn btn-primary w-100 d-flex align-items-center justify-content-between py-3"
-                    (click)="login()" [disabled]="loading()">
+            <button
+              type="button"
+              class="btn btn-primary w-100 d-flex align-items-center justify-content-between py-3"
+              (click)="login()"
+              [disabled]="loading()"
+            >
               <span>{{ (loading() ? 'login.connecting' : 'login.continue') | translate }}</span>
               @if (loading()) {
                 <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>

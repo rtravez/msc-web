@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { TableModule } from 'primeng/table';
+import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
@@ -16,7 +16,6 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
-
 
 @Component({
   selector: 'app-user-list',
@@ -33,7 +32,7 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
     TagModule,
     TooltipModule,
     TranslatePipe,
-    MainLayout
+    MainLayout,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -91,16 +90,15 @@ export class UserList implements OnInit, OnDestroy {
       });
   }
 
-  onPageChange(event: any) {
-    const page = event.page ?? 0;
-    const size = event.rows ?? this.pageSize();
+  onPageChange(event: TablePageEvent): void {
+    const page = Math.floor(event.first / event.rows);
+    const size = event.rows;
     this.loadUsers(page, size);
   }
 
   editUser(user: User) {
     void this.router.navigate(['/users/edit', user.userId]);
   }
-
 
   confirmDelete(user: User) {
     this.confirmationService.confirm({

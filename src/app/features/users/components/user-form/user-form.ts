@@ -1,9 +1,4 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -37,8 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ToastModule,
     TooltipModule,
     TranslatePipe,
-    MainLayout
-
+    MainLayout,
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
@@ -61,12 +55,12 @@ export class UserForm implements OnInit {
   readonly genderOptions = [
     { label: 'users.form.male', value: 'M' },
     { label: 'users.form.female', value: 'F' },
-    { label: 'users.form.other', value: 'O' }
+    { label: 'users.form.other', value: 'O' },
   ];
 
   readonly statusOptions = [
     { label: 'users.active', value: true },
-    { label: 'users.inactive', value: false }
+    { label: 'users.inactive', value: false },
   ];
 
   ngOnInit() {
@@ -120,64 +114,24 @@ export class UserForm implements OnInit {
       identification: [
         {
           value: '',
-          disabled: this.isEditMode
+          disabled: this.isEditMode,
         },
-        [
-          Validators.required,
-          Validators.pattern(/^\d+$/),
-          Validators.maxLength(10)
-        ]
+        [Validators.required, Validators.pattern(/^\d+$/), Validators.maxLength(10)],
       ],
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(20)
-        ]
-      ],
+      username: ['', [Validators.required, Validators.maxLength(20)]],
       password: [
         '',
         this.isEditMode
           ? [Validators.minLength(8), Validators.maxLength(60)]
-          : [
-            Validators.required,
-            Validators.minLength(8),
-            Validators.maxLength(60)
-          ]
+          : [Validators.required, Validators.minLength(8), Validators.maxLength(60)],
       ],
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(255)
-        ]
-      ],
-      lastname: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(255)
-        ]
-      ],
-      address: [
-        '',
-        [Validators.maxLength(255)]
-      ],
-      telephone: [
-        '',
-        [
-          Validators.pattern(/^\d{10}$/)
-        ]
-      ],
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      lastname: ['', [Validators.required, Validators.maxLength(255)]],
+      address: ['', [Validators.maxLength(255)]],
+      telephone: ['', [Validators.pattern(/^\d{10}$/)]],
       gender: [null],
-      age: [
-        null,
-        [
-          Validators.min(0),
-          Validators.max(150)
-        ]
-      ],
-      status: [true]
+      age: [null, [Validators.min(0), Validators.max(150)]],
+      status: [true],
     });
   }
 
@@ -192,7 +146,7 @@ export class UserForm implements OnInit {
       telephone: user.telephone,
       gender: user.gender,
       age: user.age,
-      status: user.status
+      status: user.status,
     });
   }
 
@@ -206,11 +160,19 @@ export class UserForm implements OnInit {
     if (!field?.errors) return '';
 
     if (field.errors['required']) return this.translate.instant('users.form.required');
-    if (field.errors['minlength']) return this.translate.instant('users.form.min', { value: field.errors['minlength'].requiredLength });
-    if (field.errors['maxlength']) return this.translate.instant('users.form.max', { value: field.errors['maxlength'].requiredLength });
+    if (field.errors['minlength'])
+      return this.translate.instant('users.form.min', {
+        value: field.errors['minlength'].requiredLength,
+      });
+    if (field.errors['maxlength'])
+      return this.translate.instant('users.form.max', {
+        value: field.errors['maxlength'].requiredLength,
+      });
     if (field.errors['pattern']) return this.translate.instant('users.form.pattern');
-    if (field.errors['min']) return this.translate.instant('users.form.minValue', { value: field.errors['min'].min });
-    if (field.errors['max']) return this.translate.instant('users.form.maxValue', { value: field.errors['max'].max });
+    if (field.errors['min'])
+      return this.translate.instant('users.form.minValue', { value: field.errors['min'].min });
+    if (field.errors['max'])
+      return this.translate.instant('users.form.maxValue', { value: field.errors['max'].max });
 
     return this.translate.instant('users.form.invalid');
   }
@@ -235,7 +197,7 @@ export class UserForm implements OnInit {
       telephone: formValue.telephone,
       gender: formValue.gender,
       age: formValue.age,
-      status: formValue.status
+      status: formValue.status,
     };
 
     if (this.isEditMode && formValue.userId != null) {
@@ -247,9 +209,10 @@ export class UserForm implements OnInit {
     }
 
     this.isSubmitting = true;
-    const operation$ = this.isEditMode && formValue.userId != null
-      ? this.userService.updateUser(formValue.userId, request)
-      : this.userService.createUser(request);
+    const operation$ =
+      this.isEditMode && formValue.userId != null
+        ? this.userService.updateUser(formValue.userId, request)
+        : this.userService.createUser(request);
 
     operation$.subscribe({
       next: () => {

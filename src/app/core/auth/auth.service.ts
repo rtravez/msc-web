@@ -33,10 +33,17 @@ export class AuthService {
     const state = this.randomValue(32);
     localStorage.setItem('msc.oauth.verifier', verifier);
     localStorage.setItem('msc.oauth.state', state);
-    const challenge = this.base64Url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
+    const challenge = this.base64Url(
+      await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)),
+    );
     const params = new URLSearchParams({
-      response_type: 'code', client_id: authConfig.clientId, redirect_uri: authConfig.redirectUri,
-      scope: authConfig.scope, state, code_challenge: challenge, code_challenge_method: 'S256',
+      response_type: 'code',
+      client_id: authConfig.clientId,
+      redirect_uri: authConfig.redirectUri,
+      scope: authConfig.scope,
+      state,
+      code_challenge: challenge,
+      code_challenge_method: 'S256',
       lang: this.language.currentLanguage() === 'en' ? 'en-US' : 'es-EC',
     });
     this.document.location.href = `${authorizationEndpoint}?${params}`;
@@ -47,14 +54,20 @@ export class AuthService {
     const expectedState = localStorage.getItem('msc.oauth.state');
     const verifier = localStorage.getItem('msc.oauth.verifier');
     try {
-      if (!expectedState || state !== expectedState || !verifier) throw new Error('La sesión de autorización no es válida.');
+      if (!expectedState || state !== expectedState || !verifier)
+        throw new Error('La sesión de autorización no es válida.');
       const body = new URLSearchParams({
-        grant_type: 'authorization_code', client_id: authConfig.clientId,
-        redirect_uri: authConfig.redirectUri, code, code_verifier: verifier
+        grant_type: 'authorization_code',
+        client_id: authConfig.clientId,
+        redirect_uri: authConfig.redirectUri,
+        code,
+        code_verifier: verifier,
       });
-      const tokens = await firstValueFrom(this.http.post<TokenResponse>(tokenEndpoint, body.toString(), {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      }));
+      const tokens = await firstValueFrom(
+        this.http.post<TokenResponse>(tokenEndpoint, body.toString(), {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        }),
+      );
       this.storeTokens(tokens);
     } finally {
       this.clearLoginAttempt();
@@ -104,10 +117,15 @@ export class AuthService {
     });
 
     try {
-      const refreshed = await firstValueFrom(this.http.post<TokenResponse>(tokenEndpoint, body.toString(), {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      }));
-      this.storeTokens({ ...refreshed, refresh_token: refreshed.refresh_token ?? tokens.refresh_token });
+      const refreshed = await firstValueFrom(
+        this.http.post<TokenResponse>(tokenEndpoint, body.toString(), {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        }),
+      );
+      this.storeTokens({
+        ...refreshed,
+        refresh_token: refreshed.refresh_token ?? tokens.refresh_token,
+      });
       return refreshed.access_token;
     } catch {
       this.logout();
@@ -128,11 +146,12 @@ export class AuthService {
     if (!raw) return null;
     try {
       const tokens = JSON.parse(raw) as Partial<StoredTokenResponse>;
-      return typeof tokens.access_token === 'string'
-        && typeof tokens.expires_at === 'number'
-        ? tokens as StoredTokenResponse
+      return typeof tokens.access_token === 'string' && typeof tokens.expires_at === 'number'
+        ? (tokens as StoredTokenResponse)
         : null;
-    } catch { return null; }
+    } catch {
+      return null;
+    }
   }
 
   private hasUsableSession(tokens: StoredTokenResponse | null): boolean {
@@ -140,9 +159,9 @@ export class AuthService {
   }
 
   private hasValidAccessToken(tokens: StoredTokenResponse | null): boolean {
-    return tokens !== null
-      && Boolean(tokens.access_token)
-      && tokens.expires_at > Date.now() + 30_000;
+    return (
+      tokens !== null && Boolean(tokens.access_token) && tokens.expires_at > Date.now() + 30_000
+    );
   }
 
   private clearLoginAttempt(): void {
@@ -159,7 +178,7 @@ export class AuthService {
   private base64Url(value: ArrayBuffer | Uint8Array): string {
     const bytes = value instanceof Uint8Array ? value : new Uint8Array(value);
     let binary = '';
-    bytes.forEach((byte) => binary += String.fromCodePoint(byte));
+    bytes.forEach((byte) => (binary += String.fromCodePoint(byte)));
     return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   }
 }

@@ -1,6 +1,7 @@
 import { environment } from '../../../environments/environment';
 
-const currentOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4200';
+const currentOrigin =
+  typeof window !== 'undefined' ? window.location.origin : 'http://localhost:4200';
 
 export const authConfig = {
   issuer: environment.auth.issuer,

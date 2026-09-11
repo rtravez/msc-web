@@ -12,7 +12,7 @@ import { User, UserRequest, UserResponse } from '../models/user.interface';
  * Communicates with backend UserController endpoints
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private readonly apiUrl = `${environment.apiBaseUrl}/api/users`;
@@ -23,16 +23,20 @@ export class UserService {
    * GET /api/users?page=0&size=20
    */
   getAllUsers(page = 0, size = 20): Observable<BaseResponsePage<User>> {
-    return this.http.get<BaseResponseDto<BaseResponsePage<UserResponse>>>(`${this.apiUrl}?page=${page}&size=${size}`).pipe(
-      map(response => {
-        const pageData = response.data;
+    return this.http
+      .get<BaseResponseDto<BaseResponsePage<UserResponse>>>(
+        `${this.apiUrl}?page=${page}&size=${size}`,
+      )
+      .pipe(
+        map((response) => {
+          const pageData = response.data;
 
-        return {
-          ...pageData,
-          content: pageData.content.map((user) => ({ ...user })),
-        };
-      })
-    );
+          return {
+            ...pageData,
+            content: pageData.content.map((user) => ({ ...user })),
+          };
+        }),
+      );
   }
 
   /**
@@ -41,11 +45,11 @@ export class UserService {
    * @param identification - User identification number
    */
   getUserByIdentification(identification: string): Observable<User> {
-    return this.http.get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/identification`, {
-      params: { identification }
-    }).pipe(
-      map((response) => this.unwrapUser(response))
-    );
+    return this.http
+      .get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/identification`, {
+        params: { identification },
+      })
+      .pipe(map((response) => this.unwrapUser(response)));
   }
 
   /**
@@ -54,9 +58,9 @@ export class UserService {
    * @param userId - User ID
    */
   getUserById(userId: number): Observable<User> {
-    return this.http.get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`).pipe(
-      map((response) => this.unwrapUser(response))
-    );
+    return this.http
+      .get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`)
+      .pipe(map((response) => this.unwrapUser(response)));
   }
 
   /**
@@ -65,9 +69,9 @@ export class UserService {
    * @param user - User data to create
    */
   createUser(user: UserRequest): Observable<User> {
-    return this.http.post<BaseResponseDto<UserResponse>>(this.apiUrl, user).pipe(
-      map((response) => this.unwrapUser(response))
-    );
+    return this.http
+      .post<BaseResponseDto<UserResponse>>(this.apiUrl, user)
+      .pipe(map((response) => this.unwrapUser(response)));
   }
 
   /**
@@ -77,9 +81,9 @@ export class UserService {
    * @param request - User data to update
    */
   updateUser(userId: number, request: UserRequest): Observable<User> {
-    return this.http.put<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`, request).pipe(
-      map((response) => this.unwrapUser(response))
-    );
+    return this.http
+      .put<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`, request)
+      .pipe(map((response) => this.unwrapUser(response)));
   }
 
   /**
