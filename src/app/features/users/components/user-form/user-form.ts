@@ -1,13 +1,13 @@
 import {
   Component,
-  OnInit,
-  OnChanges,
-  Input,
-  Output,
-  EventEmitter,
   DestroyRef,
+  EventEmitter,
   inject,
-  SimpleChanges,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -23,7 +23,6 @@ import { User, UserRequest } from '../../models/user.interface';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -65,7 +64,6 @@ export class UserForm implements OnInit, OnChanges {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly authService = inject(AuthService);
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
   private readonly destroyRef = inject(DestroyRef);
