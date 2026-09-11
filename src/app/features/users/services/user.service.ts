@@ -15,7 +15,7 @@ import { User, UserRequest, UserResponse } from '../models/user.interface';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly apiUrl = `${environment.apiBaseUrl}/api/users`;
+  private readonly apiUrl = `${environment.mscServices}/api/users`;
   private readonly http = inject(HttpClient);
 
   /**

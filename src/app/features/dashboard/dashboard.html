@@ -1,7 +1,7 @@
 <app-main-layout>
   <section class="dashboard-page">
     <div class="row align-items-center g-4 g-lg-5">
-      <div class="col-12 col-lg-7">
+      <div class="col-12">
         <p class="text-uppercase fw-bold small text-primary-emphasis letter-spacing mb-3">
           {{ 'dashboard.workspace' | translate }}
         </p>
@@ -9,7 +9,7 @@
         <p class="lead text-secondary mb-0">{{ 'dashboard.description' | translate }}</p>
       </div>
 
-      <div class="col-12 col-lg-5">
+      <div class="col-12 col-lg-6">
         <div class="card h-100 border-0 border-top border-4 border-primary shadow-sm">
           <div class="card-body p-4 p-md-5">
             <div
@@ -23,6 +23,26 @@
             </p>
             <a routerLink="/users" class="btn btn-primary">
               {{ 'dashboard.goToUsers' | translate }}
+              <i class="pi pi-arrow-right ms-2" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="card h-100 border-0 border-top border-4 border-success shadow-sm">
+          <div class="card-body p-4 p-md-5">
+            <div
+              class="feature-icon bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+            >
+              <i class="pi pi-wallet fs-3" aria-hidden="true"></i>
+            </div>
+            <h2 class="h3 card-title fw-bold">{{ 'dashboard.accountManagement' | translate }}</h2>
+            <p class="card-text text-secondary mb-4">
+              {{ 'dashboard.accountDescription' | translate }}
+            </p>
+            <a routerLink="/accounts" class="btn btn-success">
+              {{ 'dashboard.goToAccounts' | translate }}
               <i class="pi pi-arrow-right ms-2" aria-hidden="true"></i>
             </a>
           </div>

@@ -1,0 +1,75 @@
+<app-main-layout>
+    <section class="dashboard-page">
+        <div class="container py-4 py-md-5">
+            <p-toast></p-toast>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10 col-xl-9">
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <p-button icon="pi pi-arrow-left" [text]="true" severity="secondary" (onClick)="onCancel()" />
+                        <div>
+                            <h1 class="h3 mb-1">{{ (isEditMode ? 'accounts.editTitle' : 'accounts.createTitle') |
+                                translate }}</h1>
+                            <p class="text-body-secondary mb-0">{{ (isEditMode ? 'accounts.editDescription' :
+                                'accounts.createDescription') | translate }}</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-md-5">
+                            @if (isLoading()) {
+                            <div class="d-flex justify-content-center py-5"><p-progressSpinner strokeWidth="4" /></div>
+                            } @else {
+                            <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-6"><label class="form-label" for="accountNumber">{{
+                                            'accounts.accountNumber' | translate }} *</label>
+                                        <p-inputNumber inputId="accountNumber" formControlName="accountNumber"
+                                            [useGrouping]="false" styleClass="w-100" />
+                                        @if (isFieldInvalid('accountNumber')) { <div class="invalid-feedback d-block">{{
+                                            getFieldError('accountNumber') }}</div> }
+                                    </div>
+                                    <div class="col-12 col-md-6"><label class="form-label" for="accountType">{{
+                                            'accounts.accountType' | translate }} *</label>
+                                        <p-select inputId="accountType" formControlName="accountType"
+                                            [options]="accountTypes" optionLabel="label" optionValue="value"
+                                            class="w-100" [placeholder]="'accounts.form.selectType' | translate">
+                                            <ng-template #item let-option>{{ option.label | translate
+                                                }}</ng-template><ng-template #selectedItem let-option>{{ option?.label |
+                                                translate }}</ng-template>
+                                        </p-select>
+                                        @if (isFieldInvalid('accountType')) { <div class="invalid-feedback d-block">{{
+                                            getFieldError('accountType') }}</div> }
+                                    </div>
+                                    <div class="col-12 col-md-6"><label class="form-label" for="initialBalance">{{
+                                            'accounts.initialBalance' | translate }} *</label>
+                                        <p-inputNumber inputId="initialBalance" formControlName="initialBalance"
+                                            mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2" [min]="0"
+                                            styleClass="w-100" />
+                                        @if (isFieldInvalid('initialBalance')) { <div class="invalid-feedback d-block">
+                                            {{ getFieldError('initialBalance') }}</div> }
+                                    </div>
+                                    <div class="col-12 col-md-6"><label class="form-label" for="identification">{{
+                                            'accounts.identification' | translate }} *</label>
+                                        <input pInputText id="identification" type="text"
+                                            formControlName="identification" class="form-control"
+                                            [placeholder]="'accounts.form.identificationHint' | translate" />
+                                        @if (isFieldInvalid('identification')) { <div class="invalid-feedback d-block">
+                                            {{ getFieldError('identification') }}</div> }
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                                    <p-button [label]="'common.cancel' | translate" icon="pi pi-times" type="button"
+                                        severity="secondary" (onClick)="onCancel()" [disabled]="isSubmitting" />
+                                    <p-button
+                                        [label]="isEditMode ? ('common.update' | translate) : ('common.create' | translate)"
+                                        icon="pi pi-check" type="submit" [loading]="isSubmitting"
+                                        [disabled]="accountForm.invalid || isSubmitting" />
+                                </div>
+                            </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</app-main-layout>

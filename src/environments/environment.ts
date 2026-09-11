@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
-  apiBaseUrl: '/mscServices',
+  mscServices: '/mscServices',
+  msaServices: '/msaServices',
   auth: {
     issuer: '/authServices',
     clientId: 'rtravez-web',
