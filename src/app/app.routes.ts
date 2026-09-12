@@ -30,7 +30,8 @@ export const routes: Routes = [
   {
     path: 'movements',
     canActivate: [authGuard],
-    loadChildren: () => import('./features/movements/movements.routes').then((m) => m.movementsRoutes),
+    loadChildren: () =>
+      import('./features/movements/movements.routes').then((m) => m.movementsRoutes),
   },
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: '**', redirectTo: 'dashboard' },

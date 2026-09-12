@@ -2,7 +2,7 @@
   <div class="container-fluid px-3 px-lg-4">
     <div class="d-flex align-items-center gap-2">
       <button type="button" class="btn btn-outline-light btn-sm d-lg-none" (click)="toggleSidebar.emit()"
-        [attr.aria-label]="'accessibility.toggleSidebar' | translate">
+              [attr.aria-label]="'accessibility.toggleSidebar' | translate">
         <i class="pi pi-bars" aria-hidden="true"></i>
       </button>
 
@@ -16,17 +16,17 @@
       <div class="d-flex align-items-center gap-2 ms-lg-3">
         <div class="btn-group btn-group-sm" role="group" [attr.aria-label]="'common.language' | translate">
           <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'es'"
-            [class.btn-outline-light]="language.currentLanguage() !== 'es'" (click)="setLanguage('es')">
+                  [class.btn-outline-light]="language.currentLanguage() !== 'es'" (click)="setLanguage('es')">
             ES
           </button>
           <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'en'"
-            [class.btn-outline-light]="language.currentLanguage() !== 'en'" (click)="setLanguage('en')">
+                  [class.btn-outline-light]="language.currentLanguage() !== 'en'" (click)="setLanguage('en')">
             EN
           </button>
         </div>
 
         <button type="button" class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" (click)="logout()"
-          [attr.title]="'dashboard.logout' | translate">
+                [attr.title]="'dashboard.logout' | translate">
           <i class="pi pi-sign-out" aria-hidden="true"></i>
           <span>{{ 'dashboard.logout' | translate }}</span>
         </button>
@@ -34,7 +34,7 @@
     </div>
 
     <button type="button" class="btn btn-outline-light btn-sm d-lg-none ms-2" (click)="toggleMobileMenu()"
-      [attr.aria-label]="'accessibility.toggleNavigation' | translate">
+            [attr.aria-label]="'accessibility.toggleNavigation' | translate">
       <i class="pi" [class.pi-bars]="!mobileMenuOpen" [class.pi-times]="mobileMenuOpen" aria-hidden="true"></i>
     </button>
   </div>

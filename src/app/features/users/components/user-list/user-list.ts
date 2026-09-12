@@ -153,7 +153,7 @@ export class UserList implements OnInit, OnDestroy {
         },
       });
   }
-  
+
   showNewUser(): void {
     void this.router.navigateByUrl('/users/new');
   }
