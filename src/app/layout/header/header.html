@@ -1,21 +1,21 @@
-<header class="app-header navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
-  <div class="container-fluid px-3 px-lg-4">
+<header class="app-header">
+  <div class="header-inner">
     <div class="d-flex align-items-center gap-2">
       <button
         (click)="toggleSidebar.emit()"
         [attr.aria-label]="'accessibility.toggleSidebar' | translate"
-        class="btn btn-outline-light btn-sm"
+        class="icon-button menu-button"
         type="button"
       >
         <i aria-hidden="true" class="pi pi-bars"></i>
       </button>
 
       <a
-        class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white mb-0"
+        class="navbar-brand d-flex align-items-center gap-2 mb-0"
         routerLink="/dashboard"
       >
         <span class="brand-mark">MSC</span>
-        <span>{{ 'dashboard.brand' | translate }}</span>
+        <span class="brand-name">{{ 'dashboard.brand' | translate }}</span>
       </a>
     </div>
 
@@ -26,23 +26,21 @@
       <div class="d-flex align-items-center gap-2 ms-lg-3">
         <div
           [attr.aria-label]="'common.language' | translate"
-          class="btn-group btn-group-sm"
+          class="language-switcher"
           role="group"
         >
           <button
             (click)="setLanguage('es')"
-            [class.btn-light]="language.currentLanguage() === 'es'"
-            [class.btn-outline-light]="language.currentLanguage() !== 'es'"
-            class="btn"
+            [class.active]="language.currentLanguage() === 'es'"
+            class="language-button"
             type="button"
           >
             ES
           </button>
           <button
             (click)="setLanguage('en')"
-            [class.btn-light]="language.currentLanguage() === 'en'"
-            [class.btn-outline-light]="language.currentLanguage() !== 'en'"
-            class="btn"
+            [class.active]="language.currentLanguage() === 'en'"
+            class="language-button"
             type="button"
           >
             EN
@@ -52,7 +50,7 @@
         <button
           (click)="logout()"
           [attr.title]="'dashboard.logout' | translate"
-          class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+          class="logout-button d-flex align-items-center gap-2"
           type="button"
         >
           <i aria-hidden="true" class="pi pi-sign-out"></i>
@@ -64,7 +62,7 @@
     <button
       (click)="toggleMobileMenu()"
       [attr.aria-label]="'accessibility.toggleNavigation' | translate"
-      class="btn btn-outline-light btn-sm d-lg-none ms-2"
+      class="icon-button mobile-toggle d-lg-none ms-2"
       type="button"
     >
       <i

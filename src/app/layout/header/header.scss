@@ -3,7 +3,19 @@
 }
 
 .app-header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
   min-height: 72px;
+  position: relative;
+  z-index: 1020;
+}
+
+.header-inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 0 clamp(1rem, 3vw, 3rem);
 }
 
 .brand-mark {
@@ -12,12 +24,76 @@
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 0.75rem;
-  background: rgba(255, 193, 7, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #ffd166;
-  font-size: 0.82rem;
+  background: var(--navy);
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
   font-weight: 700;
+  height: 38px;
+  letter-spacing: 0.08em;
+  width: 38px;
+}
+
+.brand-name {
+  color: var(--navy);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+
+.icon-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  display: inline-flex;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.language-switcher {
+  background: var(--paper);
+  border-radius: 8px;
+  display: flex;
+  padding: 3px;
+}
+
+.language-button {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.55rem;
+}
+
+.language-button.active {
+  background: var(--panel);
+  box-shadow: 0 1px 3px rgba(19, 34, 56, 0.12);
+  color: var(--navy);
+}
+
+.logout-button {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.logout-button:hover,
+.logout-button:focus-visible {
+  color: var(--blue);
 }
 
 .nav-link {
@@ -36,12 +112,16 @@
 }
 
 @media (max-width: 991.98px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
   .header-nav-wrapper {
     display: none;
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-    padding-top: 0.75rem;
+    padding: 0.75rem 0 0.25rem;
   }
 
   .header-nav-wrapper.mobile-open {

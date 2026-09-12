@@ -5,25 +5,51 @@
 }
 
 .app-shell {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   min-height: 100vh;
-  overflow: hidden;
+  background: var(--paper);
 }
 
 .app-body {
+  display: flex;
   flex: 1 1 auto;
   min-height: 0;
-  overflow: hidden;
+  position: relative;
 }
 
 .app-content {
+  flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
   overflow: auto;
+  padding: 2rem clamp(1rem, 3vw, 3rem);
+}
+
+.sidebar-backdrop {
+  display: none;
 }
 
 @media (max-width: 991.98px) {
   .app-body {
-    flex-direction: column;
+    display: block;
+  }
+
+  .app-content {
+    height: calc(100vh - 72px - 56px);
+    padding: 1.25rem 1rem;
+  }
+
+  .sidebar-is-open .sidebar-backdrop {
+    background: rgba(19, 34, 56, 0.4);
+    border: 0;
+    bottom: 0;
+    display: block;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 72px;
+    z-index: 1010;
   }
 }

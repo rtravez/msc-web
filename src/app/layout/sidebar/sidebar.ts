@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -11,4 +11,5 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class Sidebar {
   @Input() open = true;
+  @Output() readonly navigate = new EventEmitter<void>();
 }

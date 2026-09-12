@@ -1,16 +1,17 @@
 <aside
   [attr.aria-label]="'accessibility.sidebarNavigation' | translate"
   [class.sidebar-collapsed]="!open"
-  class="app-sidebar bg-white border-end h-100 p-3"
+  class="app-sidebar"
 >
-  <div class="sidebar-inner d-flex flex-column gap-3">
-    <p class="sidebar-label mb-0 text-uppercase fw-bold text-secondary small">
+  <div class="sidebar-inner">
+    <p class="sidebar-label">
       {{ 'layout.workspace' | translate }}
     </p>
     <nav class="nav flex-column gap-2">
       <a
+        (click)="navigate.emit()"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark"
+        class="nav-link"
         routerLink="/dashboard"
         routerLinkActive="active"
       >
@@ -18,7 +19,8 @@
         <span>{{ 'dashboard.home' | translate }}</span>
       </a>
       <a
-        class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark"
+        (click)="navigate.emit()"
+        class="nav-link"
         routerLink="/users"
         routerLinkActive="active"
       >
@@ -26,7 +28,8 @@
         <span>{{ 'dashboard.users' | translate }}</span>
       </a>
       <a
-        class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark"
+        (click)="navigate.emit()"
+        class="nav-link"
         routerLink="/accounts"
         routerLinkActive="active"
       >
@@ -34,7 +37,8 @@
         <span>{{ 'dashboard.accounts' | translate }}</span>
       </a>
       <a
-        class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark"
+        (click)="navigate.emit()"
+        class="nav-link"
         routerLink="/movements"
         routerLinkActive="active"
       >

@@ -3,6 +3,9 @@
 }
 
 .app-footer {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
   min-height: 56px;
   font-size: 0.9rem;
 }

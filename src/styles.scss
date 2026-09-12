@@ -3,13 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  --ink: #172126;
-  --muted: #657278;
-  --paper: #f7f5ef;
-  --panel: #fffefa;
-  --teal: #0f766e;
-  --teal-dark: #115e59;
-  --coral: #e7785b;
+  --ink: #263238;
+  --muted: #718096;
+  --paper: #f4f7fb;
+  --panel: #ffffff;
+  --navy: #132238;
+  --navy-soft: #1c3150;
+  --blue: #2f80ed;
+  --blue-soft: #e9f2ff;
+  --line: #e6ebf2;
   font-family: 'DM Sans', sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -22,6 +24,7 @@
 body {
   margin: 0;
   min-width: 320px;
+  background: var(--paper);
 }
 
 button,

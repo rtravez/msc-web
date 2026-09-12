@@ -1,24 +1,45 @@
 :host {
   display: block;
+  flex: 0 0 252px;
+  min-width: 0;
+  overflow: hidden;
+  transition: flex-basis 0.25s ease;
+}
+
+:host(.sidebar-collapsed) {
+  flex-basis: 0;
 }
 
 .app-sidebar {
-  width: 260px;
-  transition:
-    width 0.25s ease,
-    padding 0.25s ease,
-    opacity 0.25s ease;
+  background: var(--navy);
+  color: #fff;
+  height: 100%;
   overflow: hidden;
 }
 
 .sidebar-inner {
+  padding: 2rem 1rem;
   transition:
     opacity 0.2s ease,
     visibility 0.2s ease;
 }
 
+.sidebar-label {
+  color: #8ca0bb;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 1rem 0.75rem;
+  text-transform: uppercase;
+}
+
 .nav-link {
-  color: #212529;
+  align-items: center;
+  border-radius: 8px;
+  color: #b6c4d8;
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.75rem;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -26,15 +47,29 @@
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: #eef5ff;
-  color: #0d6efd;
+  background-color: var(--navy-soft);
+  color: #fff;
   font-weight: 600;
 }
 
+.nav-link.active {
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.nav-link i {
+  color: #87a4c8;
+  font-size: 1rem;
+  width: 1.25rem;
+}
+
+.nav-link.active i,
+.nav-link:hover i {
+  color: #68a7ff;
+}
+
 .sidebar-collapsed {
-  width: 0;
-  padding: 0 !important;
-  border-width: 0 !important;
+  flex-basis: 0;
+  opacity: 0;
 }
 
 .sidebar-collapsed .sidebar-inner {
@@ -44,19 +79,23 @@
 
 @media (max-width: 991.98px) {
   .app-sidebar {
-    width: 100%;
-    border-right: 0 !important;
-    border-bottom: 1px solid #dee2e6;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    top: 72px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    width: min(280px, 86vw);
+    z-index: 1015;
   }
 
-  .sidebar-collapsed {
-    width: 100%;
-    max-height: 0;
-    padding: 0 !important;
-    border-bottom: 0 !important;
+  .app-sidebar:not(.sidebar-collapsed) {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .sidebar-collapsed .sidebar-inner {
-    display: none;
+    opacity: 1;
+    visibility: visible;
   }
 }
