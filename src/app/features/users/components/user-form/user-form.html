@@ -1,255 +1,253 @@
 <section class="dashboard-page">
-    <p-toast></p-toast>
+  <p-toast></p-toast>
 
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-10 col-xl-9">
-        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
-          <div class="d-flex align-items-start gap-3">
-            <p-button
-              (onClick)="onCancel()"
-              [text]="true"
-              icon="pi pi-arrow-left"
-              severity="secondary"
-              styleClass="flex-shrink-0"
-            />
-            <div>
-              <h1 class="h3 mb-1">
-                {{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}
-              </h1>
-              <p class="text-body-secondary mb-0">
-                {{ (isEditMode ? 'users.editDescription' : 'users.createDescription') | translate }}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card border-0 shadow-sm">
-          <div class="card-body p-4 p-md-5">
-            @if (isLoading()) {
-              <div class="d-flex justify-content-center align-items-center py-5">
-                <p-progressSpinner
-                  [ariaLabel]="'common.loading' | translate"
-                  [style]="{ width: '40px', height: '40px' }"
-                  strokeWidth="4"
-                />
-              </div>
-            } @else {
-              <form (ngSubmit)="onSubmit()" [formGroup]="userForm" novalidate>
-                <div class="row g-3">
-                  <!-- Identification -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="identification"
-                      >{{ 'users.identification' | translate }} *</label
-                    >
-                    <input
-                      [placeholder]="'users.form.identificationHint' | translate"
-                      class="form-control"
-                      formControlName="identification"
-                      id="identification"
-                      pInputText
-                      type="text"
-                    />
-                    @if (isFieldInvalid('identification')) {
-                      <div class="invalid-feedback d-block">
-                        {{ getFieldError('identification') }}
-                      </div>
-                    }
-                  </div>
-
-                  <!-- Username -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="username">{{
-                      'users.form.usernameLabel' | translate
-                    }}</label>
-                    <input
-                      [placeholder]="'users.form.usernameHint' | translate"
-                      class="form-control"
-                      formControlName="username"
-                      id="username"
-                      pInputText
-                      type="text"
-                    />
-                    @if (isFieldInvalid('username')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('username') }}</div>
-                    }
-                  </div>
-
-                  <!-- Password -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="password"
-                      >{{ 'users.form.passwordLabel' | translate }}
-                      {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label
-                    >
-                    <input
-                      [placeholder]="'users.form.passwordHint' | translate"
-                      class="form-control"
-                      formControlName="password"
-                      id="password"
-                      pInputText
-                      type="password"
-                    />
-                    @if (isFieldInvalid('password')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('password') }}</div>
-                    }
-                  </div>
-
-                  <!-- Name -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="name">{{
-                      'users.form.nameLabel' | translate
-                    }}</label>
-                    <input
-                      [placeholder]="'users.form.nameHint' | translate"
-                      class="form-control"
-                      formControlName="name"
-                      id="name"
-                      pInputText
-                      type="text"
-                    />
-                    @if (isFieldInvalid('name')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('name') }}</div>
-                    }
-                  </div>
-
-                  <!-- Last Name -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="lastname">{{
-                      'users.form.lastnameLabel' | translate
-                    }}</label>
-                    <input
-                      [placeholder]="'users.form.nameHint' | translate"
-                      class="form-control"
-                      formControlName="lastname"
-                      id="lastname"
-                      pInputText
-                      type="text"
-                    />
-                    @if (isFieldInvalid('lastname')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('lastname') }}</div>
-                    }
-                  </div>
-
-                  <!-- Address -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="address">{{
-                      'users.address' | translate
-                    }}</label>
-                    <input
-                      [placeholder]="'users.form.addressHint' | translate"
-                      class="form-control"
-                      formControlName="address"
-                      id="address"
-                      pInputText
-                      type="text"
-                    />
-                  </div>
-
-                  <!-- Telephone -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="telephone">{{
-                      'users.telephone' | translate
-                    }}</label>
-                    <input
-                      [placeholder]="'users.form.telephoneHint' | translate"
-                      class="form-control"
-                      formControlName="telephone"
-                      id="telephone"
-                      pInputText
-                      type="tel"
-                    />
-                    @if (isFieldInvalid('telephone')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('telephone') }}</div>
-                    }
-                  </div>
-
-                  <!-- Gender -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="gender">{{
-                      'users.form.gender' | translate
-                    }}</label>
-                    <p-select
-                      [options]="genderOptions"
-                      [placeholder]="'users.form.selectGender' | translate"
-                      [showClear]="true"
-                      class="w-100"
-                      formControlName="gender"
-                      id="gender"
-                      optionLabel="label"
-                      optionValue="value"
-                    >
-                      <ng-template #item let-option>{{ option.label | translate }}</ng-template>
-                      <ng-template #selectedItem let-option
-                        >{{ option?.label | translate }}
-                      </ng-template>
-                    </p-select>
-                  </div>
-
-                  <!-- Age -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="age">{{ 'users.form.age' | translate }}</label>
-                    <p-inputNumber
-                      [max]="150"
-                      [min]="0"
-                      class="w-100"
-                      formControlName="age"
-                      id="age"
-                      placeholder="0-150"
-                    ></p-inputNumber>
-                    @if (isFieldInvalid('age')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('age') }}</div>
-                    }
-                  </div>
-
-                  <!-- Status -->
-                  <div class="col-12 col-md-6">
-                    <label class="form-label" for="status">{{
-                      'users.form.status' | translate
-                    }}</label>
-                    <p-select
-                      [options]="statusOptions"
-                      [placeholder]="'users.form.selectStatus' | translate"
-                      class="w-100"
-                      formControlName="status"
-                      id="status"
-                      optionLabel="label"
-                      optionValue="value"
-                    >
-                      <ng-template #item let-option>{{ option.label | translate }}</ng-template>
-                      <ng-template #selectedItem let-option
-                        >{{ option?.label | translate }}
-                      </ng-template>
-                    </p-select>
-                  </div>
-                </div>
-
-                <div
-                  class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4 pt-3 border-top"
-                >
-                  <p-button
-                    [disabled]="!userForm.valid || isLoading() || isSubmitting"
-                    [label]="
-                      isEditMode ? ('common.update' | translate) : ('common.create' | translate)
-                    "
-                    [loading]="isSubmitting"
-                    icon="pi pi-check"
-                    severity="primary"
-                    type="submit"
-                  >
-                  </p-button>
-                  <p-button
-                    (onClick)="onCancel()"
-                    [disabled]="isLoading() || isSubmitting"
-                    [label]="'common.cancel' | translate"
-                    icon="pi pi-times"
-                    severity="secondary"
-                    type="button"
-                  >
-                  </p-button>
-                </div>
-              </form>
-            }
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-9">
+      <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+        <div class="d-flex align-items-start gap-3">
+          <p-button
+            (onClick)="onCancel()"
+            [text]="true"
+            icon="pi pi-arrow-left"
+            severity="secondary"
+            styleClass="flex-shrink-0"
+          />
+          <div>
+            <h1 class="h3 mb-1">
+              {{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}
+            </h1>
+            <p class="text-body-secondary mb-0">
+              {{ (isEditMode ? 'users.editDescription' : 'users.createDescription') | translate }}
+            </p>
           </div>
         </div>
       </div>
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          @if (isLoading()) {
+            <div class="d-flex justify-content-center align-items-center py-5">
+              <p-progressSpinner
+                [ariaLabel]="'common.loading' | translate"
+                [style]="{ width: '40px', height: '40px' }"
+                strokeWidth="4"
+              />
+            </div>
+          } @else {
+            <form (ngSubmit)="onSubmit()" [formGroup]="userForm" novalidate>
+              <div class="row g-3">
+                <!-- Identification -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="identification"
+                    >{{ 'users.identification' | translate }} *</label
+                  >
+                  <input
+                    [placeholder]="'users.form.identificationHint' | translate"
+                    class="form-control"
+                    formControlName="identification"
+                    id="identification"
+                    pInputText
+                    type="text"
+                  />
+                  @if (isFieldInvalid('identification')) {
+                    <div class="invalid-feedback d-block">
+                      {{ getFieldError('identification') }}
+                    </div>
+                  }
+                </div>
+
+                <!-- Username -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="username">{{
+                    'users.form.usernameLabel' | translate
+                  }}</label>
+                  <input
+                    [placeholder]="'users.form.usernameHint' | translate"
+                    class="form-control"
+                    formControlName="username"
+                    id="username"
+                    pInputText
+                    type="text"
+                  />
+                  @if (isFieldInvalid('username')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('username') }}</div>
+                  }
+                </div>
+
+                <!-- Password -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="password"
+                    >{{ 'users.form.passwordLabel' | translate }}
+                    {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label
+                  >
+                  <input
+                    [placeholder]="'users.form.passwordHint' | translate"
+                    class="form-control"
+                    formControlName="password"
+                    id="password"
+                    pInputText
+                    type="password"
+                  />
+                  @if (isFieldInvalid('password')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('password') }}</div>
+                  }
+                </div>
+
+                <!-- Name -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="name">{{
+                    'users.form.nameLabel' | translate
+                  }}</label>
+                  <input
+                    [placeholder]="'users.form.nameHint' | translate"
+                    class="form-control"
+                    formControlName="name"
+                    id="name"
+                    pInputText
+                    type="text"
+                  />
+                  @if (isFieldInvalid('name')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('name') }}</div>
+                  }
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="lastname">{{
+                    'users.form.lastnameLabel' | translate
+                  }}</label>
+                  <input
+                    [placeholder]="'users.form.nameHint' | translate"
+                    class="form-control"
+                    formControlName="lastname"
+                    id="lastname"
+                    pInputText
+                    type="text"
+                  />
+                  @if (isFieldInvalid('lastname')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('lastname') }}</div>
+                  }
+                </div>
+
+                <!-- Address -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="address">{{ 'users.address' | translate }}</label>
+                  <input
+                    [placeholder]="'users.form.addressHint' | translate"
+                    class="form-control"
+                    formControlName="address"
+                    id="address"
+                    pInputText
+                    type="text"
+                  />
+                </div>
+
+                <!-- Telephone -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="telephone">{{
+                    'users.telephone' | translate
+                  }}</label>
+                  <input
+                    [placeholder]="'users.form.telephoneHint' | translate"
+                    class="form-control"
+                    formControlName="telephone"
+                    id="telephone"
+                    pInputText
+                    type="tel"
+                  />
+                  @if (isFieldInvalid('telephone')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('telephone') }}</div>
+                  }
+                </div>
+
+                <!-- Gender -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="gender">{{
+                    'users.form.gender' | translate
+                  }}</label>
+                  <p-select
+                    [options]="genderOptions"
+                    [placeholder]="'users.form.selectGender' | translate"
+                    [showClear]="true"
+                    class="w-100"
+                    formControlName="gender"
+                    id="gender"
+                    optionLabel="label"
+                    optionValue="value"
+                  >
+                    <ng-template #item let-option>{{ option.label | translate }}</ng-template>
+                    <ng-template #selectedItem let-option
+                      >{{ option?.label | translate }}
+                    </ng-template>
+                  </p-select>
+                </div>
+
+                <!-- Age -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="age">{{ 'users.form.age' | translate }}</label>
+                  <p-inputNumber
+                    [max]="150"
+                    [min]="0"
+                    class="w-100"
+                    formControlName="age"
+                    id="age"
+                    placeholder="0-150"
+                  ></p-inputNumber>
+                  @if (isFieldInvalid('age')) {
+                    <div class="invalid-feedback d-block">{{ getFieldError('age') }}</div>
+                  }
+                </div>
+
+                <!-- Status -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="status">{{
+                    'users.form.status' | translate
+                  }}</label>
+                  <p-select
+                    [options]="statusOptions"
+                    [placeholder]="'users.form.selectStatus' | translate"
+                    class="w-100"
+                    formControlName="status"
+                    id="status"
+                    optionLabel="label"
+                    optionValue="value"
+                  >
+                    <ng-template #item let-option>{{ option.label | translate }}</ng-template>
+                    <ng-template #selectedItem let-option
+                      >{{ option?.label | translate }}
+                    </ng-template>
+                  </p-select>
+                </div>
+              </div>
+
+              <div
+                class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4 pt-3 border-top"
+              >
+                <p-button
+                  [disabled]="!userForm.valid || isLoading() || isSubmitting"
+                  [label]="
+                    isEditMode ? ('common.update' | translate) : ('common.create' | translate)
+                  "
+                  [loading]="isSubmitting"
+                  icon="pi pi-check"
+                  severity="primary"
+                  type="submit"
+                >
+                </p-button>
+                <p-button
+                  (onClick)="onCancel()"
+                  [disabled]="isLoading() || isSubmitting"
+                  [label]="'common.cancel' | translate"
+                  icon="pi pi-times"
+                  severity="secondary"
+                  type="button"
+                >
+                </p-button>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
     </div>
+  </div>
 </section>

@@ -6,7 +6,9 @@
           <span aria-hidden="true" class="brand-symbol"><i class="pi pi-chart-line"></i></span>
           <span class="brand-mark">MSC</span>
         </div>
-        <span class="brand-status"><span aria-hidden="true"></span> {{ 'login.online' | translate }}</span>
+        <span class="brand-status"
+          ><span aria-hidden="true"></span> {{ 'login.online' | translate }}</span
+        >
       </div>
 
       <div class="brand-content">
@@ -42,13 +44,17 @@
           [attr.aria-pressed]="language.currentLanguage() === 'es'"
           [class.active]="language.currentLanguage() === 'es'"
           type="button"
-        >ES</button>
+        >
+          ES
+        </button>
         <button
           (click)="setLanguage('en')"
           [attr.aria-pressed]="language.currentLanguage() === 'en'"
           [class.active]="language.currentLanguage() === 'en'"
           type="button"
-        >EN</button>
+        >
+          EN
+        </button>
       </fieldset>
 
       <div class="access-card">
@@ -71,7 +77,9 @@
             <i aria-hidden="true" class="pi pi-arrow-right"></i>
           }
         </button>
-        <p class="security-note"><i aria-hidden="true" class="pi pi-shield"></i> {{ 'login.note' | translate }}</p>
+        <p class="security-note">
+          <i aria-hidden="true" class="pi pi-shield"></i> {{ 'login.note' | translate }}
+        </p>
       </div>
 
       <p class="access-footer">{{ 'login.footer' | translate }}</p>

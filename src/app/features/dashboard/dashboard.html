@@ -1,51 +1,51 @@
 <section class="dashboard-page">
-    <div class="row align-items-center g-4 g-lg-5">
-      <div class="col-12">
-        <p class="text-uppercase fw-bold small text-primary-emphasis letter-spacing mb-3">
-          {{ 'dashboard.workspace' | translate }}
-        </p>
-        <h1 class="display-5 fw-bold mb-3">{{ 'dashboard.activeSession' | translate }}</h1>
-        <p class="lead text-secondary mb-0">{{ 'dashboard.description' | translate }}</p>
-      </div>
+  <div class="row align-items-center g-4 g-lg-5">
+    <div class="col-12">
+      <p class="text-uppercase fw-bold small text-primary-emphasis letter-spacing mb-3">
+        {{ 'dashboard.workspace' | translate }}
+      </p>
+      <h1 class="display-5 fw-bold mb-3">{{ 'dashboard.activeSession' | translate }}</h1>
+      <p class="lead text-secondary mb-0">{{ 'dashboard.description' | translate }}</p>
+    </div>
 
-      <div class="col-12 col-lg-6">
-        <div class="card h-100 border-0 border-top border-4 border-primary shadow-sm">
-          <div class="card-body p-4 p-md-5">
-            <div
-              class="feature-icon bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
-            >
-              <i aria-hidden="true" class="pi pi-users fs-3"></i>
-            </div>
-            <h2 class="h3 card-title fw-bold">{{ 'dashboard.userManagement' | translate }}</h2>
-            <p class="card-text text-secondary mb-4">
-              {{ 'dashboard.userDescription' | translate }}
-            </p>
-            <a class="btn btn-primary" routerLink="/users">
-              {{ 'dashboard.goToUsers' | translate }}
-              <i aria-hidden="true" class="pi pi-arrow-right ms-2"></i>
-            </a>
+    <div class="col-12 col-lg-6">
+      <div class="card h-100 border-0 border-top border-4 border-primary shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <div
+            class="feature-icon bg-primary-subtle text-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+          >
+            <i aria-hidden="true" class="pi pi-users fs-3"></i>
           </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-lg-6">
-        <div class="card h-100 border-0 border-top border-4 border-success shadow-sm">
-          <div class="card-body p-4 p-md-5">
-            <div
-              class="feature-icon bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
-            >
-              <i aria-hidden="true" class="pi pi-wallet fs-3"></i>
-            </div>
-            <h2 class="h3 card-title fw-bold">{{ 'dashboard.accountManagement' | translate }}</h2>
-            <p class="card-text text-secondary mb-4">
-              {{ 'dashboard.accountDescription' | translate }}
-            </p>
-            <a class="btn btn-success" routerLink="/accounts">
-              {{ 'dashboard.goToAccounts' | translate }}
-              <i aria-hidden="true" class="pi pi-arrow-right ms-2"></i>
-            </a>
-          </div>
+          <h2 class="h3 card-title fw-bold">{{ 'dashboard.userManagement' | translate }}</h2>
+          <p class="card-text text-secondary mb-4">
+            {{ 'dashboard.userDescription' | translate }}
+          </p>
+          <a class="btn btn-primary" routerLink="/users">
+            {{ 'dashboard.goToUsers' | translate }}
+            <i aria-hidden="true" class="pi pi-arrow-right ms-2"></i>
+          </a>
         </div>
       </div>
     </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card h-100 border-0 border-top border-4 border-success shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <div
+            class="feature-icon bg-success-subtle text-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+          >
+            <i aria-hidden="true" class="pi pi-wallet fs-3"></i>
+          </div>
+          <h2 class="h3 card-title fw-bold">{{ 'dashboard.accountManagement' | translate }}</h2>
+          <p class="card-text text-secondary mb-4">
+            {{ 'dashboard.accountDescription' | translate }}
+          </p>
+          <a class="btn btn-success" routerLink="/accounts">
+            {{ 'dashboard.goToAccounts' | translate }}
+            <i aria-hidden="true" class="pi pi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

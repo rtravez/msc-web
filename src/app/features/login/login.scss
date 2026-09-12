@@ -211,11 +211,23 @@ h1 em {
   background: rgba(255, 255, 255, 0.34);
 }
 
-.insight-chart span:nth-child(2) { height: 52%; }
-.insight-chart span:nth-child(3) { height: 44%; }
-.insight-chart span:nth-child(4) { height: 74%; background: #68a7ff; }
-.insight-chart span:nth-child(5) { height: 62%; }
-.insight-chart span:nth-child(6) { height: 90%; background: #fff; }
+.insight-chart span:nth-child(2) {
+  height: 52%;
+}
+.insight-chart span:nth-child(3) {
+  height: 44%;
+}
+.insight-chart span:nth-child(4) {
+  height: 74%;
+  background: #68a7ff;
+}
+.insight-chart span:nth-child(5) {
+  height: 62%;
+}
+.insight-chart span:nth-child(6) {
+  height: 90%;
+  background: #fff;
+}
 
 .insight-label span {
   display: block;
@@ -224,8 +236,13 @@ h1 em {
   background: rgba(255, 255, 255, 0.35);
 }
 
-.insight-label span:first-child { width: 4rem; }
-.insight-label span:last-child { width: 2rem; margin-left: auto; }
+.insight-label span:first-child {
+  width: 4rem;
+}
+.insight-label span:last-child {
+  width: 2rem;
+  margin-left: auto;
+}
 
 .brand-footer {
   color: rgba(255, 255, 255, 0.58);
@@ -321,7 +338,10 @@ h1 em {
   box-shadow: 0 0.5rem 1rem rgba(47, 128, 237, 0.2);
   font-weight: 700;
   cursor: pointer;
-  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .login-action:hover:not(:disabled) {
@@ -347,22 +367,52 @@ h1 em {
   line-height: 1.5;
 }
 
-.security-note i { color: #38b982; }
-.access-footer { margin: 0; text-align: center; }
+.security-note i {
+  color: #38b982;
+}
+.access-footer {
+  margin: 0;
+  text-align: center;
+}
 
 @media (max-width: 991.98px) {
-  .login-shell { grid-template-columns: 1fr; }
-  .brand-panel { min-height: 36rem; }
-  .brand-content { padding: 3rem 0; }
-  .access-panel { min-height: 42rem; }
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+  .brand-panel {
+    min-height: 36rem;
+  }
+  .brand-content {
+    padding: 3rem 0;
+  }
+  .access-panel {
+    min-height: 42rem;
+  }
 }
 
 @media (max-width: 575.98px) {
-  .login-page { padding: 0; }
-  .login-shell { min-height: 100vh; border-radius: 0; }
-  .brand-panel { min-height: 31rem; padding: 1.75rem; }
-  .access-panel { min-height: 38rem; padding: 2rem 1.75rem; }
-  .brand-status { display: none; }
-  .brand-footer { font-size: 0.68rem; }
-  .footer-line { margin: 0 0.6rem; }
+  .login-page {
+    padding: 0;
+  }
+  .login-shell {
+    min-height: 100vh;
+    border-radius: 0;
+  }
+  .brand-panel {
+    min-height: 31rem;
+    padding: 1.75rem;
+  }
+  .access-panel {
+    min-height: 38rem;
+    padding: 2rem 1.75rem;
+  }
+  .brand-status {
+    display: none;
+  }
+  .brand-footer {
+    font-size: 0.68rem;
+  }
+  .footer-line {
+    margin: 0 0.6rem;
+  }
 }

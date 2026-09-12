@@ -18,12 +18,7 @@
         <i aria-hidden="true" class="pi pi-home"></i>
         <span>{{ 'dashboard.home' | translate }}</span>
       </a>
-      <a
-        (click)="navigate.emit()"
-        class="nav-link"
-        routerLink="/users"
-        routerLinkActive="active"
-      >
+      <a (click)="navigate.emit()" class="nav-link" routerLink="/users" routerLinkActive="active">
         <i aria-hidden="true" class="pi pi-users"></i>
         <span>{{ 'dashboard.users' | translate }}</span>
       </a>
