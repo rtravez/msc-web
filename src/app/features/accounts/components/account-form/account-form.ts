@@ -17,7 +17,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { Account, AccountRequest } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -44,7 +43,6 @@ export interface AccountFormControls {
     SelectModule,
     ToastModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService],
 })

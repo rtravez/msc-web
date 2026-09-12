@@ -10,7 +10,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { Movement } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
@@ -28,7 +27,6 @@ import { MovementService } from '../../services/movement.service';
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService, ConfirmationService],
 })

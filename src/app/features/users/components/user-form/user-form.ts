@@ -19,7 +19,6 @@ import { User, UserRequest } from '../../models/user.interface';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface UserFormControls {
@@ -54,7 +53,6 @@ export interface UserFormControls {
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
-    MainLayout,
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],

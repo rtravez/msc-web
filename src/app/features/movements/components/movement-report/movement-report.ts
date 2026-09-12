@@ -17,7 +17,6 @@ import { SelectModule } from 'primeng/select';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { MovementReportResponse } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
@@ -43,7 +42,6 @@ export interface ReportFormControls {
     TableModule,
     ToastModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService],
 })

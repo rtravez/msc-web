@@ -11,7 +11,6 @@ import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { Account } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -30,7 +29,6 @@ import { AccountService } from '../../services/account.service';
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService, ConfirmationService],
 })

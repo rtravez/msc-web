@@ -15,7 +15,6 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 
 @Component({
   selector: 'app-user-list',
@@ -33,7 +32,6 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService, ConfirmationService],
 })

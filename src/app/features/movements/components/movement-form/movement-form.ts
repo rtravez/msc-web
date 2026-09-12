@@ -17,7 +17,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
-import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { AccountService } from '../../../accounts/services/account.service';
 import { Movement, MovementRequest } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
@@ -43,7 +42,6 @@ export interface MovementFormControls {
     SelectModule,
     ToastModule,
     TranslatePipe,
-    MainLayout,
   ],
   providers: [MessageService],
 })
