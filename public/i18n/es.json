@@ -25,14 +25,18 @@
   },
   "login": {
     "workspace": "Espacio de trabajo para clientes",
+    "online": "Sistema en línea",
     "headline": "Tu operación,<br><em>en movimiento.</em>",
+    "headlineAccessible": "Tu operación, en movimiento.",
     "description": "Gestiona clientes y decisiones diarias desde un solo lugar.",
+    "trusted": "Acceso centralizado y protegido",
     "secureAccess": "Acceso seguro",
     "title": "Inicia sesión",
     "intro": "Usa tus credenciales de MSC para continuar.",
     "connecting": "Conectando...",
     "continue": "Continuar con mi cuenta",
-    "note": "Serás dirigido al acceso protegido de Spring Security."
+    "note": "Serás dirigido al acceso protegido de Spring Security.",
+    "footer": "© 2026 MSC Management · Todos los derechos reservados"
   },
   "dashboard": {
     "brand": "MSC Management",
