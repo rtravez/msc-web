@@ -21,7 +21,7 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { MovementReportResponse } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
-type ReportFormControls = {
+export interface ReportFormControls {
   initialDate: FormControl<string>;
   finalDate: FormControl<string>;
   identification: FormControl<string>;

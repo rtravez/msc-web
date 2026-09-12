@@ -21,7 +21,7 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { Account, AccountRequest } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
-type AccountFormControls = {
+export interface AccountFormControls {
   accountId: FormControl<number | null>;
   accountNumber: FormControl<number | null>;
   accountType: FormControl<string>;

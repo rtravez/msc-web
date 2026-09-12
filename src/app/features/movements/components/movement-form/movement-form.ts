@@ -22,7 +22,7 @@ import { AccountService } from '../../../accounts/services/account.service';
 import { Movement, MovementRequest } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
-type MovementFormControls = {
+export interface MovementFormControls {
   movementId: FormControl<number | null>;
   movementType: FormControl<'D' | 'R'>;
   amount: FormControl<number | null>;

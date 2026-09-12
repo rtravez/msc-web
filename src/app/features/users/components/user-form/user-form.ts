@@ -22,7 +22,7 @@ import { UserService } from '../../services/user.service';
 import { MainLayout } from '../../../../layout/main-layout/main-layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-type UserFormControls = {
+export interface UserFormControls {
   userId: FormControl<number | null>;
   identification: FormControl<string>;
   username: FormControl<string>;
