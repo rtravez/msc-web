@@ -4,9 +4,16 @@
     <div class="row justify-content-center">
       <div class="col-12 col-lg-9">
         <div class="d-flex align-items-start gap-3 mb-4">
-          <p-button (onClick)="onCancel()" [text]="true" icon="pi pi-arrow-left" severity="secondary"/>
+          <p-button
+            (onClick)="onCancel()"
+            [text]="true"
+            icon="pi pi-arrow-left"
+            severity="secondary"
+          />
           <div>
-            <h1 class="h3 mb-1">{{ (isEditMode ? 'movements.editTitle' : 'movements.createTitle') | translate }}</h1>
+            <h1 class="h3 mb-1">
+              {{ (isEditMode ? 'movements.editTitle' : 'movements.createTitle') | translate }}
+            </h1>
             <p class="text-body-secondary mb-0">{{ 'movements.formDescription' | translate }}</p>
           </div>
         </div>
@@ -14,48 +21,86 @@
           <div class="card-body p-4 p-md-5">
             @if (isLoading()) {
               <div class="d-flex justify-content-center py-5">
-                <p-progressSpinner strokeWidth="4"/>
+                <p-progressSpinner strokeWidth="4" />
               </div>
             } @else {
               <form (ngSubmit)="onSubmit()" [formGroup]="movementForm" novalidate>
                 <div class="row g-3">
-                  <div class="col-12 col-md-6"><label class="form-label"
-                                                      for="movementType">{{ 'movements.type' | translate }} *</label>
-                    <p-select [options]="movementTypes" class="w-100" formControlName="movementType"
-                              inputId="movementType" optionLabel="label" optionValue="value">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="movementType"
+                      >{{ 'movements.type' | translate }} *</label
+                    >
+                    <p-select
+                      [options]="movementTypes"
+                      class="w-100"
+                      formControlName="movementType"
+                      inputId="movementType"
+                      optionLabel="label"
+                      optionValue="value"
+                    >
                       <ng-template #item let-option>{{ option.label | translate }}</ng-template>
-                      <ng-template #selectedItem let-option>{{ option?.label | translate }}</ng-template>
+                      <ng-template #selectedItem let-option>{{
+                        option?.label | translate
+                      }}</ng-template>
                     </p-select>
                     @if (isFieldInvalid('movementType')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('movementType') }}</div>
+                      <div class="invalid-feedback d-block">
+                        {{ getFieldError('movementType') }}
+                      </div>
                     }
                   </div>
-                  <div class="col-12 col-md-6"><label class="form-label"
-                                                      for="amount">{{ 'movements.amount' | translate }} *</label>
-                    <p-inputNumber [maxFractionDigits]="2" [minFractionDigits]="2" [min]="0.01" class="w-100"
-                                   formControlName="amount" inputId="amount" mode="decimal"/>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="amount"
+                      >{{ 'movements.amount' | translate }} *</label
+                    >
+                    <p-inputNumber
+                      [maxFractionDigits]="2"
+                      [minFractionDigits]="2"
+                      [min]="0.01"
+                      class="w-100"
+                      formControlName="amount"
+                      inputId="amount"
+                      mode="decimal"
+                    />
                     @if (isFieldInvalid('amount')) {
                       <div class="invalid-feedback d-block">{{ getFieldError('amount') }}</div>
                     }
                   </div>
-                  <div class="col-12 col-md-6"><label class="form-label"
-                                                      for="accountNumber">{{ 'movements.accountNumber' | translate }}
-                    *</label>
-                    <p-inputNumber [useGrouping]="false" class="w-100" formControlName="accountNumber"
-                                   inputId="accountNumber"/>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="accountNumber"
+                      >{{ 'movements.accountNumber' | translate }} *</label
+                    >
+                    <p-inputNumber
+                      [useGrouping]="false"
+                      class="w-100"
+                      formControlName="accountNumber"
+                      inputId="accountNumber"
+                    />
                     @if (isFieldInvalid('accountNumber')) {
-                      <div class="invalid-feedback d-block">{{ getFieldError('accountNumber') }}</div>
+                      <div class="invalid-feedback d-block">
+                        {{ getFieldError('accountNumber') }}
+                      </div>
                     }
                   </div>
                 </div>
                 <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
-                  <p-button [disabled]="movementForm.invalid || isLoading() || isSubmitting"
-                            [label]="isEditMode ? ('common.update' | translate) : ('common.create' | translate)"
-                            [loading]="isSubmitting" icon="pi pi-check"
-                            type="submit"/>
-                  <p-button (onClick)="onCancel()" [disabled]="isLoading() || isSubmitting"
-                            [label]="'common.cancel' | translate"
-                            icon="pi pi-times" severity="secondary" type="button"/>
+                  <p-button
+                    [disabled]="movementForm.invalid || isLoading() || isSubmitting"
+                    [label]="
+                      isEditMode ? ('common.update' | translate) : ('common.create' | translate)
+                    "
+                    [loading]="isSubmitting"
+                    icon="pi pi-check"
+                    type="submit"
+                  />
+                  <p-button
+                    (onClick)="onCancel()"
+                    [disabled]="isLoading() || isSubmitting"
+                    [label]="'common.cancel' | translate"
+                    icon="pi pi-times"
+                    severity="secondary"
+                    type="button"
+                  />
                 </div>
               </form>
             }

@@ -4,21 +4,24 @@
 
 .app-sidebar {
   width: 260px;
-  transition: width 0.25s ease,
-  padding 0.25s ease,
-  opacity 0.25s ease;
+  transition:
+    width 0.25s ease,
+    padding 0.25s ease,
+    opacity 0.25s ease;
   overflow: hidden;
 }
 
 .sidebar-inner {
-  transition: opacity 0.2s ease,
-  visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
 .nav-link {
   color: #212529;
-  transition: background-color 0.2s ease,
-  color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .nav-link:hover,
