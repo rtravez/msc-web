@@ -1,49 +1,48 @@
 <app-main-layout>
   <section class="dashboard-page">
-    <div class="container py-4 py-md-5">
-      <p-toast></p-toast>
+    <p-toast></p-toast>
 
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-10 col-xl-9">
-          <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
-            <div class="d-flex align-items-start gap-3">
-              <p-button
-                icon="pi pi-arrow-left"
-                [text]="true"
-                severity="secondary"
-                (onClick)="onCancel()"
-                styleClass="flex-shrink-0"
-              />
-              <div>
-                <h1 class="h3 mb-1">
-                  {{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}
-                </h1>
-                <p class="text-body-secondary mb-0">
-                  {{
-                    (isEditMode ? 'users.editDescription' : 'users.createDescription') | translate
-                  }}
-                </p>
-              </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-9">
+        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+          <div class="d-flex align-items-start gap-3">
+            <p-button
+              icon="pi pi-arrow-left"
+              [text]="true"
+              severity="secondary"
+              (onClick)="onCancel()"
+              styleClass="flex-shrink-0"
+            />
+            <div>
+              <h1 class="h3 mb-1">
+                {{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}
+              </h1>
+              <p class="text-body-secondary mb-0">
+                {{
+                  (isEditMode ? 'users.editDescription' : 'users.createDescription') | translate
+                }}
+              </p>
             </div>
           </div>
+        </div>
 
-          <div class="card border-0 shadow-sm">
-            <div class="card-body p-4 p-md-5">
-              @if (isLoading()) {
-                <div class="d-flex justify-content-center align-items-center py-5">
-                  <p-progressSpinner
-                    [style]="{ width: '40px', height: '40px' }"
-                    strokeWidth="4"
-                    [ariaLabel]="'common.loading' | translate"
-                  />
-                </div>
-              } @else {
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-md-5">
+            @if (isLoading()) {
+              <div class="d-flex justify-content-center align-items-center py-5">
+                <p-progressSpinner
+                  [style]="{ width: '40px', height: '40px' }"
+                  strokeWidth="4"
+                  [ariaLabel]="'common.loading' | translate"
+                />
+              </div>
+            } @else {
               <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
                 <div class="row g-3">
                   <!-- Identification -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="identification"
-                      >{{ 'users.identification' | translate }} *</label
+                    >{{ 'users.identification' | translate }} *</label
                     >
                     <input
                       pInputText
@@ -63,8 +62,8 @@
                   <!-- Username -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="username">{{
-                      'users.form.usernameLabel' | translate
-                    }}</label>
+                        'users.form.usernameLabel' | translate
+                      }}</label>
                     <input
                       pInputText
                       id="username"
@@ -81,7 +80,7 @@
                   <!-- Password -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="password"
-                      >{{ 'users.form.passwordLabel' | translate }}
+                    >{{ 'users.form.passwordLabel' | translate }}
                       {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label
                     >
                     <input
@@ -100,8 +99,8 @@
                   <!-- Name -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="name">{{
-                      'users.form.nameLabel' | translate
-                    }}</label>
+                        'users.form.nameLabel' | translate
+                      }}</label>
                     <input
                       pInputText
                       id="name"
@@ -118,8 +117,8 @@
                   <!-- Last Name -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="lastname">{{
-                      'users.form.lastnameLabel' | translate
-                    }}</label>
+                        'users.form.lastnameLabel' | translate
+                      }}</label>
                     <input
                       pInputText
                       id="lastname"
@@ -136,8 +135,8 @@
                   <!-- Address -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="address">{{
-                      'users.address' | translate
-                    }}</label>
+                        'users.address' | translate
+                      }}</label>
                     <input
                       pInputText
                       id="address"
@@ -151,8 +150,8 @@
                   <!-- Telephone -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="telephone">{{
-                      'users.telephone' | translate
-                    }}</label>
+                        'users.telephone' | translate
+                      }}</label>
                     <input
                       pInputText
                       id="telephone"
@@ -169,8 +168,8 @@
                   <!-- Gender -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="gender">{{
-                      'users.form.gender' | translate
-                    }}</label>
+                        'users.form.gender' | translate
+                      }}</label>
                     <p-select
                       id="gender"
                       class="w-100"
@@ -183,8 +182,9 @@
                     >
                       <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                       <ng-template #selectedItem let-option>{{
-                        option?.label | translate
-                      }}</ng-template>
+                          option?.label | translate
+                        }}
+                      </ng-template>
                     </p-select>
                   </div>
 
@@ -207,8 +207,8 @@
                   <!-- Status -->
                   <div class="col-12 col-md-6">
                     <label class="form-label" for="status">{{
-                      'users.form.status' | translate
-                    }}</label>
+                        'users.form.status' | translate
+                      }}</label>
                     <p-select
                       id="status"
                       class="w-100"
@@ -220,8 +220,9 @@
                     >
                       <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                       <ng-template #selectedItem let-option>{{
-                        option?.label | translate
-                      }}</ng-template>
+                          option?.label | translate
+                        }}
+                      </ng-template>
                     </p-select>
                   </div>
                 </div>
@@ -251,8 +252,7 @@
                   </p-button>
                 </div>
               </form>
-              }
-            </div>
+            }
           </div>
         </div>
       </div>

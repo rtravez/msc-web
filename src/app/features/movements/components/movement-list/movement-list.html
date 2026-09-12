@@ -1,0 +1,68 @@
+<app-main-layout>
+  <section class="dashboard-page">
+    <p-toast></p-toast>
+    <p-confirm-dialog />
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+      <div>
+        <h1 class="h3 mb-1">{{ 'movements.title' | translate }}</h1>
+        <p class="text-body-secondary mb-0">{{ 'movements.description' | translate }}</p>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <p-button [label]="'movements.report' | translate" icon="pi pi-chart-bar" severity="secondary"
+                  (onClick)="showReport()" />
+        <p-button [label]="'movements.new' | translate" icon="pi pi-plus" (onClick)="showNewMovement()" />
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        @if (isLoading()) {
+          <div class="d-flex justify-content-center align-items-center py-5">
+            <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4" />
+          </div>
+        } @else {
+          <p-table [value]="movements()" [paginator]="true" [lazy]="true" [rows]="pageSize()"
+                   [totalRecords]="totalRecords()" [first]="currentPage() * pageSize()"
+                   [rowsPerPageOptions]="[10, 20, 50]" (onPage)="onPageChange($event)"
+                   [tableStyle]="{ 'min-width': '60rem' }">
+            <ng-template #header>
+              <tr>
+                <th>{{ 'movements.date' | translate }}</th>
+                <th>{{ 'movements.type' | translate }}</th>
+                <th>{{ 'movements.value' | translate }}</th>
+                <th>{{ 'movements.balance' | translate }}</th>
+                <th>{{ 'movements.accountId' | translate }}</th>
+                <th>{{ 'movements.actions' | translate }}</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-movement>
+              <tr>
+                <td>{{ movement.movementDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td><span class="movement-type"
+                          [class.withdrawal]="movement.movementType === 'R'">{{ movement.movementType }}</span></td>
+                <td>{{ movement.movementValue | number: '1.2-2' }}</td>
+                <td>{{ movement.availableBalance | number: '1.2-2' }}</td>
+                <td>{{ movement.accountId }}</td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <p-button icon="pi pi-pencil" [rounded]="true" severity="warn"
+                              [attr.aria-label]="'movements.edit' | translate"
+                              (onClick)="editMovement(movement)" [pTooltip]="'movements.edit' | translate" />
+                    <p-button icon="pi pi-trash" [rounded]="true" severity="danger"
+                              [attr.aria-label]="'movements.delete' | translate"
+                              (onClick)="confirmDelete(movement)" [pTooltip]="'movements.delete' | translate" />
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6">{{ 'movements.emptyState' | translate }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        }
+      </div>
+    </div>
+  </section>
+</app-main-layout>
