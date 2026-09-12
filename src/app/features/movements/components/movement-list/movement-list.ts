@@ -33,19 +33,18 @@ import { MovementService } from '../../services/movement.service';
   providers: [MessageService, ConfirmationService],
 })
 export class MovementList implements OnInit {
-  private readonly movementService = inject(MovementService);
-  private readonly messageService = inject(MessageService);
-  private readonly confirmationService = inject(ConfirmationService);
-  private readonly translate = inject(TranslateService);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-
   movements = signal<Movement[]>([]);
   totalRecords = signal(0);
   currentPage = signal(0);
   pageSize = signal(20);
   isLoading = signal(false);
   isSubmitting = signal(false);
+  private readonly movementService = inject(MovementService);
+  private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.loadMovements();

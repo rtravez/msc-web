@@ -5,9 +5,9 @@ export type SupportedLanguage = 'es' | 'en';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
+  readonly currentLanguage = signal<SupportedLanguage>('es');
   private readonly translate = inject(TranslateService);
   private readonly storageKey = 'msc-language';
-  readonly currentLanguage = signal<SupportedLanguage>('es');
 
   constructor() {
     const savedLanguage = localStorage.getItem(this.storageKey);

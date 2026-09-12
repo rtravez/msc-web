@@ -1,7 +1,7 @@
 <aside
-  class="app-sidebar bg-white border-end h-100 p-3"
-  [class.sidebar-collapsed]="!open"
   [attr.aria-label]="'accessibility.sidebarNavigation' | translate"
+  [class.sidebar-collapsed]="!open"
+  class="app-sidebar bg-white border-end h-100 p-3"
 >
   <div class="sidebar-inner d-flex flex-column gap-3">
     <p class="sidebar-label mb-0 text-uppercase fw-bold text-secondary small">
@@ -9,12 +9,12 @@
     </p>
     <nav class="nav flex-column gap-2">
       <a
+        [routerLinkActiveOptions]="{ exact: true }"
         class="nav-link rounded-2 px-3 py-2 d-flex align-items-center gap-2 text-dark"
         routerLink="/dashboard"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
       >
-        <i class="pi pi-home" aria-hidden="true"></i>
+        <i aria-hidden="true" class="pi pi-home"></i>
         <span>{{ 'dashboard.home' | translate }}</span>
       </a>
       <a
@@ -22,7 +22,7 @@
         routerLink="/users"
         routerLinkActive="active"
       >
-        <i class="pi pi-users" aria-hidden="true"></i>
+        <i aria-hidden="true" class="pi pi-users"></i>
         <span>{{ 'dashboard.users' | translate }}</span>
       </a>
       <a
@@ -30,7 +30,7 @@
         routerLink="/accounts"
         routerLinkActive="active"
       >
-        <i class="pi pi-wallet" aria-hidden="true"></i>
+        <i aria-hidden="true" class="pi pi-wallet"></i>
         <span>{{ 'dashboard.accounts' | translate }}</span>
       </a>
       <a
@@ -38,7 +38,7 @@
         routerLink="/movements"
         routerLinkActive="active"
       >
-        <i class="pi pi-arrow-right-arrow-left" aria-hidden="true"></i>
+        <i aria-hidden="true" class="pi pi-arrow-right-arrow-left"></i>
         <span>{{ 'dashboard.movements' | translate }}</span>
       </a>
     </nav>

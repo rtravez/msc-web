@@ -35,19 +35,18 @@ import { AccountService } from '../../services/account.service';
   providers: [MessageService, ConfirmationService],
 })
 export class AccountList implements OnInit {
-  private readonly accountService = inject(AccountService);
-  private readonly messageService = inject(MessageService);
-  private readonly confirmationService = inject(ConfirmationService);
-  private readonly translate = inject(TranslateService);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-
   accounts = signal<Account[]>([]);
   totalRecords = signal(0);
   currentPage = signal(0);
   pageSize = signal(20);
   isLoading = signal(false);
   isSubmitting = signal(false);
+  private readonly accountService = inject(AccountService);
+  private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.loadAccounts();

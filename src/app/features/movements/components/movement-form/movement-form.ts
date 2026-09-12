@@ -49,6 +49,13 @@ type MovementFormControls = {
 })
 export class MovementForm implements OnInit {
   movementForm!: FormGroup<MovementFormControls>;
+  readonly movementTypes = [
+    { label: 'movements.debit', value: 'D' as const },
+    { label: 'movements.withdrawal', value: 'R' as const },
+  ];
+  isEditMode = false;
+  isSubmitting = false;
+  isLoading = signal(false);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly movementService = inject(MovementService);
   private readonly accountService = inject(AccountService);
@@ -58,78 +65,12 @@ export class MovementForm implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
-  readonly movementTypes = [
-    { label: 'movements.debit', value: 'D' as const },
-    { label: 'movements.withdrawal', value: 'R' as const },
-  ];
-  isEditMode = false;
-  isSubmitting = false;
-  isLoading = signal(false);
-
   ngOnInit(): void {
     const movementId = this.parseId(this.route.snapshot.paramMap.get('id'));
     this.isEditMode = movementId !== null;
     this.initializeForm();
     if (movementId !== null) this.loadMovement(movementId);
     else if (this.route.snapshot.paramMap.has('id')) this.returnToMovementsWithError();
-  }
-
-  private parseId(id: string | null): number | null {
-    if (!id || !/^\d+$/.test(id)) return null;
-    const parsedId = Number(id);
-    return Number.isSafeInteger(parsedId) && parsedId > 0 ? parsedId : null;
-  }
-
-  private initializeForm(): void {
-    this.movementForm = this.fb.group({
-      movementId: new FormControl<number | null>(null),
-      movementType: this.fb.control<'D' | 'R'>('D', Validators.required),
-      amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
-      accountNumber: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
-    });
-  }
-
-  private loadMovement(movementId: number): void {
-    this.isLoading.set(true);
-    this.movementService
-      .getMovementById(movementId)
-      .pipe(
-        switchMap((movement) =>
-          this.accountService
-            .getAccountById(movement.accountId)
-            .pipe(map((account) => ({ movement, account }))),
-        ),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe({
-        next: ({ movement, account }) => {
-          this.populateForm(movement, account.accountNumber);
-          this.isLoading.set(false);
-        },
-        error: () => {
-          this.isLoading.set(false);
-          this.returnToMovementsWithError();
-        },
-      });
-  }
-
-  private populateForm(movement: Movement, accountNumber: number): void {
-    this.movementForm.patchValue({
-      movementId: movement.movementId,
-      movementType: movement.movementType,
-      amount: Math.abs(movement.movementValue),
-      accountNumber,
-    });
-  }
-
-  private returnToMovementsWithError(): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: this.translate.instant('common.error'),
-      detail: this.translate.instant('movements.loadError'),
-      life: 5000,
-    });
-    void this.router.navigate(['/movements']);
   }
 
   isFieldInvalid(fieldName: keyof MovementFormControls): boolean {
@@ -189,6 +130,64 @@ export class MovementForm implements OnInit {
   }
 
   onCancel(): void {
+    void this.router.navigate(['/movements']);
+  }
+
+  private parseId(id: string | null): number | null {
+    if (!id || !/^\d+$/.test(id)) return null;
+    const parsedId = Number(id);
+    return Number.isSafeInteger(parsedId) && parsedId > 0 ? parsedId : null;
+  }
+
+  private initializeForm(): void {
+    this.movementForm = this.fb.group({
+      movementId: new FormControl<number | null>(null),
+      movementType: this.fb.control<'D' | 'R'>('D', Validators.required),
+      amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+      accountNumber: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+    });
+  }
+
+  private loadMovement(movementId: number): void {
+    this.isLoading.set(true);
+    this.movementService
+      .getMovementById(movementId)
+      .pipe(
+        switchMap((movement) =>
+          this.accountService
+            .getAccountById(movement.accountId)
+            .pipe(map((account) => ({ movement, account }))),
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: ({ movement, account }) => {
+          this.populateForm(movement, account.accountNumber);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.isLoading.set(false);
+          this.returnToMovementsWithError();
+        },
+      });
+  }
+
+  private populateForm(movement: Movement, accountNumber: number): void {
+    this.movementForm.patchValue({
+      movementId: movement.movementId,
+      movementType: movement.movementType,
+      amount: Math.abs(movement.movementValue),
+      accountNumber,
+    });
+  }
+
+  private returnToMovementsWithError(): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: this.translate.instant('common.error'),
+      detail: this.translate.instant('movements.loadError'),
+      life: 5000,
+    });
     void this.router.navigate(['/movements']);
   }
 }

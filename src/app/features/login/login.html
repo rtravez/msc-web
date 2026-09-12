@@ -2,8 +2,8 @@
   <div class="container-fluid min-vh-100 p-0">
     <div class="row g-0 min-vh-100">
       <section
-        class="col-lg-7 brand-panel bg-primary text-white d-flex flex-column p-4 p-md-5"
         aria-labelledby="login-headline"
+        class="col-lg-7 brand-panel bg-primary text-white d-flex flex-column p-4 p-md-5"
       >
         <span class="brand-mark fw-bold">MSC</span>
         <div class="brand-content my-auto py-5">
@@ -11,13 +11,13 @@
             {{ 'login.workspace' | translate }}
           </p>
           <h1
-            id="login-headline"
-            class="display-3 fw-bold mb-4"
             [innerHTML]="'login.headline' | translate"
+            class="display-3 fw-bold mb-4"
+            id="login-headline"
           ></h1>
           <p class="lead brand-copy mb-0">{{ 'login.description' | translate }}</p>
         </div>
-        <div class="signal d-flex align-items-end gap-2" aria-hidden="true">
+        <div aria-hidden="true" class="signal d-flex align-items-end gap-2">
           <span class="bg-warning"></span><span class="bg-warning"></span
         ><span class="bg-warning"></span><span class="bg-warning"></span
         ><span class="bg-warning"></span>
@@ -31,25 +31,25 @@
           <div class="card-body p-4 p-md-5">
             <div class="d-flex justify-content-end mb-5">
               <div
+                [attr.aria-label]="'common.language' | translate"
                 class="btn-group btn-group-sm"
                 role="group"
-                [attr.aria-label]="'common.language' | translate"
               >
                 <button
-                  type="button"
-                  class="btn"
-                  [class.btn-primary]="language.currentLanguage() === 'es'"
-                  [class.btn-outline-primary]="language.currentLanguage() !== 'es'"
                   (click)="setLanguage('es')"
+                  [class.btn-outline-primary]="language.currentLanguage() !== 'es'"
+                  [class.btn-primary]="language.currentLanguage() === 'es'"
+                  class="btn"
+                  type="button"
                 >
                   ES
                 </button>
                 <button
-                  type="button"
-                  class="btn"
-                  [class.btn-primary]="language.currentLanguage() === 'en'"
-                  [class.btn-outline-primary]="language.currentLanguage() !== 'en'"
                   (click)="setLanguage('en')"
+                  [class.btn-outline-primary]="language.currentLanguage() !== 'en'"
+                  [class.btn-primary]="language.currentLanguage() === 'en'"
+                  class="btn"
+                  type="button"
                 >
                   EN
                 </button>
@@ -63,16 +63,16 @@
             <p class="text-secondary mb-4">{{ 'login.intro' | translate }}</p>
 
             <button
-              type="button"
-              class="btn btn-primary w-100 d-flex align-items-center justify-content-between py-3"
               (click)="login()"
               [disabled]="loading()"
+              class="btn btn-primary w-100 d-flex align-items-center justify-content-between py-3"
+              type="button"
             >
               <span>{{ (loading() ? 'login.connecting' : 'login.continue') | translate }}</span>
               @if (loading()) {
-                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span aria-hidden="true" class="spinner-border spinner-border-sm"></span>
               } @else {
-                <i class="pi pi-arrow-up-right" aria-hidden="true"></i>
+                <i aria-hidden="true" class="pi pi-arrow-up-right"></i>
               }
             </button>
             <p class="small text-secondary mt-3 mb-0">{{ 'login.note' | translate }}</p>

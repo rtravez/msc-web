@@ -12,10 +12,10 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   imports: [TranslatePipe],
 })
 export class Login implements OnInit {
-  private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
   protected readonly language = inject(LanguageService);
   protected readonly loading = signal(false);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {

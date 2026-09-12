@@ -50,14 +50,6 @@ type AccountFormControls = {
 })
 export class AccountForm implements OnInit {
   accountForm!: FormGroup<AccountFormControls>;
-  private readonly fb = inject(NonNullableFormBuilder);
-  private readonly accountService = inject(AccountService);
-  private readonly messageService = inject(MessageService);
-  private readonly translate = inject(TranslateService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-
   readonly accountTypes = [
     { label: 'accounts.savings', value: 'AHORROS' },
     { label: 'accounts.checking', value: 'CORRIENTE' },
@@ -65,6 +57,13 @@ export class AccountForm implements OnInit {
   isEditMode = false;
   isSubmitting = false;
   isLoading = signal(false);
+  private readonly fb = inject(NonNullableFormBuilder);
+  private readonly accountService = inject(AccountService);
+  private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
@@ -78,63 +77,6 @@ export class AccountForm implements OnInit {
         this.returnToAccountsWithError();
       }
     });
-  }
-
-  private parseId(id: string | null): number | null {
-    if (!id || !/^\d+$/.test(id)) return null;
-    const parsedId = Number(id);
-    return Number.isSafeInteger(parsedId) && parsedId > 0 ? parsedId : null;
-  }
-
-  private initializeForm(): void {
-    this.accountForm = this.fb.group({
-      accountId: new FormControl<number | null>(null),
-      accountNumber: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
-      accountType: this.fb.control('', [Validators.required, Validators.maxLength(11)]),
-      initialBalance: new FormControl<number | null>(null, [
-        Validators.required,
-        Validators.min(0),
-      ]),
-      identification: this.fb.control('', [
-        Validators.required,
-        Validators.pattern(/^\d+$/),
-        Validators.maxLength(10),
-      ]),
-    });
-  }
-
-  private loadAccount(accountId: number): void {
-    this.isLoading.set(true);
-    this.accountService.getAccountById(accountId).subscribe({
-      next: (account) => {
-        this.populateForm(account);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        this.isLoading.set(false);
-        this.returnToAccountsWithError();
-      },
-    });
-  }
-
-  private populateForm(account: Account): void {
-    this.accountForm.patchValue({
-      accountId: account.accountId,
-      accountNumber: account.accountNumber,
-      accountType: account.accountType,
-      initialBalance: account.initialBalance,
-      identification: account.identification,
-    });
-  }
-
-  private returnToAccountsWithError(): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: this.translate.instant('common.error'),
-      detail: this.translate.instant('accounts.loadError'),
-      life: 5000,
-    });
-    void this.router.navigate(['/accounts']);
   }
 
   isFieldInvalid(fieldName: keyof AccountFormControls): boolean {
@@ -204,6 +146,63 @@ export class AccountForm implements OnInit {
   }
 
   onCancel(): void {
+    void this.router.navigate(['/accounts']);
+  }
+
+  private parseId(id: string | null): number | null {
+    if (!id || !/^\d+$/.test(id)) return null;
+    const parsedId = Number(id);
+    return Number.isSafeInteger(parsedId) && parsedId > 0 ? parsedId : null;
+  }
+
+  private initializeForm(): void {
+    this.accountForm = this.fb.group({
+      accountId: new FormControl<number | null>(null),
+      accountNumber: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+      accountType: this.fb.control('', [Validators.required, Validators.maxLength(11)]),
+      initialBalance: new FormControl<number | null>(null, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      identification: this.fb.control('', [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.maxLength(10),
+      ]),
+    });
+  }
+
+  private loadAccount(accountId: number): void {
+    this.isLoading.set(true);
+    this.accountService.getAccountById(accountId).subscribe({
+      next: (account) => {
+        this.populateForm(account);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.returnToAccountsWithError();
+      },
+    });
+  }
+
+  private populateForm(account: Account): void {
+    this.accountForm.patchValue({
+      accountId: account.accountId,
+      accountNumber: account.accountNumber,
+      accountType: account.accountType,
+      initialBalance: account.initialBalance,
+      identification: account.identification,
+    });
+  }
+
+  private returnToAccountsWithError(): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: this.translate.instant('common.error'),
+      detail: this.translate.instant('accounts.loadError'),
+      life: 5000,
+    });
     void this.router.navigate(['/accounts']);
   }
 }

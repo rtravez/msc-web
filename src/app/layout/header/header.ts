@@ -13,11 +13,10 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
 })
 export class Header {
   @Output() readonly toggleSidebar = new EventEmitter<void>();
-
-  private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
   protected readonly language = inject(LanguageService);
   protected mobileMenuOpen = false;
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;

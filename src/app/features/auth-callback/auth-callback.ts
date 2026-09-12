@@ -6,11 +6,11 @@ import { AuthService } from '../../core/auth/auth.service';
 
 @Component({ standalone: true, template: '<main class="callback"><p>{{ message() }}</p></main>' })
 export class AuthCallback implements OnInit {
+  protected readonly message = signal('');
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly translate = inject(TranslateService);
-  protected readonly message = signal('');
 
   constructor() {
     this.message.set(this.translate.instant('callback.validating'));

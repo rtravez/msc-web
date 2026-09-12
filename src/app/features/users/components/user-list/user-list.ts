@@ -38,12 +38,6 @@ import { MainLayout } from '../../../../layout/main-layout/main-layout';
   providers: [MessageService, ConfirmationService],
 })
 export class UserList implements OnInit, OnDestroy {
-  private readonly userService = inject(UserService);
-  private readonly messageService = inject(MessageService);
-  private readonly confirmationService = inject(ConfirmationService);
-  private readonly translate = inject(TranslateService);
-  private readonly router = inject(Router);
-
   users = signal<User[]>([]);
   filteredUsers = signal<User[]>([]);
   totalRecords = signal(0);
@@ -51,7 +45,11 @@ export class UserList implements OnInit, OnDestroy {
   pageSize = signal(10);
   isLoading = signal(false);
   isSubmitting = signal(false);
-
+  private readonly userService = inject(UserService);
+  private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
   private readonly destroy$ = new Subject<void>();
 
   ngOnInit() {

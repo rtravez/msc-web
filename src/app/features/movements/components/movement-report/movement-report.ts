@@ -48,13 +48,6 @@ type ReportFormControls = {
   providers: [MessageService],
 })
 export class MovementReport implements OnInit {
-  private readonly fb = inject(NonNullableFormBuilder);
-  private readonly movementService = inject(MovementService);
-  private readonly messageService = inject(MessageService);
-  private readonly translate = inject(TranslateService);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
-
   reportForm!: FormGroup<ReportFormControls>;
   reports = signal<MovementReportResponse[]>([]);
   totalRecords = signal(0);
@@ -66,6 +59,12 @@ export class MovementReport implements OnInit {
     { label: 'accounts.savings', value: 'AHORROS' },
     { label: 'accounts.checking', value: 'CORRIENTE' },
   ];
+  private readonly fb = inject(NonNullableFormBuilder);
+  private readonly movementService = inject(MovementService);
+  private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     const today = new Date();

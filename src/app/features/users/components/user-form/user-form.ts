@@ -62,6 +62,18 @@ type UserFormControls = {
 })
 export class UserForm implements OnInit {
   userForm!: FormGroup<UserFormControls>;
+  isSubmitting = false;
+  isEditMode = false;
+  isLoading = signal(false);
+  readonly genderOptions = [
+    { label: 'users.form.male', value: 'M' },
+    { label: 'users.form.female', value: 'F' },
+    { label: 'users.form.other', value: 'O' },
+  ];
+  readonly statusOptions = [
+    { label: 'users.active', value: true },
+    { label: 'users.inactive', value: false },
+  ];
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
@@ -69,21 +81,6 @@ export class UserForm implements OnInit {
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
   private readonly destroyRef = inject(DestroyRef);
-
-  isSubmitting = false;
-  isEditMode = false;
-  isLoading = signal(false);
-
-  readonly genderOptions = [
-    { label: 'users.form.male', value: 'M' },
-    { label: 'users.form.female', value: 'F' },
-    { label: 'users.form.other', value: 'O' },
-  ];
-
-  readonly statusOptions = [
-    { label: 'users.active', value: true },
-    { label: 'users.inactive', value: false },
-  ];
 
   ngOnInit() {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
@@ -96,77 +93,6 @@ export class UserForm implements OnInit {
       } else if (params.has('id')) {
         this.returnToUsersWithLoadError();
       }
-    });
-  }
-
-  private getUserIdFromRoute(id: string | null): number | null {
-    if (!id || !/^\d+$/.test(id)) return null;
-
-    const userId = Number(id);
-    return Number.isSafeInteger(userId) && userId > 0 ? userId : null;
-  }
-
-  private loadUser(userId: number): void {
-    this.isLoading.set(true);
-    this.userService.getUserById(userId).subscribe({
-      next: (user) => {
-        this.populateForm(user);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        this.isLoading.set(false);
-        this.returnToUsersWithLoadError();
-      },
-    });
-  }
-
-  private returnToUsersWithLoadError(): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: this.translate.instant('common.error'),
-      detail: this.translate.instant('users.loadError'),
-      life: 5000,
-    });
-    void this.router.navigate(['/users']);
-  }
-
-  private initializeForm(): void {
-    this.userForm = this.fb.group({
-      userId: new FormControl<number | null>(null),
-      identification: this.fb.control({ value: '', disabled: this.isEditMode }, [
-        Validators.required,
-        Validators.pattern(/^\d+$/),
-        Validators.maxLength(10),
-      ]),
-      username: ['', [Validators.required, Validators.maxLength(20)]],
-      password: [
-        '',
-        this.isEditMode
-          ? [Validators.minLength(8), Validators.maxLength(60)]
-          : [Validators.required, Validators.minLength(8), Validators.maxLength(60)],
-      ],
-      name: ['', [Validators.required, Validators.maxLength(255)]],
-      lastname: ['', [Validators.required, Validators.maxLength(255)]],
-      address: ['', [Validators.maxLength(255)]],
-      telephone: ['', [Validators.pattern(/^\d{10}$/)]],
-      gender: new FormControl<string | null>(null),
-      age: new FormControl<number | null>(null, [Validators.min(0), Validators.max(150)]),
-      status: [true],
-    });
-  }
-
-  private populateForm(user: User): void {
-    this.userForm.patchValue({
-      userId: user.userId,
-      identification: user.identification,
-      username: user.username,
-      name: user.name,
-      lastname: user.lastname,
-      address: user.address,
-      telephone: user.telephone,
-      gender: user.gender,
-      age: user.age,
-      status: user.status,
     });
   }
 
@@ -263,5 +189,76 @@ export class UserForm implements OnInit {
 
   onCancel(): void {
     void this.router.navigate(['/users']);
+  }
+
+  private getUserIdFromRoute(id: string | null): number | null {
+    if (!id || !/^\d+$/.test(id)) return null;
+
+    const userId = Number(id);
+    return Number.isSafeInteger(userId) && userId > 0 ? userId : null;
+  }
+
+  private loadUser(userId: number): void {
+    this.isLoading.set(true);
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        this.populateForm(user);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.returnToUsersWithLoadError();
+      },
+    });
+  }
+
+  private returnToUsersWithLoadError(): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: this.translate.instant('common.error'),
+      detail: this.translate.instant('users.loadError'),
+      life: 5000,
+    });
+    void this.router.navigate(['/users']);
+  }
+
+  private initializeForm(): void {
+    this.userForm = this.fb.group({
+      userId: new FormControl<number | null>(null),
+      identification: this.fb.control({ value: '', disabled: this.isEditMode }, [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.maxLength(10),
+      ]),
+      username: ['', [Validators.required, Validators.maxLength(20)]],
+      password: [
+        '',
+        this.isEditMode
+          ? [Validators.minLength(8), Validators.maxLength(60)]
+          : [Validators.required, Validators.minLength(8), Validators.maxLength(60)],
+      ],
+      name: ['', [Validators.required, Validators.maxLength(255)]],
+      lastname: ['', [Validators.required, Validators.maxLength(255)]],
+      address: ['', [Validators.maxLength(255)]],
+      telephone: ['', [Validators.pattern(/^\d{10}$/)]],
+      gender: new FormControl<string | null>(null),
+      age: new FormControl<number | null>(null, [Validators.min(0), Validators.max(150)]),
+      status: [true],
+    });
+  }
+
+  private populateForm(user: User): void {
+    this.userForm.patchValue({
+      userId: user.userId,
+      identification: user.identification,
+      username: user.username,
+      name: user.name,
+      lastname: user.lastname,
+      address: user.address,
+      telephone: user.telephone,
+      gender: user.gender,
+      age: user.age,
+      status: user.status,
+    });
   }
 }

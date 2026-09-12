@@ -1,9 +1,9 @@
 <header class="app-header navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
   <div class="container-fluid px-3 px-lg-4">
     <div class="d-flex align-items-center gap-2">
-      <button type="button" class="btn btn-outline-light btn-sm d-lg-none" (click)="toggleSidebar.emit()"
-              [attr.aria-label]="'accessibility.toggleSidebar' | translate">
-        <i class="pi pi-bars" aria-hidden="true"></i>
+      <button (click)="toggleSidebar.emit()" [attr.aria-label]="'accessibility.toggleSidebar' | translate" class="btn btn-outline-light btn-sm d-lg-none"
+              type="button">
+        <i aria-hidden="true" class="pi pi-bars"></i>
       </button>
 
       <a class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white mb-0" routerLink="/dashboard">
@@ -12,30 +12,30 @@
       </a>
     </div>
 
-    <div class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto" [class.mobile-open]="mobileMenuOpen">
+    <div [class.mobile-open]="mobileMenuOpen" class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto">
       <div class="d-flex align-items-center gap-2 ms-lg-3">
-        <div class="btn-group btn-group-sm" role="group" [attr.aria-label]="'common.language' | translate">
-          <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'es'"
-                  [class.btn-outline-light]="language.currentLanguage() !== 'es'" (click)="setLanguage('es')">
+        <div [attr.aria-label]="'common.language' | translate" class="btn-group btn-group-sm" role="group">
+          <button (click)="setLanguage('es')" [class.btn-light]="language.currentLanguage() === 'es'" [class.btn-outline-light]="language.currentLanguage() !== 'es'"
+                  class="btn" type="button">
             ES
           </button>
-          <button type="button" class="btn" [class.btn-light]="language.currentLanguage() === 'en'"
-                  [class.btn-outline-light]="language.currentLanguage() !== 'en'" (click)="setLanguage('en')">
+          <button (click)="setLanguage('en')" [class.btn-light]="language.currentLanguage() === 'en'" [class.btn-outline-light]="language.currentLanguage() !== 'en'"
+                  class="btn" type="button">
             EN
           </button>
         </div>
 
-        <button type="button" class="btn btn-outline-light btn-sm d-flex align-items-center gap-2" (click)="logout()"
-                [attr.title]="'dashboard.logout' | translate">
-          <i class="pi pi-sign-out" aria-hidden="true"></i>
+        <button (click)="logout()" [attr.title]="'dashboard.logout' | translate" class="btn btn-outline-light btn-sm d-flex align-items-center gap-2"
+                type="button">
+          <i aria-hidden="true" class="pi pi-sign-out"></i>
           <span>{{ 'dashboard.logout' | translate }}</span>
         </button>
       </div>
     </div>
 
-    <button type="button" class="btn btn-outline-light btn-sm d-lg-none ms-2" (click)="toggleMobileMenu()"
-            [attr.aria-label]="'accessibility.toggleNavigation' | translate">
-      <i class="pi" [class.pi-bars]="!mobileMenuOpen" [class.pi-times]="mobileMenuOpen" aria-hidden="true"></i>
+    <button (click)="toggleMobileMenu()" [attr.aria-label]="'accessibility.toggleNavigation' | translate" class="btn btn-outline-light btn-sm d-lg-none ms-2"
+            type="button">
+      <i [class.pi-bars]="!mobileMenuOpen" [class.pi-times]="mobileMenuOpen" aria-hidden="true" class="pi"></i>
     </button>
   </div>
 </header>

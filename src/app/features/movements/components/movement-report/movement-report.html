@@ -2,7 +2,7 @@
   <section class="dashboard-page">
     <p-toast></p-toast>
     <div class="d-flex align-items-start gap-3 mb-4">
-      <p-button icon="pi pi-arrow-left" [text]="true" severity="secondary" (onClick)="backToMovements()" />
+      <p-button (onClick)="backToMovements()" [text]="true" icon="pi pi-arrow-left" severity="secondary" />
       <div>
         <h1 class="h3 mb-1">{{ 'movements.reportTitle' | translate }}</h1>
         <p class="text-body-secondary mb-0">{{ 'movements.reportDescription' | translate }}</p>
@@ -10,26 +10,26 @@
     </div>
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-body p-4">
-        <form [formGroup]="reportForm" (ngSubmit)="search()" novalidate>
+        <form (ngSubmit)="search()" [formGroup]="reportForm" novalidate>
           <div class="row g-3 align-items-end">
             <div class="col-12 col-md-6 col-xl-3"><label class="form-label" for="initialDate">{{
                 'movements.initialDate' | translate
-              }} *</label><input pInputText id="initialDate"
-                                 type="datetime-local" formControlName="initialDate" class="form-control" /></div>
+              }} *</label><input class="form-control" formControlName="initialDate"
+                                 id="initialDate" pInputText type="datetime-local" /></div>
             <div class="col-12 col-md-6 col-xl-3"><label class="form-label" for="finalDate">{{
                 'movements.finalDate' | translate
-              }} *</label><input pInputText id="finalDate"
-                                 type="datetime-local" formControlName="finalDate" class="form-control" /></div>
+              }} *</label><input class="form-control" formControlName="finalDate"
+                                 id="finalDate" pInputText type="datetime-local" /></div>
             <div class="col-12 col-md-6 col-xl-2"><label class="form-label" for="identification">{{
                 'movements.identification' | translate
-              }} *</label><input pInputText
-                                 id="identification" formControlName="identification" class="form-control" /></div>
+              }} *</label><input class="form-control"
+                                 formControlName="identification" id="identification" pInputText /></div>
             <div class="col-12 col-md-6 col-xl-2"><label class="form-label" for="accountType">{{
                 'movements.accountType' | translate
               }} *</label>
-              <p-select inputId="accountType"
-                        formControlName="accountType" [options]="accountTypes" optionLabel="label"
-                        optionValue="value" class="w-100">
+              <p-select [options]="accountTypes"
+                        class="w-100" formControlName="accountType" inputId="accountType"
+                        optionLabel="label" optionValue="value">
                 <ng-template #item let-option>{{
                     option.label |
                       translate
@@ -43,9 +43,9 @@
               </p-select>
             </div>
             <div class="col-12 col-xl-2">
-              <p-button type="submit" icon="pi pi-search"
-                        [label]="'movements.search' | translate" [loading]="isLoading()"
-                        [disabled]="isLoading()" class="w-100" />
+              <p-button [disabled]="isLoading()" [label]="'movements.search' | translate"
+                        [loading]="isLoading()" class="w-100"
+                        icon="pi pi-search" type="submit" />
             </div>
           </div>
         </form>
@@ -59,10 +59,10 @@
     } @else if (hasSearched()) {
       <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
-          <p-table [value]="reports()" [paginator]="true" [lazy]="true" [rows]="pageSize()"
-                   [totalRecords]="totalRecords()" [first]="currentPage() * pageSize()"
-                   [rowsPerPageOptions]="[10, 20, 50]" (onPage)="onPageChange($event)"
-                   [tableStyle]="{ 'min-width': '80rem' }">
+          <p-table (onPage)="onPageChange($event)" [first]="currentPage() * pageSize()" [lazy]="true" [paginator]="true"
+                   [rowsPerPageOptions]="[10, 20, 50]" [rows]="pageSize()"
+                   [tableStyle]="{ 'min-width': '80rem' }" [totalRecords]="totalRecords()"
+                   [value]="reports()">
             <ng-template #header>
               <tr>
                 <th>{{ 'movements.date' | translate }}</th>
