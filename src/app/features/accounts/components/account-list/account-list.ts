@@ -38,7 +38,7 @@ export class AccountList implements OnInit {
   accounts = signal<Account[]>([]);
   totalRecords = signal(0);
   currentPage = signal(0);
-  pageSize = signal(20);
+  pageSize = signal(10);
   isLoading = signal(false);
   isSubmitting = signal(false);
   private readonly accountService = inject(AccountService);

@@ -52,7 +52,7 @@ export class MovementReport implements OnInit {
   reports = signal<MovementReportResponse[]>([]);
   totalRecords = signal(0);
   currentPage = signal(0);
-  pageSize = signal(20);
+  pageSize = signal(10);
   isLoading = signal(false);
   hasSearched = signal(false);
   readonly accountTypes = [

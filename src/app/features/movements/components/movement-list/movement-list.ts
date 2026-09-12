@@ -36,7 +36,7 @@ export class MovementList implements OnInit {
   movements = signal<Movement[]>([]);
   totalRecords = signal(0);
   currentPage = signal(0);
-  pageSize = signal(20);
+  pageSize = signal(10);
   isLoading = signal(false);
   isSubmitting = signal(false);
   private readonly movementService = inject(MovementService);
