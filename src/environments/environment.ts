@@ -5,7 +5,7 @@ export const environment = {
   auth: {
     issuer: '/authServices',
     clientId: 'rtravez-web',
-    scope: 'openid profile read',
+    scope: 'openid profile offline_access read',
     redirectUri: 'http://localhost:4200/callback',
   },
 };
