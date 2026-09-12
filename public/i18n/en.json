@@ -186,7 +186,7 @@
     "confirmTitle": "Confirm void",
     "created": "Movement created successfully",
     "updated": "Movement updated successfully",
-    "deleted": "Movement voided successfully",
+    "deleted": "Movement deleted successfully",
     "emptyState": "No movements have been registered yet.",
     "emptyReport": "No movements match the selected filters.",
     "loadError": "Could not load movements",
