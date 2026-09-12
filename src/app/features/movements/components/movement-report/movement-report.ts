@@ -26,7 +26,7 @@ export interface ReportFormControls {
   finalDate: FormControl<string>;
   identification: FormControl<string>;
   accountType: FormControl<string>;
-};
+}
 
 @Component({
   selector: 'app-movement-report',

@@ -2,7 +2,7 @@
   <section class="dashboard-page">
     <p-toast></p-toast>
     <div class="d-flex align-items-start gap-3 mb-4">
-      <p-button (onClick)="backToMovements()" [text]="true" icon="pi pi-arrow-left" severity="secondary" />
+      <p-button (onClick)="backToMovements()" [text]="true" icon="pi pi-arrow-left" severity="secondary"/>
       <div>
         <h1 class="h3 mb-1">{{ 'movements.reportTitle' | translate }}</h1>
         <p class="text-body-secondary mb-0">{{ 'movements.reportDescription' | translate }}</p>
@@ -15,15 +15,15 @@
             <div class="col-12 col-md-6 col-xl-3"><label class="form-label" for="initialDate">{{
                 'movements.initialDate' | translate
               }} *</label><input class="form-control" formControlName="initialDate"
-                                 id="initialDate" pInputText type="datetime-local" /></div>
+                                 id="initialDate" pInputText type="datetime-local"/></div>
             <div class="col-12 col-md-6 col-xl-3"><label class="form-label" for="finalDate">{{
                 'movements.finalDate' | translate
               }} *</label><input class="form-control" formControlName="finalDate"
-                                 id="finalDate" pInputText type="datetime-local" /></div>
+                                 id="finalDate" pInputText type="datetime-local"/></div>
             <div class="col-12 col-md-6 col-xl-2"><label class="form-label" for="identification">{{
                 'movements.identification' | translate
               }} *</label><input class="form-control"
-                                 formControlName="identification" id="identification" pInputText /></div>
+                                 formControlName="identification" id="identification" pInputText/></div>
             <div class="col-12 col-md-6 col-xl-2"><label class="form-label" for="accountType">{{
                 'movements.accountType' | translate
               }} *</label>
@@ -45,7 +45,7 @@
             <div class="col-12 col-xl-2">
               <p-button [disabled]="isLoading()" [label]="'movements.search' | translate"
                         [loading]="isLoading()" class="w-100"
-                        icon="pi pi-search" type="submit" />
+                        icon="pi pi-search" type="submit"/>
             </div>
           </div>
         </form>
@@ -54,7 +54,7 @@
 
     @if (isLoading()) {
       <div class="d-flex justify-content-center py-5">
-        <p-progressSpinner strokeWidth="4" />
+        <p-progressSpinner strokeWidth="4"/>
       </div>
     } @else if (hasSearched()) {
       <div class="card border-0 shadow-sm">

@@ -34,7 +34,7 @@ export interface UserFormControls {
   gender: FormControl<string | null>;
   age: FormControl<number | null>;
   status: FormControl<boolean>;
-};
+}
 
 /**
  * User form component for creating and editing users

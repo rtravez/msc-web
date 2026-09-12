@@ -27,7 +27,7 @@ export interface AccountFormControls {
   accountType: FormControl<string>;
   initialBalance: FormControl<number | null>;
   identification: FormControl<string>;
-};
+}
 
 @Component({
   selector: 'app-account-form',

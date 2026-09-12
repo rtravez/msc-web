@@ -27,7 +27,7 @@ export interface MovementFormControls {
   movementType: FormControl<'D' | 'R'>;
   amount: FormControl<number | null>;
   accountNumber: FormControl<number | null>;
-};
+}
 
 @Component({
   selector: 'app-movement-form',
