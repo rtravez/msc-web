@@ -19,13 +19,14 @@ interface StoredTokenResponse extends TokenResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  readonly isAuthenticated = signal(this.hasUsableSession(this.readTokens()));
+  
   private readonly document = inject(DOCUMENT);
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly language = inject(LanguageService);
   private readonly storageKey = 'msc.oauth.tokens';
   private refreshInFlight: Promise<string | null> | undefined;
+  readonly isAuthenticated = signal(this.hasUsableSession(this.readTokens()));
 
   async startLogin(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
