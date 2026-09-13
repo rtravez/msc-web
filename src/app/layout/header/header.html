@@ -21,7 +21,7 @@
       class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto"
     >
       <div class="d-flex align-items-center gap-2 ms-lg-3">
-        <div
+        <fieldset
           [attr.aria-label]="'common.language' | translate"
           class="language-switcher"
           role="group"
@@ -42,7 +42,7 @@
           >
             EN
           </button>
-        </div>
+        </fieldset>
 
         <button
           (click)="logout()"
