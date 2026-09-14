@@ -142,7 +142,10 @@ export class MovementForm implements OnInit {
       movementId: new FormControl<number | null>(null),
       movementType: this.fb.control<'D' | 'R'>('D', Validators.required),
       amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
-      accountNumber: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+      accountNumber: new FormControl<number | null>(
+        { value: null, disabled: this.isEditMode },
+        [Validators.required, Validators.min(1)],
+      ),
     });
   }
 
