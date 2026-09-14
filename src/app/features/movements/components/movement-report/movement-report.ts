@@ -110,7 +110,7 @@ export class MovementReport implements OnInit {
         filters.initialDate,
         filters.finalDate,
         filters.identification,
-        filters.accountType??'',
+        filters.accountType ?? '',
         page,
         size,
       )

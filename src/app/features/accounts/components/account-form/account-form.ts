@@ -156,10 +156,10 @@ export class AccountForm implements OnInit {
   private initializeForm(): void {
     this.accountForm = this.fb.group({
       accountId: new FormControl<number | null>(null),
-      accountNumber: new FormControl<number | null>(
-        { value: null, disabled: this.isEditMode },
-        [Validators.required, Validators.min(1)],
-      ),
+      accountNumber: new FormControl<number | null>({ value: null, disabled: this.isEditMode }, [
+        Validators.required,
+        Validators.min(1),
+      ]),
       accountType: this.fb.control('', [Validators.required, Validators.maxLength(11)]),
       initialBalance: new FormControl<number | null>(null, [
         Validators.required,
