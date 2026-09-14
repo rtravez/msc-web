@@ -14,6 +14,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
 export class Header {
   @Output() readonly toggleSidebar = new EventEmitter<void>();
   protected readonly language = inject(LanguageService);
+  protected readonly user = inject(AuthService).user;
   protected mobileMenuOpen = false;
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);

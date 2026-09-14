@@ -96,6 +96,43 @@
   color: var(--blue);
 }
 
+.user-profile {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+  margin-right: 0.5rem;
+}
+
+.user-avatar {
+  align-items: center;
+  background: var(--blue-soft);
+  border-radius: 50%;
+  color: var(--blue);
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  height: 2rem;
+  justify-content: center;
+  text-transform: uppercase;
+  width: 2rem;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.user-details strong {
+  color: var(--navy);
+  font-size: 0.8rem;
+}
+
+.user-details small {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
 .nav-link {
   color: rgba(255, 255, 255, 0.9);
 }
@@ -145,5 +182,9 @@
     justify-content: center;
     flex-wrap: wrap;
     padding-top: 0.25rem;
+  }
+
+  .user-profile {
+    margin-right: 0;
   }
 }

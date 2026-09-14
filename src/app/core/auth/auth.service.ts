@@ -17,15 +17,21 @@ interface StoredTokenResponse extends TokenResponse {
   expires_at: number;
 }
 
+export interface AuthenticatedUser {
+  name: string;
+  username: string;
+  email?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  
   private readonly document = inject(DOCUMENT);
   private readonly http = inject(HttpClient);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly language = inject(LanguageService);
   private readonly storageKey = 'msc.oauth.tokens';
   private refreshInFlight: Promise<string | null> | undefined;
+  readonly user = signal<AuthenticatedUser | null>(this.userFromTokens(this.readTokens()));
   readonly isAuthenticated = signal(this.hasUsableSession(this.readTokens()));
 
   async startLogin(): Promise<void> {
@@ -108,6 +114,7 @@ export class AuthService {
       this.clearLoginAttempt();
     }
     this.isAuthenticated.set(false);
+    this.user.set(null);
   }
 
   private async requestTokenRefresh(tokens: StoredTokenResponse): Promise<string | null> {
@@ -139,6 +146,7 @@ export class AuthService {
     const storedTokens: StoredTokenResponse = { ...tokens, expires_at: expiresAt };
     localStorage.setItem(this.storageKey, JSON.stringify(storedTokens));
     this.isAuthenticated.set(true);
+    this.user.set(this.userFromTokens(storedTokens));
   }
 
   private readTokens(): StoredTokenResponse | null {
@@ -163,6 +171,41 @@ export class AuthService {
     return (
       tokens !== null && Boolean(tokens.access_token) && tokens.expires_at > Date.now() + 30_000
     );
+  }
+
+  private userFromTokens(tokens: StoredTokenResponse | null): AuthenticatedUser | null {
+    if (!tokens?.id_token) return null;
+
+    try {
+      const payload = tokens.id_token.split('.')[1];
+      if (!payload) return null;
+      const claims = JSON.parse(atob(payload.replaceAll('-', '+').replaceAll('_', '/'))) as Record<
+        string,
+        unknown
+      >;
+      const username =
+        this.stringClaim(claims, 'preferred_username') ?? this.stringClaim(claims, 'sub');
+      if (!username) return null;
+
+      const givenName = this.stringClaim(claims, 'given_name');
+      const familyName = this.stringClaim(claims, 'family_name');
+      const name =
+        this.stringClaim(claims, 'name') ||
+        [givenName, familyName].filter(Boolean).join(' ') ||
+        username;
+      return {
+        name,
+        username,
+        email: this.stringClaim(claims, 'email'),
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  private stringClaim(claims: Record<string, unknown>, key: string): string | undefined {
+    const value = claims[key];
+    return typeof value === 'string' && value.trim() ? value : undefined;
   }
 
   private clearLoginAttempt(): void {
