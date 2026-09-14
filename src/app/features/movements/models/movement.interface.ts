@@ -5,6 +5,7 @@ export interface MovementResponse {
   movementValue: number;
   availableBalance: number;
   accountId: number;
+  accountNumber: number;
 }
 
 export interface MovementRequest {

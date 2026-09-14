@@ -47,7 +47,7 @@
               <th>{{ 'movements.type' | translate }}</th>
               <th>{{ 'movements.value' | translate }}</th>
               <th>{{ 'movements.balance' | translate }}</th>
-              <th>{{ 'movements.accountId' | translate }}</th>
+              <th>{{ 'movements.accountNumber' | translate }}</th>
               <th>{{ 'movements.actions' | translate }}</th>
             </tr>
           </ng-template>
@@ -61,7 +61,7 @@
               </td>
               <td>{{ movement.movementValue | number: '1.2-2' }}</td>
               <td>{{ movement.availableBalance | number: '1.2-2' }}</td>
-              <td>{{ movement.accountId }}</td>
+              <td>{{ movement.accountNumber }}</td>
               <td>
                 <div class="d-flex gap-2">
                   <p-button
