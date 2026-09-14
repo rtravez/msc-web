@@ -227,6 +227,7 @@ export class UserForm implements OnInit {
         Validators.required,
         Validators.pattern(/^\d+$/),
         Validators.maxLength(10),
+        Validators.minLength(10),
       ]),
       username: ['', [Validators.required, Validators.maxLength(20)]],
       password: [

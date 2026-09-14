@@ -26,6 +26,9 @@
               pInputText
               type="datetime-local"
             />
+            @if (isFieldInvalid('initialDate')) {
+              <div class="invalid-feedback d-block">{{ getFieldError('initialDate') }}</div>
+            }
           </div>
           <div class="col-12 col-md-6 col-xl-3">
             <label class="form-label" for="finalDate"
@@ -37,6 +40,9 @@
               pInputText
               type="datetime-local"
             />
+            @if (isFieldInvalid('finalDate')) {
+              <div class="invalid-feedback d-block">{{ getFieldError('finalDate') }}</div>
+            }
           </div>
           <div class="col-12 col-md-6 col-xl-2">
             <label class="form-label" for="identification"
@@ -47,10 +53,13 @@
               id="identification"
               pInputText
             />
+            @if (isFieldInvalid('identification')) {
+              <div class="invalid-feedback d-block">{{ getFieldError('identification') }}</div>
+            }
           </div>
           <div class="col-12 col-md-6 col-xl-2">
             <label class="form-label" for="accountType"
-              >{{ 'movements.accountType' | translate }} *</label
+              >{{ 'movements.accountType' | translate }}</label
             >
             <p-select
               [options]="accountTypes"

@@ -200,8 +200,12 @@
     "reportDateError": "La fecha inicial debe ser anterior a la fecha final.",
     "form": {
       "required": "Este campo es obligatorio",
-      "minValue": "El valor debe ser mayor que {{value}}",
-      "invalid": "Campo inválido"
+      "invalid": "Campo inválido",
+      "min": "Mínimo {{value}} caracteres",
+      "max": "Máximo {{value}} caracteres",
+      "pattern": "Formato inválido",
+      "minValue": "Valor mínimo: {{value}}",
+      "maxValue": "Valor máximo: {{value}}"
     }
   },
   "callback": {

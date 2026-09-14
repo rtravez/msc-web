@@ -70,7 +70,12 @@ export class MovementReport implements OnInit {
     this.reportForm = this.fb.group({
       initialDate: this.fb.control(this.toDateTimeLocal(monthStart), Validators.required),
       finalDate: this.fb.control(this.toDateTimeLocal(today), Validators.required),
-      identification: this.fb.control('', [Validators.required, Validators.pattern(/^\d+$/)]),
+      identification: this.fb.control('', [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.maxLength(10),
+        Validators.minLength(10),
+      ]),
       accountType: this.fb.control('', Validators.required),
     });
   }
@@ -131,6 +136,28 @@ export class MovementReport implements OnInit {
   isFieldInvalid(fieldName: keyof ReportFormControls): boolean {
     const field = this.reportForm.controls[fieldName];
     return field.invalid && (field.dirty || field.touched);
+  }
+
+  getFieldError(fieldName: keyof ReportFormControls): string {
+    const field = this.reportForm.controls[fieldName];
+    if (!field.errors) return '';
+
+    if (field.errors['required']) return this.translate.instant('movements.form.required');
+    if (field.errors['minlength'])
+      return this.translate.instant('movements.form.min', {
+        value: field.errors['minlength'].requiredLength,
+      });
+    if (field.errors['maxlength'])
+      return this.translate.instant('movements.form.max', {
+        value: field.errors['maxlength'].requiredLength,
+      });
+    if (field.errors['pattern']) return this.translate.instant('movements.form.pattern');
+    if (field.errors['min'])
+      return this.translate.instant('movements.form.minValue', { value: field.errors['min'].min });
+    if (field.errors['max'])
+      return this.translate.instant('movements.form.maxValue', { value: field.errors['max'].max });
+
+    return this.translate.instant('movements.form.invalid');
   }
 
   private toDateTimeLocal(date: Date): string {

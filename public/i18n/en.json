@@ -200,7 +200,11 @@
     "reportDateError": "The start date must be before the end date.",
     "form": {
       "required": "This field is required",
-      "minValue": "The value must be greater than {{value}}",
+      "min": "At least {{value}} characters",
+      "max": "At most {{value}} characters",
+      "pattern": "Invalid format",
+      "minValue": "Minimum value: {{value}}",
+      "maxValue": "Maximum value: {{value}}",
       "invalid": "Invalid field"
     }
   },
