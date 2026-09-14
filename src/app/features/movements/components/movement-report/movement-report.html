@@ -43,6 +43,11 @@
             @if (isFieldInvalid('finalDate')) {
               <div class="invalid-feedback d-block">{{ getFieldError('finalDate') }}</div>
             }
+            @if (isDateRangeInvalid()) {
+              <div class="invalid-feedback d-block">
+                {{ 'movements.reportDateError' | translate }}
+              </div>
+            }
           </div>
           <div class="col-12 col-md-6 col-xl-2">
             <label class="form-label" for="identification"

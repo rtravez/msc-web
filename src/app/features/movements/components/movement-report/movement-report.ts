@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -26,6 +29,15 @@ export interface ReportFormControls {
   identification: FormControl<string>;
   accountType: FormControl<string>;
 }
+
+const dateRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const initialDate = control.get('initialDate')?.value as string | undefined;
+  const finalDate = control.get('finalDate')?.value as string | undefined;
+
+  if (!initialDate || !finalDate) return null;
+
+  return initialDate <= finalDate ? null : { dateRange: true };
+};
 
 @Component({
   selector: 'app-movement-report',
@@ -67,34 +79,31 @@ export class MovementReport implements OnInit {
   ngOnInit(): void {
     const today = new Date();
     const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-    this.reportForm = this.fb.group({
-      initialDate: this.fb.control(this.toDateTimeLocal(monthStart), Validators.required),
-      finalDate: this.fb.control(this.toDateTimeLocal(today), Validators.required),
-      identification: this.fb.control('', [
-        Validators.required,
-        Validators.pattern(/^\d+$/),
-        Validators.maxLength(10),
-        Validators.minLength(10),
-      ]),
-      accountType: this.fb.control('', Validators.required),
-    });
+    this.reportForm = this.fb.group(
+      {
+        initialDate: this.fb.control(this.toDateTimeLocal(monthStart), Validators.required),
+        finalDate: this.fb.control(this.toDateTimeLocal(today), Validators.required),
+        identification: this.fb.control('', [
+          Validators.required,
+          Validators.pattern(/^\d+$/),
+          Validators.maxLength(10),
+          Validators.minLength(10),
+        ]),
+        accountType: this.fb.control('', Validators.required),
+      },
+      { validators: dateRangeValidator },
+    );
   }
 
   search(page = 0, size = this.pageSize()): void {
     if (this.reportForm.invalid) {
       this.reportForm.markAllAsTouched();
+      if (this.reportForm.hasError('dateRange')) {
+        this.showDateRangeError();
+      }
       return;
     }
     const filters = this.reportForm.getRawValue();
-    if (filters.initialDate > filters.finalDate) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: this.translate.instant('common.error'),
-        detail: this.translate.instant('movements.reportDateError'),
-        life: 4000,
-      });
-      return;
-    }
     this.isLoading.set(true);
     this.movementService
       .getMovementReport(
@@ -138,6 +147,10 @@ export class MovementReport implements OnInit {
     return field.invalid && (field.dirty || field.touched);
   }
 
+  isDateRangeInvalid(): boolean {
+    return this.reportForm.hasError('dateRange') && this.reportForm.touched;
+  }
+
   getFieldError(fieldName: keyof ReportFormControls): string {
     const field = this.reportForm.controls[fieldName];
     if (!field.errors) return '';
@@ -163,5 +176,14 @@ export class MovementReport implements OnInit {
   private toDateTimeLocal(date: Date): string {
     const pad = (value: number) => String(value).padStart(2, '0');
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:00`;
+  }
+
+  private showDateRangeError(): void {
+    this.messageService.add({
+      severity: 'warn',
+      summary: this.translate.instant('common.error'),
+      detail: this.translate.instant('movements.reportDateError'),
+      life: 4000,
+    });
   }
 }
