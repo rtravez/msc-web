@@ -27,7 +27,7 @@ export interface ReportFormControls {
   initialDate: FormControl<string>;
   finalDate: FormControl<string>;
   identification: FormControl<string>;
-  accountType: FormControl<string>;
+  accountType: FormControl<string | null>;
 }
 
 const dateRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -89,7 +89,7 @@ export class MovementReport implements OnInit {
           Validators.maxLength(10),
           Validators.minLength(10),
         ]),
-        accountType: this.fb.control('', Validators.required),
+        accountType: this.fb.control<string | null>(null),
       },
       { validators: dateRangeValidator },
     );
@@ -110,7 +110,7 @@ export class MovementReport implements OnInit {
         filters.initialDate,
         filters.finalDate,
         filters.identification,
-        filters.accountType,
+        filters.accountType??'',
         page,
         size,
       )

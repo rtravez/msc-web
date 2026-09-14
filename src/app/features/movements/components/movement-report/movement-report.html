@@ -80,7 +80,7 @@
           </div>
           <div class="col-12 col-xl-2">
             <p-button
-              [disabled]="isLoading()"
+              [disabled]="!reportForm.valid"
               [label]="'movements.search' | translate"
               [loading]="isLoading()"
               class="w-100"
