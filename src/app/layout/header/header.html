@@ -23,15 +23,6 @@
       class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto"
     >
       <div class="d-flex align-items-center gap-2 ms-lg-3">
-        @if (user(); as currentUser) {
-          <div [attr.aria-label]="currentUser.name" class="user-profile">
-            <span aria-hidden="true" class="user-avatar">{{ currentUser.name.charAt(0) }}</span>
-            <span class="user-details">
-              <strong>{{ currentUser.name }}</strong>
-              <small>{{ currentUser.username }}</small>
-            </span>
-          </div>
-        }
 
         <fieldset
           [attr.aria-label]="'common.language' | translate"
