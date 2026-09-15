@@ -1,10 +1,13 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, from, switchMap, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
 
+const protectedApiPrefixes = [`${environment.mscServices}/api/`, `${environment.msaServices}/api/`];
+
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
-  if (!request.url.includes('/api/')) {
+  if (!protectedApiPrefixes.some((prefix) => request.url.startsWith(prefix))) {
     return next(request);
   }
 
