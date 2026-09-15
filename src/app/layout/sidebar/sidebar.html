@@ -2,12 +2,13 @@
   [attr.aria-label]="'accessibility.sidebarNavigation' | translate"
   [class.sidebar-collapsed]="!open"
   class="app-sidebar"
+  id="sidebar-navigation"
 >
   <div class="sidebar-inner">
     <p class="sidebar-label">
       {{ 'layout.workspace' | translate }}
     </p>
-    <nav class="nav flex-column gap-2">
+    <nav aria-label="Main navigation" class="nav flex-column gap-2">
       <a
         (click)="navigate.emit()"
         [routerLinkActiveOptions]="{ exact: true }"

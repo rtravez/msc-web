@@ -14,7 +14,8 @@
     "toggleSidebar": "Mostrar u ocultar barra lateral",
     "mainNavigation": "Navegación principal",
     "toggleNavigation": "Mostrar u ocultar menú de navegación",
-    "sidebarNavigation": "Navegación lateral"
+    "sidebarNavigation": "Navegación lateral",
+    "skipToContent": "Saltar al contenido principal"
   },
   "layout": {
     "workspace": "Espacio de trabajo"

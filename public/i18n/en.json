@@ -14,7 +14,8 @@
     "toggleSidebar": "Toggle sidebar",
     "mainNavigation": "Main navigation",
     "toggleNavigation": "Toggle navigation menu",
-    "sidebarNavigation": "Sidebar navigation"
+    "sidebarNavigation": "Sidebar navigation",
+    "skipToContent": "Skip to main content"
   },
   "layout": {
     "workspace": "Workspace"

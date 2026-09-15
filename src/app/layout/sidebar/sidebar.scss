@@ -52,6 +52,11 @@
   font-weight: 600;
 }
 
+.nav-link:focus-visible {
+  outline: 3px solid rgba(104, 167, 255, 0.45);
+  outline-offset: 2px;
+}
+
 .nav-link.active {
   box-shadow: inset 3px 0 0 var(--blue);
 }

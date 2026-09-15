@@ -59,6 +59,14 @@
   color: var(--blue);
 }
 
+.icon-button:focus-visible,
+.language-button:focus-visible,
+.logout-button:focus-visible,
+.user-avatar:focus-visible {
+  outline: 3px solid rgba(47, 128, 237, 0.35);
+  outline-offset: 3px;
+}
+
 .language-switcher {
   background: var(--paper);
   border-radius: 8px;

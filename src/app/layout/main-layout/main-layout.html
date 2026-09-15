@@ -1,3 +1,5 @@
+<a class="skip-link" href="#main-content">{{ 'accessibility.skipToContent' | translate }}</a>
+
 <div [class.sidebar-is-open]="sidebarOpen" class="app-shell">
   <app-header (toggleSidebar)="toggleSidebar()" />
 
@@ -14,7 +16,7 @@
       type="button"
     ></button>
 
-    <main class="app-content">
+    <main id="main-content" class="app-content" tabindex="-1">
       <router-outlet />
     </main>
   </div>

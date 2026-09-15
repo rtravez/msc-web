@@ -3,6 +3,8 @@
     <div class="d-flex align-items-center gap-2">
       <button
         (click)="toggleSidebar.emit()"
+        [attr.aria-controls]="'sidebar-navigation'"
+        [attr.aria-expanded]="mobileMenuOpen || null"
         [attr.aria-label]="'accessibility.toggleSidebar' | translate"
         class="icon-button menu-button"
         type="button"
@@ -68,6 +70,8 @@
 
     <button
       (click)="toggleMobileMenu()"
+      [attr.aria-controls]="'sidebar-navigation'"
+      [attr.aria-expanded]="mobileMenuOpen"
       [attr.aria-label]="'accessibility.toggleNavigation' | translate"
       class="icon-button mobile-toggle d-lg-none ms-2"
       type="button"
