@@ -1,10 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 
-@Component({ standalone: true, template: '<main class="callback"><p>{{ message() }}</p></main>' })
+@Component({
+  standalone: true,
+  template: '<main class="callback"><p>{{ message() }}</p></main>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
 export class AuthCallback implements OnInit {
   protected readonly message = signal('');
   private readonly auth = inject(AuthService);

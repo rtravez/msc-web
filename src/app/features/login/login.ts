@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
@@ -10,6 +10,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   templateUrl: './login.html',
   styleUrl: './login.scss',
   imports: [TranslatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login implements OnInit {
   protected readonly language = inject(LanguageService);

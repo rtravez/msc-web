@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';
@@ -11,6 +11,7 @@ import { Sidebar } from '../sidebar/sidebar';
   imports: [Header, Sidebar, Footer, RouterOutlet],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
   protected sidebarOpen = true;
