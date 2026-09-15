@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormControl,
@@ -54,6 +61,7 @@ export interface UserFormControls {
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserForm implements OnInit {
   userForm!: FormGroup<UserFormControls>;

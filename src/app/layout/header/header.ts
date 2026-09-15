@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
@@ -10,6 +10,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   imports: [RouterLink, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   @Output() readonly toggleSidebar = new EventEmitter<void>();
