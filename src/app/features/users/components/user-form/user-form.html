@@ -1,5 +1,4 @@
 <section class="dashboard-page">
-
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-9">
       <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
@@ -38,7 +37,7 @@
                 <!-- Identification -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="identification"
-                  >{{ 'users.identification' | translate }} *</label
+                    >{{ 'users.identification' | translate }} *</label
                   >
                   <input
                     [placeholder]="'users.form.identificationHint' | translate"
@@ -58,8 +57,8 @@
                 <!-- Username -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="username">{{
-                      'users.form.usernameLabel' | translate
-                    }}</label>
+                    'users.form.usernameLabel' | translate
+                  }}</label>
                   <input
                     [placeholder]="'users.form.usernameHint' | translate"
                     class="form-control"
@@ -76,7 +75,7 @@
                 <!-- Password -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="password"
-                  >{{ 'users.form.passwordLabel' | translate }}
+                    >{{ 'users.form.passwordLabel' | translate }}
                     {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label
                   >
                   <input
@@ -95,8 +94,8 @@
                 <!-- Name -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="name">{{
-                      'users.form.nameLabel' | translate
-                    }}</label>
+                    'users.form.nameLabel' | translate
+                  }}</label>
                   <input
                     [placeholder]="'users.form.nameHint' | translate"
                     class="form-control"
@@ -113,8 +112,8 @@
                 <!-- Last Name -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="lastname">{{
-                      'users.form.lastnameLabel' | translate
-                    }}</label>
+                    'users.form.lastnameLabel' | translate
+                  }}</label>
                   <input
                     [placeholder]="'users.form.nameHint' | translate"
                     class="form-control"
@@ -144,8 +143,8 @@
                 <!-- Telephone -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="telephone">{{
-                      'users.telephone' | translate
-                    }}</label>
+                    'users.telephone' | translate
+                  }}</label>
                   <input
                     [placeholder]="'users.form.telephoneHint' | translate"
                     class="form-control"
@@ -162,8 +161,8 @@
                 <!-- Gender -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="gender">{{
-                      'users.form.gender' | translate
-                    }}</label>
+                    'users.form.gender' | translate
+                  }}</label>
                   <p-select
                     [options]="genderOptions"
                     [placeholder]="'users.form.selectGender' | translate"
@@ -176,7 +175,7 @@
                   >
                     <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                     <ng-template #selectedItem let-option
-                    >{{ option?.label | translate }}
+                      >{{ option?.label | translate }}
                     </ng-template>
                   </p-select>
                 </div>
@@ -200,8 +199,8 @@
                 <!-- Status -->
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="status">{{
-                      'users.form.status' | translate
-                    }}</label>
+                    'users.form.status' | translate
+                  }}</label>
                   <p-select
                     [options]="statusOptions"
                     [placeholder]="'users.form.selectStatus' | translate"
@@ -213,7 +212,7 @@
                   >
                     <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                     <ng-template #selectedItem let-option
-                    >{{ option?.label | translate }}
+                      >{{ option?.label | translate }}
                     </ng-template>
                   </p-select>
                 </div>

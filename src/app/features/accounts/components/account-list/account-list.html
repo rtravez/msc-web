@@ -3,14 +3,14 @@
     class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4"
   >
     <h1 class="h3 mb-0">{{ 'accounts.title' | translate }}</h1>
-    <p-button (onClick)="showNewAccount()" [label]="'accounts.new' | translate" icon="pi pi-plus"/>
+    <p-button (onClick)="showNewAccount()" [label]="'accounts.new' | translate" icon="pi pi-plus" />
   </div>
 
   <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
       @if (isLoading()) {
         <div class="d-flex justify-content-center align-items-center py-5">
-          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4"/>
+          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4" />
         </div>
       } @else {
         <p-table

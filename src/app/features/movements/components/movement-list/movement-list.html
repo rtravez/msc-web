@@ -25,7 +25,7 @@
     <div class="card-body p-0">
       @if (isLoading()) {
         <div class="d-flex justify-content-center align-items-center py-5">
-          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4"/>
+          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4" />
         </div>
       } @else {
         <p-table
@@ -54,8 +54,8 @@
               <td>{{ movement.movementDate | date: 'dd/MM/yyyy HH:mm' }}</td>
               <td>
                 <span [class.withdrawal]="movement.movementType === 'R'" class="movement-type">{{
-                    movement.movementType
-                  }}</span>
+                  movement.movementType
+                }}</span>
               </td>
               <td>{{ movement.movementValue | number: '1.2-2' }}</td>
               <td>{{ movement.availableBalance | number: '1.2-2' }}</td>

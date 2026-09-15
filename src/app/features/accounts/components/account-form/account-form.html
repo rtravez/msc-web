@@ -23,14 +23,14 @@
         <div class="card-body p-4 p-md-5">
           @if (isLoading()) {
             <div class="d-flex justify-content-center py-5">
-              <p-progressSpinner strokeWidth="4"/>
+              <p-progressSpinner strokeWidth="4" />
             </div>
           } @else {
             <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" novalidate>
               <div class="row g-3">
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="accountNumber"
-                  >{{ 'accounts.accountNumber' | translate }} *</label
+                    >{{ 'accounts.accountNumber' | translate }} *</label
                   >
                   <p-inputNumber
                     [useGrouping]="false"
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="accountType"
-                  >{{ 'accounts.accountType' | translate }} *</label
+                    >{{ 'accounts.accountType' | translate }} *</label
                   >
                   <p-select
                     [options]="accountTypes"
@@ -59,7 +59,7 @@
                   >
                     <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                     <ng-template #selectedItem let-option
-                    >{{ option?.label | translate }}
+                      >{{ option?.label | translate }}
                     </ng-template>
                   </p-select>
                   @if (isFieldInvalid('accountType')) {
@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="initialBalance"
-                  >{{ 'accounts.initialBalance' | translate }} *</label
+                    >{{ 'accounts.initialBalance' | translate }} *</label
                   >
                   <p-inputNumber
                     [maxFractionDigits]="2"
@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="identification"
-                  >{{ 'accounts.identification' | translate }} *</label
+                    >{{ 'accounts.identification' | translate }} *</label
                   >
                   <input
                     [placeholder]="'accounts.form.identificationHint' | translate"

@@ -343,9 +343,10 @@ h1 em {
   box-shadow: 0 0.5rem 1rem rgba(47, 128, 237, 0.2);
   font-weight: 700;
   cursor: pointer;
-  transition: background 160ms ease,
-  transform 160ms ease,
-  box-shadow 160ms ease;
+  transition:
+    background 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .login-action:hover:not(:disabled) {
