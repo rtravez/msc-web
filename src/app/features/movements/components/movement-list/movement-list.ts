@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -112,10 +119,17 @@ export class MovementList implements OnInit {
         },
         error: (error) => {
           this.isSubmitting.set(false);
+          console.error('Error deleting movement:', error);
+
+          const errorMessage =
+            error.error?.errors?.[0] ||
+            error.error?.detail ||
+            this.translate.instant('movements.deleteError');
+
           this.messageService.add({
             severity: 'error',
             summary: this.translate.instant('common.error'),
-            detail: error.error?.detail ?? this.translate.instant('movements.deleteError'),
+            detail: errorMessage,
             life: 5000,
           });
         },
