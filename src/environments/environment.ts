@@ -3,9 +3,8 @@ export const environment = {
   mscServices: '/mscServices',
   msaServices: '/msaServices',
   auth: {
-    issuer: '/authServices',
-    clientId: 'rtravez-web',
-    scope: 'openid profile offline_access read',
-    redirectUri: 'http://localhost:4200/callback',
+    url: 'http://localhost:8080',
+    realm: 'RTRAVEZ-SSO-INTRANET',
+    clientId: 'MSC-WEB',
   },
 };
