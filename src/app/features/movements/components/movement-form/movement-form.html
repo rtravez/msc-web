@@ -1,5 +1,4 @@
 <section class="dashboard-page">
-  <p-toast></p-toast>
   <div class="row justify-content-center">
     <div class="col-12 col-lg-9">
       <div class="d-flex align-items-start gap-3 mb-4">
@@ -20,14 +19,14 @@
         <div class="card-body p-4 p-md-5">
           @if (isLoading()) {
             <div class="d-flex justify-content-center py-5">
-              <p-progressSpinner strokeWidth="4" />
+              <p-progressSpinner strokeWidth="4"/>
             </div>
           } @else {
             <form (ngSubmit)="onSubmit()" [formGroup]="movementForm" novalidate>
               <div class="row g-3">
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="movementType"
-                    >{{ 'movements.type' | translate }} *</label
+                  >{{ 'movements.type' | translate }} *</label
                   >
                   <p-select
                     [options]="movementTypes"
@@ -39,8 +38,9 @@
                   >
                     <ng-template #item let-option>{{ option.label | translate }}</ng-template>
                     <ng-template #selectedItem let-option>{{
-                      option?.label | translate
-                    }}</ng-template>
+                        option?.label | translate
+                      }}
+                    </ng-template>
                   </p-select>
                   @if (isFieldInvalid('movementType')) {
                     <div class="invalid-feedback d-block">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="amount"
-                    >{{ 'movements.amount' | translate }} *</label
+                  >{{ 'movements.amount' | translate }} *</label
                   >
                   <p-inputNumber
                     [maxFractionDigits]="2"
@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="accountNumber"
-                    >{{ 'movements.accountNumber' | translate }} *</label
+                  >{{ 'movements.accountNumber' | translate }} *</label
                   >
                   <p-inputNumber
                     [useGrouping]="false"

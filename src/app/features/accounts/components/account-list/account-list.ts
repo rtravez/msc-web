@@ -5,11 +5,9 @@ import { Router } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { Account } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
@@ -23,14 +21,11 @@ import { AccountService } from '../../services/account.service';
     CommonModule,
     TableModule,
     ButtonModule,
-    ConfirmDialogModule,
-    ToastModule,
     TagModule,
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
   ],
-  providers: [MessageService, ConfirmationService],
 })
 export class AccountList implements OnInit {
   accounts = signal<Account[]>([]);

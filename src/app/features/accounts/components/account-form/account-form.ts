@@ -16,7 +16,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
-import { ToastModule } from 'primeng/toast';
 import { Account, AccountRequest } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -41,10 +40,8 @@ export interface AccountFormControls {
     InputTextModule,
     ProgressSpinnerModule,
     SelectModule,
-    ToastModule,
     TranslatePipe,
   ],
-  providers: [MessageService],
 })
 export class AccountForm implements OnInit {
   accountForm!: FormGroup<AccountFormControls>;

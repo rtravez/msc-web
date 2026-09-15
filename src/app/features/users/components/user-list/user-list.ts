@@ -3,10 +3,8 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -26,14 +24,11 @@ import { Router } from '@angular/router';
     FormsModule,
     TableModule,
     ButtonModule,
-    ConfirmDialogModule,
-    ToastModule,
     TagModule,
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
   ],
-  providers: [MessageService, ConfirmationService],
 })
 export class UserList implements OnInit, OnDestroy {
   users = signal<User[]>([]);

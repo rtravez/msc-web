@@ -18,7 +18,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
 import { TableModule, TablePageEvent } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MovementReportResponse } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
@@ -52,10 +51,8 @@ const dateRangeValidator: ValidatorFn = (control: AbstractControl): ValidationEr
     ProgressSpinnerModule,
     SelectModule,
     TableModule,
-    ToastModule,
     TranslatePipe,
   ],
-  providers: [MessageService],
 })
 export class MovementReport implements OnInit {
   reportForm!: FormGroup<ReportFormControls>;

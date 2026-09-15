@@ -214,16 +214,20 @@ h1 em {
 .insight-chart span:nth-child(2) {
   height: 52%;
 }
+
 .insight-chart span:nth-child(3) {
   height: 44%;
 }
+
 .insight-chart span:nth-child(4) {
   height: 74%;
   background: #68a7ff;
 }
+
 .insight-chart span:nth-child(5) {
   height: 62%;
 }
+
 .insight-chart span:nth-child(6) {
   height: 90%;
   background: #fff;
@@ -239,6 +243,7 @@ h1 em {
 .insight-label span:first-child {
   width: 4rem;
 }
+
 .insight-label span:last-child {
   width: 2rem;
   margin-left: auto;
@@ -338,10 +343,9 @@ h1 em {
   box-shadow: 0 0.5rem 1rem rgba(47, 128, 237, 0.2);
   font-weight: 700;
   cursor: pointer;
-  transition:
-    background 160ms ease,
-    transform 160ms ease,
-    box-shadow 160ms ease;
+  transition: background 160ms ease,
+  transform 160ms ease,
+  box-shadow 160ms ease;
 }
 
 .login-action:hover:not(:disabled) {
@@ -370,6 +374,7 @@ h1 em {
 .security-note i {
   color: #38b982;
 }
+
 .access-footer {
   margin: 0;
   text-align: center;

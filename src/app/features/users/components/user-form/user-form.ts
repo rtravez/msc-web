@@ -11,7 +11,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectModule } from 'primeng/select';
-import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
@@ -49,14 +48,12 @@ export interface UserFormControls {
     InputTextModule,
     InputNumberModule,
     SelectModule,
-    ToastModule,
     TooltipModule,
     ProgressSpinnerModule,
     TranslatePipe,
   ],
   templateUrl: './user-form.html',
   styleUrls: ['./user-form.scss'],
-  providers: [MessageService],
 })
 export class UserForm implements OnInit {
   userForm!: FormGroup<UserFormControls>;

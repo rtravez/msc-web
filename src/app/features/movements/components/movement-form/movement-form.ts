@@ -16,7 +16,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
-import { ToastModule } from 'primeng/toast';
 import { AccountService } from '../../../accounts/services/account.service';
 import { Movement, MovementRequest } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
@@ -40,10 +39,8 @@ export interface MovementFormControls {
     InputNumberModule,
     ProgressSpinnerModule,
     SelectModule,
-    ToastModule,
     TranslatePipe,
   ],
-  providers: [MessageService],
 })
 export class MovementForm implements OnInit {
   movementForm!: FormGroup<MovementFormControls>;

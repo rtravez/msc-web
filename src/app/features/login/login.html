@@ -7,7 +7,7 @@
           <span class="brand-mark">MSC</span>
         </div>
         <span class="brand-status"
-          ><span aria-hidden="true"></span> {{ 'login.online' | translate }}</span
+        ><span aria-hidden="true"></span> {{ 'login.online' | translate }}</span
         >
       </div>
 
@@ -58,15 +58,15 @@
       </fieldset>
 
       <div class="access-card">
-        <div class="access-icon" aria-hidden="true"><i class="pi pi-lock"></i></div>
+        <div aria-hidden="true" class="access-icon"><i class="pi pi-lock"></i></div>
         <p class="eyebrow">{{ 'login.secureAccess' | translate }}</p>
         <h2 id="access-title">{{ 'login.title' | translate }}</h2>
         <p class="access-intro">{{ 'login.intro' | translate }}</p>
 
         <button
           (click)="login()"
-          [disabled]="loading()"
           [attr.aria-busy]="loading()"
+          [disabled]="loading()"
           class="login-action"
           type="button"
         >
