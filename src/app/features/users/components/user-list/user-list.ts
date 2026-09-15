@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { User } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -30,7 +29,7 @@ import { Router } from '@angular/router';
     TranslatePipe,
   ],
 })
-export class UserList implements OnInit, OnDestroy {
+export class UserList implements OnInit {
   users = signal<User[]>([]);
   filteredUsers = signal<User[]>([]);
   totalRecords = signal(0);
@@ -43,22 +42,17 @@ export class UserList implements OnInit, OnDestroy {
   private readonly confirmationService = inject(ConfirmationService);
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
-  private readonly destroy$ = new Subject<void>();
+  private readonly destroyRef = inject(DestroyRef);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadUsers();
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  loadUsers(page = this.currentPage(), size = this.pageSize()) {
+  loadUsers(page = this.currentPage(), size = this.pageSize()): void {
     this.isLoading.set(true);
     this.userService
       .getAllUsers(page, size)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (pageData) => {
           this.users.set(pageData.content);
@@ -87,11 +81,11 @@ export class UserList implements OnInit, OnDestroy {
     this.loadUsers(page, size);
   }
 
-  editUser(user: User) {
+  editUser(user: User): void {
     void this.router.navigate(['/users/edit', user.userId]);
   }
 
-  confirmDelete(user: User) {
+  confirmDelete(user: User): void {
     this.confirmationService.confirm({
       message: this.translate.instant('users.confirmDelete', { username: user.username }),
       header: this.translate.instant('users.confirmTitle'),
@@ -110,11 +104,11 @@ export class UserList implements OnInit, OnDestroy {
     });
   }
 
-  deleteUser(user: User) {
+  deleteUser(user: User): void {
     this.isSubmitting.set(true);
     this.userService
       .deleteUser(user.userId)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.isSubmitting.set(false);
