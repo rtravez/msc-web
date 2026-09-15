@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { BaseResponsePage } from '../../../core/models/base-response-page.interface';
 import { BaseResponseDto } from '../../../core/models/base-response.interface';
+import { BaseResponsePage } from '../../../core/models/base-response-page.interface';
+import { BaseCrudService } from '../../../core/services/base-crud.service';
 import { User, UserRequest, UserResponse } from '../models/user.interface';
 
 /**
@@ -14,38 +15,21 @@ import { User, UserRequest, UserResponse } from '../models/user.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private readonly apiUrl = `${environment.mscServices}/api/users`;
-  private readonly http = inject(HttpClient);
+export class UserService extends BaseCrudService<UserResponse, User, UserRequest> {
+  protected override readonly http: HttpClient;
+
+  constructor() {
+    const http = inject(HttpClient);
+    super(http, `${environment.mscServices}/api/users`);
+    this.http = http;
+  }
 
   /**
    * Get paginated users
    * GET /api/users?page=0&size=20
    */
   getAllUsers(page = 0, size = 20): Observable<BaseResponsePage<User>> {
-    return this.http
-      .get<BaseResponseDto<BaseResponsePage<UserResponse>>>(this.apiUrl, {
-        params: new HttpParams().set('page', page).set('size', size),
-      })
-      .pipe(
-        map((response) => {
-          const pageData = response.data;
-          if (!pageData?.content) {
-            return {
-              content: [],
-              totalElements: 0,
-              totalPages: 0,
-              number: page,
-              size,
-            };
-          }
-
-          return {
-            ...pageData,
-            content: pageData.content.map((user) => ({ ...user })),
-          };
-        }),
-      );
+    return this.getAll(page, size);
   }
 
   /**
@@ -58,7 +42,7 @@ export class UserService {
       .get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/identification`, {
         params: { identification },
       })
-      .pipe(map((response) => this.unwrapUser(response)));
+      .pipe(map((response) => this.unwrapSingle(response)));
   }
 
   /**
@@ -67,9 +51,7 @@ export class UserService {
    * @param userId - User ID
    */
   getUserById(userId: number): Observable<User> {
-    return this.http
-      .get<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`)
-      .pipe(map((response) => this.unwrapUser(response)));
+    return this.getById(userId);
   }
 
   /**
@@ -78,9 +60,7 @@ export class UserService {
    * @param user - User data to create
    */
   createUser(user: UserRequest): Observable<User> {
-    return this.http
-      .post<BaseResponseDto<UserResponse>>(this.apiUrl, user)
-      .pipe(map((response) => this.unwrapUser(response)));
+    return this.create(user);
   }
 
   /**
@@ -90,9 +70,7 @@ export class UserService {
    * @param request - User data to update
    */
   updateUser(userId: number, request: UserRequest): Observable<User> {
-    return this.http
-      .put<BaseResponseDto<UserResponse>>(`${this.apiUrl}/${userId}`, request)
-      .pipe(map((response) => this.unwrapUser(response)));
+    return this.update(userId, request);
   }
 
   /**
@@ -101,10 +79,6 @@ export class UserService {
    * @param userId - User ID to delete
    */
   deleteUser(userId: number): Observable<BaseResponseDto<number>> {
-    return this.http.delete<BaseResponseDto<number>>(`${this.apiUrl}/${userId}`);
-  }
-
-  private unwrapUser(response: BaseResponseDto<UserResponse>): User {
-    return { ...response.data };
+    return this.delete(userId);
   }
 }

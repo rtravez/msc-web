@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { BaseResponsePage } from '../../../core/models/base-response-page.interface';
 import { BaseResponseDto } from '../../../core/models/base-response.interface';
+import { BaseCrudService } from '../../../core/services/base-crud.service';
 import {
   Movement,
   MovementReportResponse,
@@ -13,38 +14,33 @@ import {
 } from '../models/movement.interface';
 
 @Injectable({ providedIn: 'root' })
-export class MovementService {
-  private readonly apiUrl = `${environment.msaServices}/api/movements`;
-  private readonly http = inject(HttpClient);
+export class MovementService extends BaseCrudService<MovementResponse, Movement, MovementRequest> {
+  protected override readonly http: HttpClient;
+
+  constructor() {
+    const http = inject(HttpClient);
+    super(http, `${environment.msaServices}/api/movements`);
+    this.http = http;
+  }
 
   getAllMovements(page = 0, size = 20): Observable<BaseResponsePage<Movement>> {
-    return this.http
-      .get<BaseResponseDto<BaseResponsePage<MovementResponse>>>(this.apiUrl, {
-        params: new HttpParams().set('page', page).set('size', size),
-      })
-      .pipe(map((response) => this.unwrapPage(response.data, page, size)));
+    return this.getAll(page, size);
   }
 
   getMovementById(movementId: number): Observable<Movement> {
-    return this.http
-      .get<BaseResponseDto<MovementResponse>>(`${this.apiUrl}/${movementId}`)
-      .pipe(map((response) => ({ ...response.data })));
+    return this.getById(movementId);
   }
 
   createMovement(request: MovementRequest): Observable<Movement> {
-    return this.http
-      .post<BaseResponseDto<MovementResponse>>(this.apiUrl, request)
-      .pipe(map((response) => ({ ...response.data })));
+    return this.create(request);
   }
 
   updateMovement(movementId: number, request: MovementRequest): Observable<Movement> {
-    return this.http
-      .put<BaseResponseDto<MovementResponse>>(`${this.apiUrl}/${movementId}`, request)
-      .pipe(map((response) => ({ ...response.data })));
+    return this.update(movementId, request);
   }
 
   deleteMovement(movementId: number): Observable<BaseResponseDto<number>> {
-    return this.http.delete<BaseResponseDto<number>>(`${this.apiUrl}/${movementId}`);
+    return this.delete(movementId);
   }
 
   getMovementReport(
@@ -67,22 +63,24 @@ export class MovementService {
       .get<BaseResponseDto<BaseResponsePage<MovementReportResponse>>>(`${this.apiUrl}/reports`, {
         params,
       })
-      .pipe(map((response) => this.unwrapPage(response.data, page, size)));
-  }
+      .pipe(
+        map((response) => {
+          const pageData = response.data;
+          if (!pageData?.content) {
+            return {
+              content: [],
+              totalElements: 0,
+              totalPages: 0,
+              number: page,
+              size,
+            };
+          }
 
-  private unwrapPage<T>(
-    pageData: BaseResponsePage<T> | undefined,
-    page: number,
-    size: number,
-  ): BaseResponsePage<T> {
-    return (
-      pageData ?? {
-        content: [],
-        totalElements: 0,
-        totalPages: 0,
-        number: page,
-        size,
-      }
-    );
+          return {
+            ...pageData,
+            content: [...pageData.content],
+          };
+        }),
+      );
   }
 }
