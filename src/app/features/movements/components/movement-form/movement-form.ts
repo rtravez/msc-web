@@ -102,18 +102,22 @@ export class MovementForm implements OnInit {
     operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translate.instant('common.success'),
-          detail: this.translate.instant(
-            this.isEditMode ? 'movements.updated' : 'movements.created',
-          ),
-          life: 2500,
+        void this.router.navigate(['/movements']).then((navigated) => {
+          if (!navigated) return;
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant('common.success'),
+            detail: this.translate.instant(
+              this.isEditMode ? 'movements.updated' : 'movements.created',
+            ),
+            life: 3000,
+          });
         });
-        void this.router.navigate(['/movements']);
       },
       error: (error) => {
         this.isSubmitting = false;
+        console.error('Error saving movement:', error);
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),

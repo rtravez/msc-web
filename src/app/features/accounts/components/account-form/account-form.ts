@@ -133,6 +133,7 @@ export class AccountForm implements OnInit {
       },
       error: (error) => {
         this.isSubmitting = false;
+        console.error('Error saving account:', error);
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
