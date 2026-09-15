@@ -126,7 +126,9 @@ export class AccountForm implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: this.translate.instant('common.success'),
-            detail: this.translate.instant(this.isEditMode ? 'accounts.updated' : 'accounts.created'),
+            detail: this.translate.instant(
+              this.isEditMode ? 'accounts.updated' : 'accounts.created',
+            ),
             life: 3000,
           });
         });
