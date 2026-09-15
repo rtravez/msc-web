@@ -120,13 +120,16 @@ export class AccountForm implements OnInit {
     operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translate.instant('common.success'),
-          detail: this.translate.instant(this.isEditMode ? 'accounts.updated' : 'accounts.created'),
-          life: 3000,
+        void this.router.navigate(['/accounts']).then((navigated) => {
+          if (!navigated) return;
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant('common.success'),
+            detail: this.translate.instant(this.isEditMode ? 'accounts.updated' : 'accounts.created'),
+            life: 3000,
+          });
         });
-        //void this.router.navigate(['/accounts']);
       },
       error: (error) => {
         this.isSubmitting = false;

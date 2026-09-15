@@ -158,13 +158,16 @@ export class UserForm implements OnInit {
     operation$.subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translate.instant('common.success'),
-          detail: this.translate.instant(this.isEditMode ? 'users.updated' : 'users.created'),
-          life: 3000,
+        void this.router.navigate(['/users']).then((navigated) => {
+          if (!navigated) return;
+
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant('common.success'),
+            detail: this.translate.instant(this.isEditMode ? 'users.updated' : 'users.created'),
+            life: 3000,
+          });
         });
-        //void this.router.navigate(['/users']);
       },
       error: (error) => {
         this.isSubmitting = false;
