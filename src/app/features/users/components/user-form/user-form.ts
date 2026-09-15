@@ -155,7 +155,7 @@ export class UserForm implements OnInit {
         ? this.userService.updateUser(formValue.userId, request)
         : this.userService.createUser(request);
 
-    operation$.subscribe({
+    operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.isSubmitting = false;
         void this.router.navigate(['/users']).then((navigated) => {
@@ -198,16 +198,19 @@ export class UserForm implements OnInit {
 
   private loadUser(userId: number): void {
     this.isLoading.set(true);
-    this.userService.getUserById(userId).subscribe({
-      next: (user) => {
-        this.populateForm(user);
-        this.isLoading.set(false);
-      },
-      error: () => {
-        this.isLoading.set(false);
-        this.returnToUsersWithLoadError();
-      },
-    });
+    this.userService
+      .getUserById(userId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (user) => {
+          this.populateForm(user);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.isLoading.set(false);
+          this.returnToUsersWithLoadError();
+        },
+      });
   }
 
   private returnToUsersWithLoadError(): void {
