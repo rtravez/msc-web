@@ -68,12 +68,12 @@ export class UserForm implements OnInit {
   isSubmitting = signal(false);
   isEditMode = signal(false);
   isLoading = signal(false);
-  readonly genderOptions =  [
+  readonly genderOptions = [
     { label: 'users.form.male', value: 'M' },
     { label: 'users.form.female', value: 'F' },
     { label: 'users.form.other', value: 'O' },
   ];
-  readonly statusOptions =  [
+  readonly statusOptions = [
     { label: 'users.active', value: true },
     { label: 'users.inactive', value: false },
   ];

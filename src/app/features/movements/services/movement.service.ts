@@ -15,12 +15,9 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class MovementService extends BaseCrudService<MovementResponse, Movement, MovementRequest> {
-  protected override readonly http: HttpClient;
-
   constructor() {
     const http = inject(HttpClient);
     super(http, `${environment.msaServices}/api/movements`);
-    this.http = http;
   }
 
   getAllMovements(page = 0, size = 20): Observable<BaseResponsePage<Movement>> {

@@ -11,12 +11,9 @@ import { Account, AccountRequest, AccountResponse } from '../models/account.inte
   providedIn: 'root',
 })
 export class AccountService extends BaseCrudService<AccountResponse, Account, AccountRequest> {
-  protected override readonly http: HttpClient;
-
   constructor() {
     const http = inject(HttpClient);
     super(http, `${environment.msaServices}/api/accounts`);
-    this.http = http;
   }
 
   getAllAccounts(page = 0, size = 20): Observable<BaseResponsePage<Account>> {

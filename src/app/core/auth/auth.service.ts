@@ -7,6 +7,7 @@ import {
 } from 'keycloak-angular';
 import Keycloak from 'keycloak-js';
 import { Router } from '@angular/router';
+import { finalize, from, Observable, shareReplay } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -40,7 +41,10 @@ export class AuthService {
         return;
       }
 
-      if (event.type === KeycloakEventType.AuthError || event.type === KeycloakEventType.AuthRefreshError) {
+      if (
+        event.type === KeycloakEventType.AuthError ||
+        event.type === KeycloakEventType.AuthRefreshError
+      ) {
         this.markSessionExpired();
       }
     });
@@ -80,6 +84,19 @@ export class AuthService {
     this.loadingState.set(false);
   }
 
+  private refreshToken$?: Observable<boolean> | null = null;
+
+  refreshToken(): Observable<boolean> {
+    const refresh$ = (this.refreshToken$ ??= from(this.updateToken(-1)).pipe(
+      finalize(() => {
+        this.refreshToken$ = null;
+      }),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    ));
+
+    return refresh$;
+  }
+
   updateToken(minValidity: number): Promise<boolean> {
     return this.keycloak.updateToken(minValidity);
   }
@@ -91,7 +108,9 @@ export class AuthService {
   private setSessionState(authenticated: boolean): void {
     this.authenticatedState.set(authenticated);
     this.usernameState.set(
-      authenticated ? (this.keycloak.tokenParsed?.['preferred_username'] as string | undefined) : undefined,
+      authenticated
+        ? (this.keycloak.tokenParsed?.['preferred_username'] as string | undefined)
+        : undefined,
     );
     this.sessionExpiredState.set(false);
   }

@@ -16,12 +16,9 @@ import { User, UserRequest, UserResponse } from '../models/user.interface';
   providedIn: 'root',
 })
 export class UserService extends BaseCrudService<UserResponse, User, UserRequest> {
-  protected override readonly http: HttpClient;
-
   constructor() {
     const http = inject(HttpClient);
     super(http, `${environment.mscServices}/api/users`);
-    this.http = http;
   }
 
   /**
