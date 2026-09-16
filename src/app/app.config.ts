@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
       initOptions: {
         onLoad: 'login-required',
         checkLoginIframe: false,
-        redirectUri: window.location.origin,
+        redirectUri: window.location.href,
         useNonce: true,
         responseMode: 'query',
         pkceMethod: 'S256',

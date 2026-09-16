@@ -1,4 +1,10 @@
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { inject } from '@angular/core';
 import { AuthGuardData, createAuthGuard } from 'keycloak-angular';
 
 const isAccessAllowed = async (
@@ -24,7 +30,7 @@ const isAccessAllowed = async (
   ]);
 
   const hasAllRoles = requiredRoles.every((role) => userRoles.has(role));
-  return hasAllRoles;
+  return hasAllRoles ? true : inject(Router).parseUrl('/dashboard');
 };
 
 export const AuthGuard: CanActivateFn = createAuthGuard(isAccessAllowed);
