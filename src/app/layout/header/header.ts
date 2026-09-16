@@ -23,6 +23,7 @@ export class Header {
   }
 
   logout(): void {
+    this.mobileMenuOpen = false;
     void this.auth.logout();
   }
 

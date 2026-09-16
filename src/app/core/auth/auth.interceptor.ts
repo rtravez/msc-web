@@ -1,10 +1,10 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import Keycloak from 'keycloak-js';
 import { catchError, from, switchMap, throwError } from 'rxjs';
+import { AuthService } from './auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
-  const keycloak = inject(Keycloak);
+  const auth = inject(AuthService);
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -12,10 +12,11 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
         return throwError(() => error);
       }
 
-      return from(keycloak.updateToken(-1)).pipe(
+      return from(auth.updateToken(-1)).pipe(
         switchMap(() => next(request)),
         catchError(() => {
-          void keycloak.logout({ redirectUri: window.location.origin });
+          auth.markSessionExpired();
+          void auth.logout();
           return throwError(() => error);
         }),
       );
