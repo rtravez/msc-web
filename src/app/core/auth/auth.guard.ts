@@ -7,16 +7,39 @@ import {
 import { inject } from '@angular/core';
 import { AuthGuardData, createAuthGuard } from 'keycloak-angular';
 
+const OIDC_CALLBACK_PARAMETERS = [
+  'code',
+  'error',
+  'error_description',
+  'error_uri',
+  'iss',
+  'session_state',
+  'state',
+] as const;
+
+const getLoginRedirectUri = (routerUrl: string): string => {
+  const redirectUrl = new URL(routerUrl, window.location.origin);
+
+  for (const parameter of OIDC_CALLBACK_PARAMETERS) {
+    redirectUrl.searchParams.delete(parameter);
+  }
+
+  return redirectUrl.toString();
+};
+
 const isAccessAllowed = async (
   route: ActivatedRouteSnapshot,
   _state: RouterStateSnapshot,
   authData: AuthGuardData,
 ): Promise<boolean | ReturnType<import('@angular/router').Router['parseUrl']>> => {
-  const { authenticated, grantedRoles } = authData;
+  const { authenticated, grantedRoles, keycloak } = authData;
 
   const requiredRoles: string[] = route.data?.['roles'] ?? [];
 
   if (!authenticated) {
+    await keycloak.login({
+      redirectUri: getLoginRedirectUri(_state.url),
+    });
     return false;
   }
 

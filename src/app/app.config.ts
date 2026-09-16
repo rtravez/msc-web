@@ -30,9 +30,11 @@ export const appConfig: ApplicationConfig = {
         clientId: environment.auth.clientId,
       },
       initOptions: {
-        onLoad: 'login-required',
+        onLoad: 'check-sso',
+        silentCheckSsoRedirectUri: `${window.location.origin}/silent-check-sso.html`,
+        silentCheckSsoFallback: false,
         checkLoginIframe: false,
-        redirectUri: window.location.href,
+        redirectUri: `${window.location.origin}`,
         useNonce: true,
         responseMode: 'query',
         pkceMethod: 'S256',

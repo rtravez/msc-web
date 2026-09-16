@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   login(redirectUri?: string): Promise<void> {
-    return this.keycloak.login({ redirectUri: redirectUri ?? window.location.href });
+    return this.keycloak.login({ redirectUri: redirectUri ?? window.location.origin });
   }
 
   logout(redirectUri?: string): Promise<void> {
