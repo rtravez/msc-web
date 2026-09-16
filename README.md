@@ -51,10 +51,10 @@ the container to reach the three services running on the Docker host:
 
 ```bash
 docker build -f ci/Dockerfile -t msc-web .
-docker run --rm --add-host=host.docker.internal:host-gateway -p 8080:4200 msc-web
+docker run --rm --add-host=host.docker.internal:host-gateway -p 4200:4200 msc-web
 ```
 
-Open `http://localhost:8080/` in your browser. Angular routes and the `/authServices`,
+Open `http://localhost:4200/` in your browser. Angular routes and the `/authServices`,
 `/mscServices`, and `/msaServices` API prefixes are handled by Nginx.
 
 When the services run in another Docker network or environment, override their destinations:
