@@ -1,10 +1,4 @@
 {
-  "/authServices": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  },
   "/mscServices": {
     "target": "http://localhost:8081",
     "secure": false,

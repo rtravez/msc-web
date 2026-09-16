@@ -3,8 +3,8 @@ export const environment = {
   mscServices: '/mscServices',
   msaServices: '/msaServices',
   auth: {
-    url: 'http://localhost:8080',
-    realm: 'master',
-    clientId: 'rtravez-web',
+    url: 'http://localhost:8080/auth',
+    realm: 'RTRAVEZ-SSO-INTRANET',
+    clientId: 'MSC-WEB',
   },
 };
