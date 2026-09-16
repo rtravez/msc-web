@@ -29,7 +29,7 @@ const getLoginRedirectUri = (routerUrl: string): string => {
 
 const isAccessAllowed = async (
   route: ActivatedRouteSnapshot,
-  _state: RouterStateSnapshot,
+  state: RouterStateSnapshot,
   authData: AuthGuardData,
 ): Promise<boolean | ReturnType<import('@angular/router').Router['parseUrl']>> => {
   const { authenticated, grantedRoles, keycloak } = authData;
@@ -38,7 +38,7 @@ const isAccessAllowed = async (
 
   if (!authenticated) {
     await keycloak.login({
-      redirectUri: getLoginRedirectUri(_state.url),
+      redirectUri: getLoginRedirectUri(state.url),
     });
     return false;
   }
