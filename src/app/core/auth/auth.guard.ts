@@ -30,7 +30,7 @@ const isAccessAllowed = async (
   ]);
 
   const hasAllRoles = requiredRoles.every((role) => userRoles.has(role));
-  return hasAllRoles ? true : inject(Router).parseUrl('/dashboard');
+  return hasAllRoles ? true : inject(Router).parseUrl('/forbidden');
 };
 
 export const AuthGuard: CanActivateFn = createAuthGuard(isAccessAllowed);

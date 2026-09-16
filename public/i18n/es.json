@@ -20,6 +20,11 @@
   "layout": {
     "workspace": "Espacio de trabajo"
   },
+  "forbidden": {
+    "title": "Acceso no autorizado",
+    "message": "No tienes los permisos necesarios para acceder a esta sección.",
+    "backToDashboard": "Volver al dashboard"
+  },
   "footer": {
     "copyright": "© 2026 MSC Management",
     "rightsReserved": "Todos los derechos reservados"

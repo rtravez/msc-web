@@ -1,0 +1,40 @@
+.forbidden-page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  padding: 2rem 1rem;
+}
+
+.forbidden-panel {
+  background: var(--surface, #fff);
+  border-top: 4px solid var(--bs-danger, #dc3545);
+  box-shadow: 0 0.5rem 1rem rgb(19 34 56 / 10%);
+  max-width: 34rem;
+  padding: clamp(2rem, 6vw, 4rem);
+  text-align: center;
+  width: 100%;
+}
+
+.forbidden-icon {
+  color: var(--bs-danger, #dc3545);
+  font-size: 2rem;
+}
+
+.forbidden-code {
+  color: var(--bs-danger, #dc3545);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  margin: 1rem 0;
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.forbidden-message {
+  color: var(--text-muted, #667085);
+  margin-bottom: 2rem;
+}

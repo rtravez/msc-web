@@ -20,6 +20,11 @@
   "layout": {
     "workspace": "Workspace"
   },
+  "forbidden": {
+    "title": "Access denied",
+    "message": "You do not have the required permissions to access this section.",
+    "backToDashboard": "Back to dashboard"
+  },
   "footer": {
     "copyright": "© 2026 MSC Management",
     "rightsReserved": "All rights reserved"
