@@ -1,5 +1,30 @@
-import { createAuthGuard } from 'keycloak-angular';
+import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import { AuthGuardData, createAuthGuard } from 'keycloak-angular';
 
-export const authGuard = createAuthGuard(async (_route, _state, { authenticated }) => {
-  return authenticated;
-});
+const isAccessAllowed = async (
+  route: ActivatedRouteSnapshot,
+  _state: RouterStateSnapshot,
+  authData: AuthGuardData,
+): Promise<boolean | ReturnType<import('@angular/router').Router['parseUrl']>> => {
+  const { authenticated, grantedRoles } = authData;
+
+  const requiredRoles: string[] = route.data?.['roles'] ?? [];
+
+  if (!authenticated) {
+    return false;
+  }
+
+  if (requiredRoles.length === 0) {
+    return true;
+  }
+
+  const userRoles = new Set([
+    ...(grantedRoles.realmRoles ?? []),
+    ...Object.values(grantedRoles.resourceRoles ?? {}).flat(),
+  ]);
+
+  const hasAllRoles = requiredRoles.every((role) => userRoles.has(role));
+  return hasAllRoles;
+};
+
+export const AuthGuard: CanActivateFn = createAuthGuard(isAccessAllowed);

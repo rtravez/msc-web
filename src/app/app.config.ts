@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
         onLoad: 'login-required',
         checkLoginIframe: false,
         redirectUri: window.location.origin,
-        useNonce: false,
+        useNonce: true,
         responseMode: 'query',
         pkceMethod: 'S256',
       },

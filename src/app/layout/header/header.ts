@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import Keycloak from 'keycloak-js';
+import { AuthService } from '../../core/auth/auth.service';
 import { LanguageService, SupportedLanguage } from '../../core/i18n/language.service';
 
 @Component({
@@ -15,15 +15,15 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
 export class Header {
   @Output() readonly toggleSidebar = new EventEmitter<void>();
   protected readonly language = inject(LanguageService);
+  private readonly auth = inject(AuthService);
   protected mobileMenuOpen = false;
-  private readonly keycloak = inject(Keycloak);
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   logout(): void {
-    void this.keycloak.logout({ redirectUri: window.location.origin });
+    void this.auth.logout();
   }
 
   setLanguage(language: SupportedLanguage): void {
