@@ -53,6 +53,21 @@ describe('AuthService', () => {
     expect(service.sessionExpired()).toBe(false);
   });
 
+  it('should reuse an in-progress logout request', async () => {
+    let resolveLogout!: () => void;
+    keycloak.logout = vi.fn(() => new Promise<void>((resolve) => (resolveLogout = resolve)));
+    const service = TestBed.inject(AuthService);
+
+    const first = service.logout();
+    const second = service.logout();
+
+    expect(first).toBe(second);
+    expect(keycloak.logout).toHaveBeenCalledTimes(1);
+
+    resolveLogout();
+    await first;
+  });
+
   it('should check realm and client roles from the token', () => {
     Object.assign(keycloak, {
       tokenParsed: {

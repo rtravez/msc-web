@@ -18,6 +18,7 @@ export class AuthService {
   private readonly authenticatedState = signal(false);
   private readonly usernameState = signal<string | undefined>(undefined);
   private readonly sessionExpiredState = signal(false);
+  private logoutPromise: Promise<void> | null = null;
 
   readonly loading = this.loadingState.asReadonly();
   readonly authenticated = this.authenticatedState.asReadonly();
@@ -71,15 +72,24 @@ export class AuthService {
   }
 
   logout(redirectUri?: string): Promise<void> {
+    if (this.logoutPromise) {
+      return this.logoutPromise;
+    }
+
     this.clearSessionState();
 
-    return this.keycloak
+    this.logoutPromise = this.keycloak
       .logout({ redirectUri: redirectUri ?? window.location.origin })
       .catch(() => {
         this.keycloak.clearToken();
         return this.router.navigateByUrl('/');
       })
-      .then(() => undefined);
+      .then(() => undefined)
+      .finally(() => {
+        this.logoutPromise = null;
+      });
+
+    return this.logoutPromise;
   }
 
   markSessionExpired(): void {
