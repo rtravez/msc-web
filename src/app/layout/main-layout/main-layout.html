@@ -1,7 +1,7 @@
 <a class="skip-link" href="#main-content">{{ 'accessibility.skipToContent' | translate }}</a>
 
 <div [class.sidebar-is-open]="sidebarOpen" class="app-shell">
-  <app-header (toggleSidebar)="toggleSidebar()" />
+  <app-header (toggleSidebar)="toggleSidebar()" [sidebarOpen]="sidebarOpen" />
 
   <div class="app-body">
     <app-sidebar

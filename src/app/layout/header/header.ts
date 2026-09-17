@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
@@ -12,6 +12,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  readonly sidebarOpen = input(true);
   readonly toggleSidebar = output<void>();
   protected readonly language = inject(LanguageService);
   private readonly auth = inject(AuthService);

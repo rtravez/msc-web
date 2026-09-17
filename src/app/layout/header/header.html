@@ -4,7 +4,7 @@
       <button
         (click)="toggleSidebar.emit()"
         [attr.aria-controls]="'sidebar-navigation'"
-        [attr.aria-expanded]="mobileMenuOpen || null"
+        [attr.aria-expanded]="sidebarOpen()"
         [attr.aria-label]="'accessibility.toggleSidebar' | translate"
         class="icon-button menu-button"
         type="button"
@@ -21,6 +21,7 @@
     <div
       [class.mobile-open]="mobileMenuOpen"
       class="header-nav-wrapper d-flex align-items-center gap-2 ms-auto"
+      id="header-navigation"
     >
       <div class="d-flex align-items-center gap-2 ms-lg-3">
         <fieldset
@@ -60,7 +61,7 @@
 
     <button
       (click)="toggleMobileMenu()"
-      [attr.aria-controls]="'sidebar-navigation'"
+      [attr.aria-controls]="'header-navigation'"
       [attr.aria-expanded]="mobileMenuOpen"
       [attr.aria-label]="'accessibility.toggleNavigation' | translate"
       class="icon-button mobile-toggle d-lg-none ms-2"
