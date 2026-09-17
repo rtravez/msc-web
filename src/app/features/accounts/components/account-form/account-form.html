@@ -23,9 +23,9 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4 p-md-5">
           @if (isLoading()) {
-            <div aria-busy="true" class="d-flex justify-content-center py-5" role="status">
+            <output aria-busy="true" class="d-flex justify-content-center py-5">
               <p-progressSpinner [ariaLabel]="'common.loading' | translate" strokeWidth="4" />
-            </div>
+            </output>
           } @else {
             <form (ngSubmit)="onSubmit()" [formGroup]="accountForm" novalidate>
               <div class="row g-3">
@@ -34,13 +34,17 @@
                     >{{ 'accounts.accountNumber' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="
+                      isFieldInvalid('accountNumber') ? 'accountNumber-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('accountNumber')"
                     [useGrouping]="false"
                     class="w-100"
                     formControlName="accountNumber"
                     inputId="accountNumber"
                   />
                   @if (isFieldInvalid('accountNumber')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="accountNumber-error">
                       {{ getFieldError('accountNumber') }}
                     </div>
                   }
@@ -50,6 +54,10 @@
                     >{{ 'accounts.accountType' | translate }} *</label
                   >
                   <p-select
+                    [attr.aria-describedby]="
+                      isFieldInvalid('accountType') ? 'accountType-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('accountType')"
                     [options]="accountTypes"
                     [placeholder]="'accounts.form.selectType' | translate"
                     class="w-100"
@@ -64,7 +72,9 @@
                     </ng-template>
                   </p-select>
                   @if (isFieldInvalid('accountType')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('accountType') }}</div>
+                    <div class="invalid-feedback d-block" id="accountType-error">
+                      {{ getFieldError('accountType') }}
+                    </div>
                   }
                 </div>
                 <div class="col-12 col-md-6">
@@ -72,6 +82,10 @@
                     >{{ 'accounts.initialBalance' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="
+                      isFieldInvalid('initialBalance') ? 'initialBalance-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('initialBalance')"
                     [maxFractionDigits]="2"
                     [minFractionDigits]="2"
                     [min]="0"
@@ -81,7 +95,7 @@
                     mode="decimal"
                   />
                   @if (isFieldInvalid('initialBalance')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="initialBalance-error">
                       {{ getFieldError('initialBalance') }}
                     </div>
                   }
@@ -91,6 +105,10 @@
                     >{{ 'accounts.identification' | translate }} *</label
                   >
                   <input
+                    [attr.aria-describedby]="
+                      isFieldInvalid('identification') ? 'identification-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('identification')"
                     [placeholder]="'accounts.form.identificationHint' | translate"
                     class="form-control"
                     formControlName="identification"
@@ -99,7 +117,7 @@
                     type="text"
                   />
                   @if (isFieldInvalid('identification')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="identification-error">
                       {{ getFieldError('identification') }}
                     </div>
                   }
