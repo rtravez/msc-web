@@ -61,7 +61,11 @@ export const RoleCanMatch: CanMatchFn = (route) => {
   const requiredRoles: string[] = route.data?.['roles'] ?? [];
 
   if (!auth.authenticated()) {
-    return router.parseUrl('/dashboard');
+    return false;
+  }
+
+  if (requiredRoles.length === 0) {
+    return true;
   }
 
   return auth.hasAllRoles(requiredRoles) ? true : router.parseUrl('/forbidden');
