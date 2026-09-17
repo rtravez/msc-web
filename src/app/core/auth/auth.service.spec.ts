@@ -52,4 +52,17 @@ describe('AuthService', () => {
 
     expect(service.sessionExpired()).toBe(false);
   });
+
+  it('should check realm and client roles from the token', () => {
+    Object.assign(keycloak, {
+      tokenParsed: {
+        realm_access: { roles: ['ADMIN'] },
+        resource_access: { 'msc-web': { roles: ['REPORT_VIEWER'] } },
+      },
+    });
+    const service = TestBed.inject(AuthService);
+
+    expect(service.hasAllRoles(['ADMIN', 'REPORT_VIEWER'])).toBe(true);
+    expect(service.hasAllRoles(['ADMIN', 'MISSING'])).toBe(false);
+  });
 });

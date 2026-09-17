@@ -34,7 +34,8 @@ const isAccessAllowed = async (
   state: RouterStateSnapshot,
   authData: AuthGuardData,
 ): Promise<boolean | ReturnType<import('@angular/router').Router['parseUrl']>> => {
-  const { authenticated, grantedRoles, keycloak } = authData;
+  const { authenticated, keycloak } = authData;
+  const auth = inject(AuthService);
 
   const requiredRoles: string[] = route.data?.['roles'] ?? [];
 
@@ -49,13 +50,7 @@ const isAccessAllowed = async (
     return true;
   }
 
-  const userRoles = new Set([
-    ...(grantedRoles.realmRoles ?? []),
-    ...Object.values(grantedRoles.resourceRoles ?? {}).flat(),
-  ]);
-
-  const hasAllRoles = requiredRoles.every((role) => userRoles.has(role));
-  return hasAllRoles ? true : inject(Router).parseUrl('/forbidden');
+  return auth.hasAllRoles(requiredRoles) ? true : inject(Router).parseUrl('/forbidden');
 };
 
 export const AuthGuard: CanActivateFn = createAuthGuard(isAccessAllowed);
@@ -69,5 +64,5 @@ export const RoleCanMatch: CanMatchFn = (route) => {
     return router.parseUrl('/dashboard');
   }
 
-  return requiredRoles.every((role) => auth.hasRole(role)) ? true : router.parseUrl('/forbidden');
+  return auth.hasAllRoles(requiredRoles) ? true : router.parseUrl('/forbidden');
 };

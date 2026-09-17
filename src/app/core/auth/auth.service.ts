@@ -57,8 +57,13 @@ export class AuthService {
     return [...realmRoles, ...clientRoles];
   });
 
+  hasAllRoles(requiredRoles: readonly string[]): boolean {
+    const userRoles = new Set(this.roles());
+    return requiredRoles.every((role) => userRoles.has(role));
+  }
+
   hasRole(role: string): boolean {
-    return this.roles().includes(role);
+    return this.hasAllRoles([role]);
   }
 
   login(redirectUri?: string): Promise<void> {
