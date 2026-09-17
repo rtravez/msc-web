@@ -8,6 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "quality": "npm run lint && npm run format:check && npm run test:coverage",
+    "ci": "npm run quality && npm run build -- --configuration production",
     "lint": "eslint \"src/**/*.{ts,html}\"",
     "format:write": "prettier --write \"src/**/*.{ts,html,scss}\" \"*.{json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,scss}\" \"*.{json,md}\""

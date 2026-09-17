@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { RoleCanMatch } from './auth.guard';
 
 describe('RoleCanMatch', () => {
-  const route = { data: { roles: ['ADMIN'] } } as any;
+  const route: { data: { roles: string[] } } = { data: { roles: ['ADMIN'] } };
 
   beforeEach(() => {
     TestBed.resetTestingModule();
