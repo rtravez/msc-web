@@ -13,6 +13,7 @@
   "accessibility": {
     "toggleSidebar": "Mostrar u ocultar barra lateral",
     "mainNavigation": "Navegación principal",
+    "closeNavigation": "Cerrar navegación",
     "toggleNavigation": "Mostrar u ocultar menú de navegación",
     "sidebarNavigation": "Navegación lateral",
     "skipToContent": "Saltar al contenido principal"

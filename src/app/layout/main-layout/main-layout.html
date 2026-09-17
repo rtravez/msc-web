@@ -11,7 +11,7 @@
     />
     <button
       (click)="closeSidebar()"
-      aria-label="Close navigation"
+      [attr.aria-label]="'accessibility.closeNavigation' | translate"
       class="sidebar-backdrop"
       type="button"
     ></button>

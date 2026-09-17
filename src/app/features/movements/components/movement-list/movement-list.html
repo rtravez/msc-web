@@ -24,8 +24,16 @@
   <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
       @if (isLoading()) {
-        <div class="d-flex justify-content-center align-items-center py-5">
-          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4" />
+        <div
+          aria-busy="true"
+          class="d-flex justify-content-center align-items-center py-5"
+          role="status"
+        >
+          <p-progressSpinner
+            [ariaLabel]="'common.loading' | translate"
+            [style]="{ width: '40px', height: '40px' }"
+            strokeWidth="4"
+          />
         </div>
       } @else {
         <p-table
@@ -41,12 +49,12 @@
         >
           <ng-template #header>
             <tr>
-              <th>{{ 'movements.date' | translate }}</th>
-              <th>{{ 'movements.type' | translate }}</th>
-              <th>{{ 'movements.value' | translate }}</th>
-              <th>{{ 'movements.balance' | translate }}</th>
-              <th>{{ 'movements.accountNumber' | translate }}</th>
-              <th>{{ 'movements.actions' | translate }}</th>
+              <th scope="col">{{ 'movements.date' | translate }}</th>
+              <th scope="col">{{ 'movements.type' | translate }}</th>
+              <th scope="col">{{ 'movements.value' | translate }}</th>
+              <th scope="col">{{ 'movements.balance' | translate }}</th>
+              <th scope="col">{{ 'movements.accountNumber' | translate }}</th>
+              <th scope="col">{{ 'movements.actions' | translate }}</th>
             </tr>
           </ng-template>
           <ng-template #body let-movement>

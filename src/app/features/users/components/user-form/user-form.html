@@ -5,6 +5,7 @@
         <div class="d-flex align-items-start gap-3">
           <p-button
             (onClick)="onCancel()"
+            [attr.aria-label]="'common.cancel' | translate"
             [text]="true"
             icon="pi pi-arrow-left"
             severity="secondary"
@@ -24,7 +25,11 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4 p-md-5">
           @if (isLoading()) {
-            <div class="d-flex justify-content-center align-items-center py-5">
+            <div
+              aria-busy="true"
+              class="d-flex justify-content-center align-items-center py-5"
+              role="status"
+            >
               <p-progressSpinner
                 [ariaLabel]="'common.loading' | translate"
                 [style]="{ width: '40px', height: '40px' }"

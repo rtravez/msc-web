@@ -8,7 +8,10 @@
     <p class="sidebar-label">
       {{ 'layout.workspace' | translate }}
     </p>
-    <nav aria-label="Main navigation" class="nav flex-column gap-2">
+    <nav
+      [attr.aria-label]="'accessibility.mainNavigation' | translate"
+      class="nav flex-column gap-2"
+    >
       <a
         (click)="navigate.emit()"
         [routerLinkActiveOptions]="{ exact: true }"

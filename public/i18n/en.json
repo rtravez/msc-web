@@ -13,6 +13,7 @@
   "accessibility": {
     "toggleSidebar": "Toggle sidebar",
     "mainNavigation": "Main navigation",
+    "closeNavigation": "Close navigation",
     "toggleNavigation": "Toggle navigation menu",
     "sidebarNavigation": "Sidebar navigation",
     "skipToContent": "Skip to main content"
