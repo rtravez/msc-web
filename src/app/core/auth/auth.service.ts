@@ -17,12 +17,14 @@ export class AuthService {
   private readonly loadingState = signal(true);
   private readonly authenticatedState = signal(false);
   private readonly usernameState = signal<string | undefined>(undefined);
+  private readonly nameState = signal<string | undefined>(undefined);
   private readonly sessionExpiredState = signal(false);
   private logoutPromise: Promise<void> | null = null;
 
   readonly loading = this.loadingState.asReadonly();
   readonly authenticated = this.authenticatedState.asReadonly();
   readonly username = this.usernameState.asReadonly();
+  readonly name = this.nameState.asReadonly();
   readonly sessionExpired = this.sessionExpiredState.asReadonly();
 
   constructor() {
@@ -95,6 +97,7 @@ export class AuthService {
   markSessionExpired(): void {
     this.authenticatedState.set(false);
     this.usernameState.set(undefined);
+    this.nameState.set(undefined);
     this.sessionExpiredState.set(true);
     this.loadingState.set(false);
   }
@@ -127,12 +130,16 @@ export class AuthService {
         ? (this.keycloak.tokenParsed?.['preferred_username'] as string | undefined)
         : undefined,
     );
+    this.nameState.set(
+      authenticated ? (this.keycloak.tokenParsed?.['name'] as string | undefined) : undefined,
+    );
     this.sessionExpiredState.set(false);
   }
 
   private clearSessionState(): void {
     this.authenticatedState.set(false);
     this.usernameState.set(undefined);
+    this.nameState.set(undefined);
     this.sessionExpiredState.set(false);
   }
 }

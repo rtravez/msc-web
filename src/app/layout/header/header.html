@@ -29,8 +29,8 @@
             {{ (auth.username() ?? '?').slice(0, 1) }}
           </span>
           <div class="user-details">
-            <small>{{ 'dashboard.activeSession' | translate }}</small>
-            <strong>{{ auth.username() ?? '-' }}</strong>
+            <strong>{{ auth.name() ?? auth.username() ?? '-' }}</strong>
+            <small>{{ auth.username() ?? ('dashboard.activeSession' | translate) }}</small>
           </div>
         </div>
 
