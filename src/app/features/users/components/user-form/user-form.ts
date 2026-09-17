@@ -87,7 +87,7 @@ export class UserForm implements OnInit {
   ngOnInit() {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
       const userId = this.getUserIdFromRoute(params.get('id'));
-      this.isEditMode = signal(userId !== null);
+      this.isEditMode.set(userId !== null);
       this.initializeForm();
 
       if (userId !== null) {
