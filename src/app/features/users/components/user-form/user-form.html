@@ -152,8 +152,6 @@
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="address">{{ 'users.address' | translate }}</label>
                   <input
-                    [attr.aria-describedby]="isFieldInvalid('telephone') ? 'telephone-error' : null"
-                    [attr.aria-invalid]="isFieldInvalid('telephone')"
                     [placeholder]="'users.form.addressHint' | translate"
                     class="form-control"
                     formControlName="address"

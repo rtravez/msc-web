@@ -1,4 +1,5 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 export type SupportedLanguage = 'es' | 'en';
@@ -6,10 +7,15 @@ export type SupportedLanguage = 'es' | 'en';
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
   readonly currentLanguage = signal<SupportedLanguage>('es');
+  private readonly document = inject(DOCUMENT);
   private readonly translate = inject(TranslateService);
   private readonly storageKey = 'msc-language';
 
   constructor() {
+    effect(() => {
+      this.document.documentElement.lang = this.currentLanguage();
+    });
+
     const savedLanguage = localStorage.getItem(this.storageKey);
     const language: SupportedLanguage = savedLanguage === 'en' ? 'en' : 'es';
     this.currentLanguage.set(language);
