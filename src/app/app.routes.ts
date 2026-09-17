@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout/main-layout';
-import { AuthGuard } from './core/auth/auth.guard';
+import { AuthGuard, roleCanMatch } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -15,20 +15,20 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        canActivate: [AuthGuard],
+        canMatch: [roleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () => import('./features/users/users.routes').then((m) => m.usersRoutes),
       },
       {
         path: 'accounts',
-        canActivate: [AuthGuard],
+        canMatch: [roleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/accounts/accounts.routes').then((m) => m.accountsRoutes),
       },
       {
         path: 'movements',
-        canActivate: [AuthGuard],
+        canMatch: [roleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/movements/movements.routes').then((m) => m.movementsRoutes),
@@ -41,5 +41,8 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     ],
   },
-  { path: '**', redirectTo: 'dashboard' },
+  {
+    path: '**',
+    loadComponent: () => import('./features/not-found/not-found').then((module) => module.NotFound),
+  },
 ];
