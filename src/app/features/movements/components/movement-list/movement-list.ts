@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,11 +21,11 @@ import { MovementService } from '../../services/movement.service';
 
 @Component({
   selector: 'app-movement-list',
-  standalone: true,
   templateUrl: './movement-list.html',
   styleUrls: ['./movement-list.scss'],
   imports: [
-    CommonModule,
+    DatePipe,
+    DecimalPipe,
     TableModule,
     ButtonModule,
     TooltipModule,

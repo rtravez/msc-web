@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,11 +22,10 @@ import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-account-list',
-  standalone: true,
   templateUrl: './account-list.html',
   styleUrls: ['./account-list.scss'],
   imports: [
-    CommonModule,
+    DecimalPipe,
     TableModule,
     ButtonModule,
     TagModule,

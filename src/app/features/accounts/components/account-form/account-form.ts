@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,12 +36,10 @@ export interface AccountFormControls {
 
 @Component({
   selector: 'app-account-form',
-  standalone: true,
   templateUrl: './account-form.html',
   styleUrls: ['./account-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ButtonModule,
     InputNumberModule,
@@ -149,10 +146,7 @@ export class AccountForm implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail: this.errorHandler.getMessage(
-            error,
-            this.translate.instant('accounts.saveError'),
-          ),
+          detail: this.errorHandler.getMessage(error, this.translate.instant('accounts.saveError')),
           life: 5000,
         });
       },

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,11 +22,9 @@ import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-list',
-  standalone: true,
   templateUrl: './user-list.html',
   styleUrls: ['./user-list.scss'],
   imports: [
-    CommonModule,
     FormsModule,
     TableModule,
     ButtonModule,

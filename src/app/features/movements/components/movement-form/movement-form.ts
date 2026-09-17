@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,12 +36,10 @@ export interface MovementFormControls {
 
 @Component({
   selector: 'app-movement-form',
-  standalone: true,
   templateUrl: './movement-form.html',
   styleUrls: ['./movement-form.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     ButtonModule,
     InputNumberModule,

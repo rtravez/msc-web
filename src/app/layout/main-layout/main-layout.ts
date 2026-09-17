@@ -10,7 +10,6 @@ import { Sidebar } from '../sidebar/sidebar';
 
 @Component({
   selector: 'app-main-layout',
-  standalone: true,
   imports: [Header, Sidebar, Footer, RouterOutlet, TranslatePipe],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',

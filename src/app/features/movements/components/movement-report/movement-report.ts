@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -47,11 +47,11 @@ const dateRangeValidator: ValidatorFn = (control: AbstractControl): ValidationEr
 
 @Component({
   selector: 'app-movement-report',
-  standalone: true,
   templateUrl: './movement-report.html',
   styleUrls: ['./movement-report.scss'],
   imports: [
-    CommonModule,
+    DatePipe,
+    DecimalPipe,
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
