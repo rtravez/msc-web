@@ -94,9 +94,9 @@ npm run format:write
 ## Flujo de autenticación
 
 La app se inicializa con Keycloak usando configuración del realm
- y client id definidos en
- [src/environments/environment.ts](src/environments/environment.ts).
- El guard de rutas y el interceptor de autenticación controlan:
+y client id definidos en
+[src/environments/environment.ts](src/environments/environment.ts).
+El guard de rutas y el interceptor de autenticación controlan:
 
 - acceso protegido a rutas internas
 - redirección a login si no hay sesión válida
