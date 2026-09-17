@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { AuthGuard } from './core/auth/auth.guard';
-import { AUTH_ROLES } from './core/auth/auth-roles';
 
 export const routes: Routes = [
   {
@@ -17,20 +16,20 @@ export const routes: Routes = [
       {
         path: 'users',
         canActivate: [AuthGuard],
-        data: { roles: [AUTH_ROLES.roleAdmin] },
+        data: { roles: ['ADMIN'] },
         loadChildren: () => import('./features/users/users.routes').then((m) => m.usersRoutes),
       },
       {
         path: 'accounts',
         canActivate: [AuthGuard],
-        data: { roles: [AUTH_ROLES.accountsRead] },
+        data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/accounts/accounts.routes').then((m) => m.accountsRoutes),
       },
       {
         path: 'movements',
         canActivate: [AuthGuard],
-        data: { roles: [AUTH_ROLES.movementsRead] },
+        data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/movements/movements.routes').then((m) => m.movementsRoutes),
       },
