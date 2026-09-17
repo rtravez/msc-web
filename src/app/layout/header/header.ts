@@ -15,7 +15,7 @@ export class Header {
   readonly sidebarOpen = input(true);
   readonly toggleSidebar = output<void>();
   protected readonly language = inject(LanguageService);
-  private readonly auth = inject(AuthService);
+  protected readonly auth = inject(AuthService);
   protected mobileMenuOpen = false;
 
   toggleMobileMenu(): void {

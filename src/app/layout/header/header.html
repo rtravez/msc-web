@@ -24,6 +24,16 @@
       id="header-navigation"
     >
       <div class="d-flex align-items-center gap-2 ms-lg-3">
+        <div class="user-profile" [attr.aria-label]="'dashboard.activeSession' | translate">
+          <span aria-hidden="true" class="user-avatar">
+            {{ (auth.username() ?? '?').slice(0, 1) }}
+          </span>
+          <div class="user-details">
+            <small>{{ 'dashboard.activeSession' | translate }}</small>
+            <strong>{{ auth.username() ?? '-' }}</strong>
+          </div>
+        </div>
+
         <fieldset
           [attr.aria-label]="'common.language' | translate"
           class="language-switcher"
