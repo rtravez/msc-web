@@ -118,5 +118,6 @@ export class AuthService {
   private clearSessionState(): void {
     this.authenticatedState.set(false);
     this.usernameState.set(undefined);
+    this.sessionExpiredState.set(false);
   }
 }

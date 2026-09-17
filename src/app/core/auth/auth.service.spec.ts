@@ -12,7 +12,7 @@ describe('AuthService', () => {
     keycloak = vi.fn();
     keycloak.updateToken = vi.fn().mockResolvedValue(true);
     keycloak.login = vi.fn();
-    keycloak.logout = vi.fn();
+    keycloak.logout = vi.fn().mockResolvedValue(undefined);
     keycloak.clearToken = vi.fn();
     Object.assign(keycloak, { clientId: 'msc-web' });
 
@@ -40,5 +40,16 @@ describe('AuthService', () => {
 
     first.subscribe();
     second.subscribe();
+  });
+
+  it('should clear the expired state when logging out', async () => {
+    const service = TestBed.inject(AuthService);
+
+    service.markSessionExpired();
+    expect(service.sessionExpired()).toBe(true);
+
+    await service.logout();
+
+    expect(service.sessionExpired()).toBe(false);
   });
 });
