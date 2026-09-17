@@ -25,10 +25,7 @@
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4 p-md-5">
           @if (isLoading()) {
-            <output
-              aria-busy="true"
-              class="d-flex justify-content-center align-items-center py-5"
-            >
+            <output aria-busy="true" class="d-flex justify-content-center align-items-center py-5">
               <p-progressSpinner
                 [ariaLabel]="'common.loading' | translate"
                 [style]="{ width: '40px', height: '40px' }"
