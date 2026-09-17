@@ -1,5 +1,6 @@
 import { HttpContextToken, HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -8,6 +9,18 @@ const PROTECTED_API_URL = /^\/(mscServices|msaServices)\/api(?:\/|$)/i;
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const auth = inject(AuthService);
+  const messageService = inject(MessageService);
+
+  const expireSession = () => {
+    auth.markSessionExpired();
+    messageService.add({
+      severity: 'warn',
+      summary: 'Sesión expirada',
+      detail: 'Su sesión ha caducado. Inicie sesión nuevamente.',
+      life: 5000,
+    });
+    void auth.logout();
+  };
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -21,14 +34,12 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
 
       return auth.refreshToken().pipe(
         catchError(() => {
-          auth.markSessionExpired();
-          void auth.logout();
+          expireSession();
           return throwError(() => error);
         }),
         switchMap((refreshed) => {
           if (!refreshed) {
-            auth.markSessionExpired();
-            void auth.logout();
+            expireSession();
             return throwError(() => error);
           }
 

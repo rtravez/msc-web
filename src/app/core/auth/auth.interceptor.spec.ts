@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { MessageService } from 'primeng/api';
 import { firstValueFrom, of, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { authInterceptor } from './auth.interceptor';
@@ -11,6 +12,7 @@ describe('authInterceptor', () => {
     markSessionExpired: ReturnType<typeof vi.fn>;
     logout: ReturnType<typeof vi.fn>;
   };
+  let messageService: { add: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     auth = {
@@ -18,9 +20,15 @@ describe('authInterceptor', () => {
       markSessionExpired: vi.fn(),
       logout: vi.fn().mockResolvedValue(undefined),
     };
+    messageService = {
+      add: vi.fn(),
+    };
 
     TestBed.configureTestingModule({
-      providers: [{ provide: AuthService, useValue: auth }],
+      providers: [
+        { provide: AuthService, useValue: auth },
+        { provide: MessageService, useValue: messageService },
+      ],
     });
   });
 
@@ -66,6 +74,13 @@ describe('authInterceptor', () => {
 
     expect(auth.markSessionExpired).toHaveBeenCalledOnce();
     expect(auth.logout).toHaveBeenCalledOnce();
+    expect(messageService.add).toHaveBeenCalledWith(
+      expect.objectContaining({
+        severity: 'warn',
+        summary: 'Sesión expirada',
+        detail: 'Su sesión ha caducado. Inicie sesión nuevamente.',
+      }),
+    );
     expect(next).toHaveBeenCalledTimes(1);
   });
 });
