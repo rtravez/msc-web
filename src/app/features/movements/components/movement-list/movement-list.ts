@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 import { Movement } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
@@ -46,6 +47,7 @@ export class MovementList implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit(): void {
     this.loadMovements();
@@ -119,12 +121,11 @@ export class MovementList implements OnInit {
         },
         error: (error) => {
           this.isSubmitting.set(false);
-          console.error('Error deleting movement:', error);
-
-          const errorMessage =
-            error.error?.errors?.[0] ||
-            error.error?.detail ||
-            this.translate.instant('movements.deleteError');
+          this.errorHandler.log(error, 'Error deleting movement');
+          const errorMessage = this.errorHandler.getMessage(
+            error,
+            this.translate.instant('movements.deleteError'),
+          );
 
           this.messageService.add({
             severity: 'error',

@@ -26,6 +26,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 
 export interface UserFormControls {
   userId: FormControl<number | null>;
@@ -84,6 +85,7 @@ export class UserForm implements OnInit {
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit() {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
@@ -179,14 +181,11 @@ export class UserForm implements OnInit {
       },
       error: (error) => {
         this.isSubmitting.set(false);
-        console.error('Error saving user:', error);
+        this.errorHandler.log(error, 'Error saving user');
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail:
-            error.error?.errors?.[0] ??
-            error.error?.detail ??
-            this.translate.instant('users.saveError'),
+          detail: this.errorHandler.getMessage(error, this.translate.instant('users.saveError')),
           life: 5000,
         });
       },

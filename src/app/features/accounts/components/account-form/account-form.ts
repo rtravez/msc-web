@@ -23,6 +23,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 import { Account, AccountRequest } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -67,6 +68,7 @@ export class AccountForm implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
@@ -143,11 +145,14 @@ export class AccountForm implements OnInit {
       },
       error: (error) => {
         this.isSubmitting = false;
-        console.error('Error saving account:', error);
+        this.errorHandler.log(error, 'Error saving account');
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail: error.error?.detail ?? this.translate.instant('accounts.saveError'),
+          detail: this.errorHandler.getMessage(
+            error,
+            this.translate.instant('accounts.saveError'),
+          ),
           life: 5000,
         });
       },

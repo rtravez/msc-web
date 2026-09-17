@@ -16,6 +16,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 import { Account } from '../../models/account.interface';
 import { AccountService } from '../../services/account.service';
 
@@ -48,6 +49,7 @@ export class AccountList implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit(): void {
     this.loadAccounts();
@@ -74,7 +76,7 @@ export class AccountList implements OnInit {
             detail: this.translate.instant('accounts.loadError'),
             life: 5000,
           });
-          console.error('Error loading accounts:', error);
+          this.errorHandler.log(error, 'Error loading accounts');
         },
       });
   }
@@ -128,12 +130,11 @@ export class AccountList implements OnInit {
         },
         error: (error) => {
           this.isSubmitting.set(false);
-          console.error('Error deleting account:', error);
-
-          const errorMessage =
-            error.error?.errors?.[0] ||
-            error.error?.detail ||
-            this.translate.instant('accounts.deleteError');
+          this.errorHandler.log(error, 'Error deleting account');
+          const errorMessage = this.errorHandler.getMessage(
+            error,
+            this.translate.instant('accounts.deleteError'),
+          );
 
           this.messageService.add({
             severity: 'error',

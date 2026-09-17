@@ -24,6 +24,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectModule } from 'primeng/select';
 import { AccountService } from '../../../accounts/services/account.service';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 import { Movement, MovementRequest } from '../../models/movement.interface';
 import { MovementService } from '../../services/movement.service';
 
@@ -67,6 +68,7 @@ export class MovementForm implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit(): void {
     const movementId = this.parseId(this.route.snapshot.paramMap.get('id'));
@@ -125,11 +127,14 @@ export class MovementForm implements OnInit {
       },
       error: (error) => {
         this.isSubmitting = false;
-        console.error('Error saving movement:', error);
+        this.errorHandler.log(error, 'Error saving movement');
         this.messageService.add({
           severity: 'error',
           summary: this.translate.instant('common.error'),
-          detail: error.error?.detail ?? this.translate.instant('movements.saveError'),
+          detail: this.errorHandler.getMessage(
+            error,
+            this.translate.instant('movements.saveError'),
+          ),
           life: 5000,
         });
       },

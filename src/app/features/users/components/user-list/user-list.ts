@@ -17,6 +17,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule, TablePageEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
+import { ErrorHandlerService } from '../../../../core/services/error-handler.service';
 import { User } from '../../models/user.interface';
 import { UserService } from '../../services/user.service';
 
@@ -51,6 +52,7 @@ export class UserList implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly errorHandler = inject(ErrorHandlerService);
 
   ngOnInit(): void {
     this.loadUsers();
@@ -78,7 +80,7 @@ export class UserList implements OnInit {
             detail: this.translate.instant('users.loadError'),
             life: 5000,
           });
-          console.error('Error loading users:', error);
+          this.errorHandler.log(error, 'Error loading users');
         },
       });
   }
@@ -130,12 +132,11 @@ export class UserList implements OnInit {
         },
         error: (error) => {
           this.isSubmitting.set(false);
-          console.error('Error deleting user:', error);
-
-          const errorMessage =
-            error.error?.errors?.[0] ||
-            error.error?.detail ||
-            this.translate.instant('users.deleteError');
+          this.errorHandler.log(error, 'Error deleting user');
+          const errorMessage = this.errorHandler.getMessage(
+            error,
+            this.translate.instant('users.deleteError'),
+          );
 
           this.messageService.add({
             severity: 'error',
