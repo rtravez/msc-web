@@ -60,7 +60,7 @@ const isAccessAllowed = async (
 
 export const AuthGuard: CanActivateFn = createAuthGuard(isAccessAllowed);
 
-export const roleCanMatch: CanMatchFn = (route) => {
+export const RoleCanMatch: CanMatchFn = (route) => {
   const auth = inject(AuthService);
   const router = inject(Router);
   const requiredRoles: string[] = route.data?.['roles'] ?? [];

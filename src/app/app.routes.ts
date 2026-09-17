@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout/main-layout';
-import { AuthGuard, roleCanMatch } from './core/auth/auth.guard';
+import { AuthGuard, RoleCanMatch } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -15,20 +15,20 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        canMatch: [roleCanMatch],
+        canMatch: [RoleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () => import('./features/users/users.routes').then((m) => m.usersRoutes),
       },
       {
         path: 'accounts',
-        canMatch: [roleCanMatch],
+        canMatch: [RoleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/accounts/accounts.routes').then((m) => m.accountsRoutes),
       },
       {
         path: 'movements',
-        canMatch: [roleCanMatch],
+        canMatch: [RoleCanMatch],
         data: { roles: ['ADMIN'] },
         loadChildren: () =>
           import('./features/movements/movements.routes').then((m) => m.movementsRoutes),
