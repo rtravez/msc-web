@@ -6,7 +6,8 @@
     "start": "ng serve --proxy-config proxy.conf.json --live-reload",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint \"src/**/*.{ts,html}\"",
     "format:write": "prettier --write \"src/**/*.{ts,html,scss}\" \"*.{json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,scss}\" \"*.{json,md}\""
@@ -39,6 +40,7 @@
     "@angular/build": "^21.2.24",
     "@angular/cli": "^21.2.24",
     "@angular/compiler-cli": "^21.2.23",
+    "@angular/platform-browser-dynamic": "^21.2.23",
     "@eslint/js": "^10.0.1",
     "@vitest/coverage-v8": "^4.1.11",
     "angular-eslint": "21.4.0",
