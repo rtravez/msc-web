@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { firstValueFrom, of, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { authInterceptor } from './auth.interceptor';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('authInterceptor', () => {
   let auth: {

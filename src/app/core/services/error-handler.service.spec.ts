@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from './error-handler.service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('ErrorHandlerService', () => {
   let service: ErrorHandlerService;
