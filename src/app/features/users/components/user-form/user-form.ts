@@ -65,8 +65,8 @@ export interface UserFormControls {
 })
 export class UserForm implements OnInit {
   userForm!: FormGroup<UserFormControls>;
-  isSubmitting = false;
-  isEditMode = false;
+  isSubmitting = signal(false);
+  isEditMode = signal(false);
   isLoading = signal(false);
   readonly genderOptions = [
     { label: 'users.form.male', value: 'M' },
@@ -88,7 +88,7 @@ export class UserForm implements OnInit {
   ngOnInit() {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
       const userId = this.getUserIdFromRoute(params.get('id'));
-      this.isEditMode = userId !== null;
+      this.isEditMode.set(userId !== null);
       this.initializeForm();
 
       if (userId !== null) {
@@ -127,7 +127,7 @@ export class UserForm implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.isEditMode && this.userForm.getRawValue().userId == null) {
+    if (this.isEditMode() && this.userForm.getRawValue().userId == null) {
       return;
     }
 
@@ -149,36 +149,36 @@ export class UserForm implements OnInit {
       status: formValue.status,
     };
 
-    if (this.isEditMode && formValue.userId != null) {
+    if (this.isEditMode() && formValue.userId != null) {
       request.userId = formValue.userId;
     }
 
-    if (!this.isEditMode || formValue.password) {
+    if (!this.isEditMode() || formValue.password) {
       request.password = formValue.password;
     }
 
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
     const operation$ =
-      this.isEditMode && formValue.userId != null
+      this.isEditMode() && formValue.userId != null
         ? this.userService.updateUser(formValue.userId, request)
         : this.userService.createUser(request);
 
     operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         void this.router.navigate(['/users']).then((navigated) => {
           if (!navigated) return;
 
           this.messageService.add({
             severity: 'success',
             summary: this.translate.instant('common.success'),
-            detail: this.translate.instant(this.isEditMode ? 'users.updated' : 'users.created'),
+            detail: this.translate.instant(this.isEditMode() ? 'users.updated' : 'users.created'),
             life: 3000,
           });
         });
       },
       error: (error) => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         console.error('Error saving user:', error);
         this.messageService.add({
           severity: 'error',
@@ -234,7 +234,7 @@ export class UserForm implements OnInit {
   private initializeForm(): void {
     this.userForm = this.fb.group({
       userId: new FormControl<number | null>(null),
-      identification: this.fb.control({ value: '', disabled: this.isEditMode }, [
+      identification: this.fb.control({ value: '', disabled: this.isEditMode() }, [
         Validators.required,
         Validators.pattern(/^\d+$/),
         Validators.maxLength(10),
@@ -243,7 +243,7 @@ export class UserForm implements OnInit {
       username: ['', [Validators.required, Validators.maxLength(20)]],
       password: [
         '',
-        this.isEditMode
+        this.isEditMode()
           ? [Validators.minLength(8), Validators.maxLength(60)]
           : [Validators.required, Validators.minLength(8), Validators.maxLength(60)],
       ],

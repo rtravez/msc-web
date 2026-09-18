@@ -57,8 +57,8 @@ export class AccountForm implements OnInit {
     { label: 'accounts.savings', value: 'AHORROS' },
     { label: 'accounts.checking', value: 'CORRIENTE' },
   ];
-  isEditMode = false;
-  isSubmitting = false;
+  isEditMode = signal(false);
+  isSubmitting = signal(false);
   isLoading = signal(false);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly accountService = inject(AccountService);
@@ -71,7 +71,7 @@ export class AccountForm implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
       const accountId = this.parseId(params.get('id'));
-      this.isEditMode = accountId !== null;
+      this.isEditMode.set(accountId !== null);
       this.initializeForm();
 
       if (accountId !== null) {
@@ -102,7 +102,7 @@ export class AccountForm implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.isEditMode && this.accountForm.getRawValue().accountId == null) {
+    if (this.isEditMode() && this.accountForm.getRawValue().accountId == null) {
       return;
     }
     if (this.accountForm.invalid) {
@@ -116,18 +116,18 @@ export class AccountForm implements OnInit {
       initialBalance: formValue.initialBalance!,
       identification: formValue.identification,
     };
-    if (this.isEditMode && formValue.accountId != null) {
+    if (this.isEditMode() && formValue.accountId != null) {
       request.accountId = formValue.accountId;
     }
 
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
     const operation$ =
-      this.isEditMode && formValue.accountId !== null
+      this.isEditMode() && formValue.accountId !== null
         ? this.accountService.updateAccount(formValue.accountId, request)
         : this.accountService.createAccount(request);
     operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         void this.router.navigate(['/accounts']).then((navigated) => {
           if (!navigated) return;
 
@@ -135,14 +135,14 @@ export class AccountForm implements OnInit {
             severity: 'success',
             summary: this.translate.instant('common.success'),
             detail: this.translate.instant(
-              this.isEditMode ? 'accounts.updated' : 'accounts.created',
+              this.isEditMode() ? 'accounts.updated' : 'accounts.created',
             ),
             life: 3000,
           });
         });
       },
       error: (error) => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         console.error('Error saving account:', error);
         this.messageService.add({
           severity: 'error',
@@ -167,7 +167,7 @@ export class AccountForm implements OnInit {
   private initializeForm(): void {
     this.accountForm = this.fb.group({
       accountId: new FormControl<number | null>(null),
-      accountNumber: new FormControl<number | null>({ value: null, disabled: this.isEditMode }, [
+      accountNumber: new FormControl<number | null>({ value: null, disabled: this.isEditMode() }, [
         Validators.required,
         Validators.min(1),
       ]),

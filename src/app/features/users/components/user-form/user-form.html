@@ -12,10 +12,10 @@
           />
           <div>
             <h1 class="h3 mb-1">
-              {{ (isEditMode ? 'users.editTitle' : 'users.createNewTitle') | translate }}
+              {{ (isEditMode() ? 'users.editTitle' : 'users.createNewTitle') | translate }}
             </h1>
             <p class="text-body-secondary mb-0">
-              {{ (isEditMode ? 'users.editDescription' : 'users.createDescription') | translate }}
+              {{ (isEditMode() ? 'users.editDescription' : 'users.createDescription') | translate }}
             </p>
           </div>
         </div>
@@ -76,7 +76,7 @@
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="password"
                     >{{ 'users.form.passwordLabel' | translate }}
-                    {{ isEditMode ? ('users.form.passwordEditHint' | translate) : '*' }}</label
+                    {{ isEditMode() ? ('users.form.passwordEditHint' | translate) : '*' }}</label
                   >
                   <input
                     [placeholder]="'users.form.passwordHint' | translate"
@@ -222,11 +222,11 @@
                 class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4 pt-3 border-top"
               >
                 <p-button
-                  [disabled]="!userForm.valid || isLoading() || isSubmitting"
+                  [disabled]="!userForm.valid || isLoading() || isSubmitting()"
                   [label]="
-                    isEditMode ? ('common.update' | translate) : ('common.create' | translate)
+                    isEditMode() ? ('common.update' | translate) : ('common.create' | translate)
                   "
-                  [loading]="isSubmitting"
+                  [loading]="isSubmitting()"
                   icon="pi pi-check"
                   severity="primary"
                   type="submit"
@@ -234,7 +234,7 @@
                 </p-button>
                 <p-button
                   (onClick)="onCancel()"
-                  [disabled]="isLoading() || isSubmitting"
+                  [disabled]="isLoading() || isSubmitting()"
                   [label]="'common.cancel' | translate"
                   icon="pi pi-times"
                   severity="secondary"

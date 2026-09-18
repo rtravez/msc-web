@@ -56,8 +56,8 @@ export class MovementForm implements OnInit {
     { label: 'movements.debit', value: 'D' as const },
     { label: 'movements.withdrawal', value: 'R' as const },
   ];
-  isEditMode = false;
-  isSubmitting = false;
+  isEditMode = signal(false);
+  isSubmitting = signal(false);
   isLoading = signal(false);
   private readonly fb = inject(NonNullableFormBuilder);
   private readonly movementService = inject(MovementService);
@@ -70,7 +70,7 @@ export class MovementForm implements OnInit {
 
   ngOnInit(): void {
     const movementId = this.parseId(this.route.snapshot.paramMap.get('id'));
-    this.isEditMode = movementId !== null;
+    this.isEditMode.set(movementId !== null);
     this.initializeForm();
     if (movementId !== null) this.loadMovement(movementId);
     else if (this.route.snapshot.paramMap.has('id')) this.returnToMovementsWithError();
@@ -102,14 +102,14 @@ export class MovementForm implements OnInit {
       movementValue: formValue.movementType === 'D' ? formValue.amount! : -formValue.amount!,
       accountNumber: formValue.accountNumber!,
     };
-    this.isSubmitting = true;
+    this.isSubmitting.set(true);
     const operation$ =
-      this.isEditMode && movementId !== null
+      this.isEditMode() && movementId !== null
         ? this.movementService.updateMovement(movementId, { ...request, movementId })
         : this.movementService.createMovement(request);
     operation$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         void this.router.navigate(['/movements']).then((navigated) => {
           if (!navigated) return;
 
@@ -117,14 +117,14 @@ export class MovementForm implements OnInit {
             severity: 'success',
             summary: this.translate.instant('common.success'),
             detail: this.translate.instant(
-              this.isEditMode ? 'movements.updated' : 'movements.created',
+              this.isEditMode() ? 'movements.updated' : 'movements.created',
             ),
             life: 3000,
           });
         });
       },
       error: (error) => {
-        this.isSubmitting = false;
+        this.isSubmitting.set(false);
         console.error('Error saving movement:', error);
         this.messageService.add({
           severity: 'error',
@@ -151,7 +151,7 @@ export class MovementForm implements OnInit {
       movementId: new FormControl<number | null>(null),
       movementType: this.fb.control<'D' | 'R'>('D', Validators.required),
       amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
-      accountNumber: new FormControl<number | null>({ value: null, disabled: this.isEditMode }, [
+      accountNumber: new FormControl<number | null>({ value: null, disabled: this.isEditMode() }, [
         Validators.required,
         Validators.min(1),
       ]),
