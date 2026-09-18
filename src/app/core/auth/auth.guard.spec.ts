@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import Keycloak from 'keycloak-js';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AuthGuard, RoleCanMatch } from './auth.guard';
@@ -66,8 +66,8 @@ describe('RoleCanMatch', () => {
 });
 
 describe('AuthGuard', () => {
-  const route = { data: { roles: ['ADMIN'] } } as any;
-  const state = { url: '/users' } as any;
+  const route = { data: { roles: ['ADMIN'] } } as unknown as ActivatedRouteSnapshot;
+  const state = { url: '/users' } as unknown as RouterStateSnapshot;
 
   beforeEach(() => {
     TestBed.resetTestingModule();
