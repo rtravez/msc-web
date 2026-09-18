@@ -4,7 +4,7 @@ export const environment = {
   msaServices: '/msaServices',
   auth: {
     issuer: '/authServices',
-    clientId: 'rtravez-web',
+    clientId: 'MSC-WEB',
     scope: 'openid profile offline_access read',
     redirectUri: '',
   },
