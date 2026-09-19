@@ -10,7 +10,11 @@ RUN npm run build -- --configuration production
 
 FROM nginxinc/nginx-unprivileged:1.29-alpine AS runtime
 
-COPY ci/nginx.conf /etc/nginx/conf.d/default.conf
+ENV AUTH_SERVICES_UPSTREAM=http://host.docker.internal:8080 \
+	MSC_SERVICES_UPSTREAM=http://host.docker.internal:8081 \
+	MSA_SERVICES_UPSTREAM=http://host.docker.internal:8082
+
+COPY ci/nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=build /app/dist/msc-web/browser /usr/share/nginx/html
 
 EXPOSE 4200
