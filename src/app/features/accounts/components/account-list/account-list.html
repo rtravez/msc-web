@@ -10,7 +10,11 @@
     <div class="card-body p-0">
       @if (isLoading()) {
         <div class="d-flex justify-content-center align-items-center py-5">
-          <p-progressSpinner [style]="{ width: '40px', height: '40px' }" strokeWidth="4" />
+          <p-progressSpinner
+            [ariaLabel]="'common.loading' | translate"
+            [style]="{ width: '40px', height: '40px' }"
+            strokeWidth="4"
+          />
         </div>
       } @else {
         <p-table
@@ -26,13 +30,13 @@
         >
           <ng-template #header>
             <tr>
-              <th>{{ 'accounts.accountNumber' | translate }}</th>
-              <th>{{ 'accounts.accountType' | translate }}</th>
-              <th>{{ 'accounts.holder' | translate }}</th>
-              <th>{{ 'accounts.identification' | translate }}</th>
-              <th>{{ 'accounts.initialBalance' | translate }}</th>
-              <th>{{ 'accounts.status' | translate }}</th>
-              <th>{{ 'accounts.actions' | translate }}</th>
+              <th scope="col">{{ 'accounts.accountNumber' | translate }}</th>
+              <th scope="col">{{ 'accounts.accountType' | translate }}</th>
+              <th scope="col">{{ 'accounts.holder' | translate }}</th>
+              <th scope="col">{{ 'accounts.identification' | translate }}</th>
+              <th scope="col">{{ 'accounts.initialBalance' | translate }}</th>
+              <th scope="col">{{ 'accounts.status' | translate }}</th>
+              <th scope="col">{{ 'accounts.actions' | translate }}</th>
             </tr>
           </ng-template>
           <ng-template #body let-account>

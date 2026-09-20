@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
@@ -13,6 +20,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  @Input() sidebarOpen = true;
   @Output() readonly toggleSidebar = new EventEmitter<void>();
   protected readonly language = inject(LanguageService);
   protected readonly user = inject(AuthService).user;
