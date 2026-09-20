@@ -1,8 +1,9 @@
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { AuthService } from './auth.service';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { authInterceptor } from './auth.interceptor';
+import { AuthService } from './auth.service';
 
 describe('authInterceptor', () => {
   let httpMock: HttpTestingController;
