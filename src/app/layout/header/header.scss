@@ -30,9 +30,7 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  height: 38px;
   letter-spacing: 0.08em;
-  width: 38px;
 }
 
 .brand-name {
@@ -147,7 +145,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--navy);
   color: #fff;
 }
 
