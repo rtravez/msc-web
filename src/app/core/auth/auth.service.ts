@@ -97,9 +97,7 @@ export class AuthService {
       return null;
     }
 
-    if (!this.refreshInFlight) {
-      this.refreshInFlight = this.requestTokenRefresh(tokens);
-    }
+    this.refreshInFlight ??= this.requestTokenRefresh(tokens);
 
     try {
       return await this.refreshInFlight;
@@ -223,6 +221,6 @@ export class AuthService {
     const bytes = value instanceof Uint8Array ? value : new Uint8Array(value);
     let binary = '';
     bytes.forEach((byte) => (binary += String.fromCodePoint(byte)));
-    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return btoa(binary).replaceAll('+', '-').replaceAll('/', '_').split('=')[0];
   }
 }
