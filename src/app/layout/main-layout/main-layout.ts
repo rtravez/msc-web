@@ -15,7 +15,7 @@ import { Sidebar } from '../sidebar/sidebar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
-  @ViewChild(Header) private header?: Header;
+  @ViewChild(Header) private readonly header?: Header;
   protected sidebarOpen = true;
   private readonly document = inject(DOCUMENT);
 

@@ -22,7 +22,8 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  @ViewChild('sidebarToggleButton') private sidebarToggleButton?: ElementRef<HTMLButtonElement>;
+  @ViewChild('sidebarToggleButton')
+  private readonly sidebarToggleButton?: ElementRef<HTMLButtonElement>;
   @Input() sidebarOpen = true;
   @Output() readonly toggleSidebar = new EventEmitter<void>();
   protected readonly language = inject(LanguageService);
