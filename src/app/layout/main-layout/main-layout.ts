@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Footer } from '../footer/footer';
@@ -15,6 +15,7 @@ import { Sidebar } from '../sidebar/sidebar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
+  @ViewChild(Header) private header?: Header;
   protected sidebarOpen = true;
   private readonly document = inject(DOCUMENT);
 
@@ -25,6 +26,7 @@ export class MainLayout {
   closeSidebar(): void {
     if (this.document.defaultView?.matchMedia('(max-width: 991.98px)').matches) {
       this.sidebarOpen = false;
+      queueMicrotask(() => this.header?.focusSidebarToggle());
     }
   }
 }

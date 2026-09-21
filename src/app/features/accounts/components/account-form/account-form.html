@@ -34,13 +34,17 @@
                     >{{ 'accounts.accountNumber' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="
+                      isFieldInvalid('accountNumber') ? 'account-number-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('accountNumber')"
                     [useGrouping]="false"
                     class="w-100"
                     formControlName="accountNumber"
                     inputId="accountNumber"
                   />
                   @if (isFieldInvalid('accountNumber')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="account-number-error" role="alert">
                       {{ getFieldError('accountNumber') }}
                     </div>
                   }
@@ -50,6 +54,10 @@
                     >{{ 'accounts.accountType' | translate }} *</label
                   >
                   <p-select
+                    [attr.aria-describedby]="
+                      isFieldInvalid('accountType') ? 'account-type-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('accountType')"
                     [options]="accountTypes"
                     [placeholder]="'accounts.form.selectType' | translate"
                     class="w-100"
@@ -64,7 +72,9 @@
                     </ng-template>
                   </p-select>
                   @if (isFieldInvalid('accountType')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('accountType') }}</div>
+                    <div class="invalid-feedback d-block" id="account-type-error" role="alert">
+                      {{ getFieldError('accountType') }}
+                    </div>
                   }
                 </div>
                 <div class="col-12 col-md-6">
@@ -72,6 +82,10 @@
                     >{{ 'accounts.initialBalance' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="
+                      isFieldInvalid('initialBalance') ? 'initial-balance-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('initialBalance')"
                     [maxFractionDigits]="2"
                     [minFractionDigits]="2"
                     [min]="0"
@@ -81,7 +95,7 @@
                     mode="decimal"
                   />
                   @if (isFieldInvalid('initialBalance')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="initial-balance-error" role="alert">
                       {{ getFieldError('initialBalance') }}
                     </div>
                   }
@@ -91,6 +105,10 @@
                     >{{ 'accounts.identification' | translate }} *</label
                   >
                   <input
+                    [attr.aria-describedby]="
+                      isFieldInvalid('identification') ? 'account-identification-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('identification')"
                     [placeholder]="'accounts.form.identificationHint' | translate"
                     class="form-control"
                     formControlName="identification"
@@ -99,7 +117,11 @@
                     type="text"
                   />
                   @if (isFieldInvalid('identification')) {
-                    <div class="invalid-feedback d-block">
+                    <div
+                      class="invalid-feedback d-block"
+                      id="account-identification-error"
+                      role="alert"
+                    >
                       {{ getFieldError('identification') }}
                     </div>
                   }

@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   inject,
   Input,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -20,6 +22,7 @@ import { LanguageService, SupportedLanguage } from '../../core/i18n/language.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  @ViewChild('sidebarToggleButton') private sidebarToggleButton?: ElementRef<HTMLButtonElement>;
   @Input() sidebarOpen = true;
   @Output() readonly toggleSidebar = new EventEmitter<void>();
   protected readonly language = inject(LanguageService);
@@ -30,6 +33,10 @@ export class Header {
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  focusSidebarToggle(): void {
+    this.sidebarToggleButton?.nativeElement.focus();
   }
 
   logout(): void {

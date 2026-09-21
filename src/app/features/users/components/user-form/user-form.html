@@ -41,6 +41,10 @@
                     >{{ 'users.identification' | translate }} *</label
                   >
                   <input
+                    [attr.aria-describedby]="
+                      isFieldInvalid('identification') ? 'identification-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('identification')"
                     [placeholder]="'users.form.identificationHint' | translate"
                     class="form-control"
                     formControlName="identification"
@@ -49,7 +53,7 @@
                     type="text"
                   />
                   @if (isFieldInvalid('identification')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="identification-error" role="alert">
                       {{ getFieldError('identification') }}
                     </div>
                   }
@@ -61,6 +65,8 @@
                     'users.form.usernameLabel' | translate
                   }}</label>
                   <input
+                    [attr.aria-describedby]="isFieldInvalid('username') ? 'username-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('username')"
                     [placeholder]="'users.form.usernameHint' | translate"
                     class="form-control"
                     formControlName="username"
@@ -69,7 +75,9 @@
                     type="text"
                   />
                   @if (isFieldInvalid('username')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('username') }}</div>
+                    <div class="invalid-feedback d-block" id="username-error" role="alert">
+                      {{ getFieldError('username') }}
+                    </div>
                   }
                 </div>
 
@@ -80,6 +88,8 @@
                     {{ isEditMode() ? ('users.form.passwordEditHint' | translate) : '*' }}</label
                   >
                   <input
+                    [attr.aria-describedby]="isFieldInvalid('password') ? 'password-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('password')"
                     [placeholder]="'users.form.passwordHint' | translate"
                     class="form-control"
                     formControlName="password"
@@ -88,7 +98,9 @@
                     type="password"
                   />
                   @if (isFieldInvalid('password')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('password') }}</div>
+                    <div class="invalid-feedback d-block" id="password-error" role="alert">
+                      {{ getFieldError('password') }}
+                    </div>
                   }
                 </div>
 
@@ -98,6 +110,8 @@
                     'users.form.nameLabel' | translate
                   }}</label>
                   <input
+                    [attr.aria-describedby]="isFieldInvalid('name') ? 'name-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('name')"
                     [placeholder]="'users.form.nameHint' | translate"
                     class="form-control"
                     formControlName="name"
@@ -106,7 +120,9 @@
                     type="text"
                   />
                   @if (isFieldInvalid('name')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('name') }}</div>
+                    <div class="invalid-feedback d-block" id="name-error" role="alert">
+                      {{ getFieldError('name') }}
+                    </div>
                   }
                 </div>
 
@@ -116,6 +132,8 @@
                     'users.form.lastnameLabel' | translate
                   }}</label>
                   <input
+                    [attr.aria-describedby]="isFieldInvalid('lastname') ? 'lastname-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('lastname')"
                     [placeholder]="'users.form.nameHint' | translate"
                     class="form-control"
                     formControlName="lastname"
@@ -124,7 +142,9 @@
                     type="text"
                   />
                   @if (isFieldInvalid('lastname')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('lastname') }}</div>
+                    <div class="invalid-feedback d-block" id="lastname-error" role="alert">
+                      {{ getFieldError('lastname') }}
+                    </div>
                   }
                 </div>
 
@@ -132,6 +152,8 @@
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="address">{{ 'users.address' | translate }}</label>
                   <input
+                    [attr.aria-describedby]="isFieldInvalid('telephone') ? 'telephone-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('telephone')"
                     [placeholder]="'users.form.addressHint' | translate"
                     class="form-control"
                     formControlName="address"
@@ -155,7 +177,9 @@
                     type="tel"
                   />
                   @if (isFieldInvalid('telephone')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('telephone') }}</div>
+                    <div class="invalid-feedback d-block" id="telephone-error" role="alert">
+                      {{ getFieldError('telephone') }}
+                    </div>
                   }
                 </div>
 
@@ -185,6 +209,8 @@
                 <div class="col-12 col-md-6">
                   <label class="form-label" for="age">{{ 'users.form.age' | translate }}</label>
                   <p-inputNumber
+                    [attr.aria-describedby]="isFieldInvalid('age') ? 'age-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('age')"
                     [max]="150"
                     [min]="0"
                     class="w-100"
@@ -193,7 +219,9 @@
                     placeholder="0-150"
                   ></p-inputNumber>
                   @if (isFieldInvalid('age')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('age') }}</div>
+                    <div class="invalid-feedback d-block" id="age-error" role="alert">
+                      {{ getFieldError('age') }}
+                    </div>
                   }
                 </div>
 

@@ -30,6 +30,10 @@
                     >{{ 'movements.type' | translate }} *</label
                   >
                   <p-select
+                    [attr.aria-describedby]="
+                      isFieldInvalid('movementType') ? 'movement-type-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('movementType')"
                     [options]="movementTypes"
                     class="w-100"
                     formControlName="movementType"
@@ -43,7 +47,7 @@
                     </ng-template>
                   </p-select>
                   @if (isFieldInvalid('movementType')) {
-                    <div class="invalid-feedback d-block">
+                    <div class="invalid-feedback d-block" id="movement-type-error" role="alert">
                       {{ getFieldError('movementType') }}
                     </div>
                   }
@@ -53,6 +57,8 @@
                     >{{ 'movements.amount' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="isFieldInvalid('amount') ? 'amount-error' : null"
+                    [attr.aria-invalid]="isFieldInvalid('amount')"
                     [maxFractionDigits]="2"
                     [minFractionDigits]="2"
                     [min]="0.01"
@@ -62,7 +68,9 @@
                     mode="decimal"
                   />
                   @if (isFieldInvalid('amount')) {
-                    <div class="invalid-feedback d-block">{{ getFieldError('amount') }}</div>
+                    <div class="invalid-feedback d-block" id="amount-error" role="alert">
+                      {{ getFieldError('amount') }}
+                    </div>
                   }
                 </div>
                 <div class="col-12 col-md-6">
@@ -70,13 +78,21 @@
                     >{{ 'movements.accountNumber' | translate }} *</label
                   >
                   <p-inputNumber
+                    [attr.aria-describedby]="
+                      isFieldInvalid('accountNumber') ? 'movement-account-number-error' : null
+                    "
+                    [attr.aria-invalid]="isFieldInvalid('accountNumber')"
                     [useGrouping]="false"
                     class="w-100"
                     formControlName="accountNumber"
                     inputId="accountNumber"
                   />
                   @if (isFieldInvalid('accountNumber')) {
-                    <div class="invalid-feedback d-block">
+                    <div
+                      class="invalid-feedback d-block"
+                      id="movement-account-number-error"
+                      role="alert"
+                    >
                       {{ getFieldError('accountNumber') }}
                     </div>
                   }
