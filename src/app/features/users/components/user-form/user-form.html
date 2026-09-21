@@ -5,6 +5,7 @@
         <div class="d-flex align-items-start gap-3">
           <p-button
             (onClick)="onCancel()"
+            [ariaLabel]="'accessibility.back' | translate"
             [text]="true"
             icon="pi pi-arrow-left"
             severity="secondary"

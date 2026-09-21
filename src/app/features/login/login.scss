@@ -2,7 +2,7 @@
   --login-blue: var(--blue);
   --login-blue-dark: #2468d8;
   --login-ink: var(--navy);
-  --login-muted: var(--muted);
+  --login-muted: #5f6b7a;
   --login-line: var(--line);
   display: block;
 }
@@ -131,7 +131,7 @@
 
 .eyebrow {
   margin: 0 0 1.25rem;
-  color: #7090ff;
+  color: #4d66c4;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -339,7 +339,7 @@ h1 em {
   border: 0;
   border-radius: 8px;
   color: #fff;
-  background: var(--login-blue);
+  background: #1f68c5;
   box-shadow: 0 0.5rem 1rem rgba(47, 128, 237, 0.2);
   font-weight: 700;
   cursor: pointer;

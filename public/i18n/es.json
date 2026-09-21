@@ -12,6 +12,9 @@
   },
   "accessibility": {
     "toggleSidebar": "Mostrar u ocultar barra lateral",
+    "closeSidebar": "Cerrar navegación",
+    "confirmationDialog": "Confirmación",
+    "back": "Volver",
     "mainNavigation": "Navegación principal",
     "toggleNavigation": "Mostrar u ocultar menú de navegación",
     "sidebarNavigation": "Navegación lateral",

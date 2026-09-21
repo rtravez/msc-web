@@ -12,6 +12,9 @@
   },
   "accessibility": {
     "toggleSidebar": "Toggle sidebar",
+    "closeSidebar": "Close navigation",
+    "confirmationDialog": "Confirmation",
+    "back": "Back",
     "mainNavigation": "Main navigation",
     "toggleNavigation": "Toggle navigation menu",
     "sidebarNavigation": "Sidebar navigation",
