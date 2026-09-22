@@ -1,36 +1,26 @@
-import { isPlatformBrowser } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { afterNextRender, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
-  standalone: true,
-  template: '<main class="callback"><p>{{ message() }}</p></main>',
+  templateUrl: './auth-callback.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthCallback implements OnInit {
-  protected readonly message = signal('');
+export class AuthCallback {
   private readonly auth = inject(AuthService);
+  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly platformId = inject(PLATFORM_ID);
   private readonly translate = inject(TranslateService);
+  protected readonly message = signal(this.translate.instant('callback.validating'));
 
   constructor() {
-    this.message.set(this.translate.instant('callback.validating'));
+    afterNextRender(() => void this.processCallback());
   }
-  async ngOnInit(): Promise<void> {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const params = new URLSearchParams(location.search);
-    const code = params.get('code');
-    const state = params.get('state');
+
+  private async processCallback(): Promise<void> {
+    const code = this.route.snapshot.queryParamMap.get('code');
+    const state = this.route.snapshot.queryParamMap.get('state');
     if (!code || !state) {
       this.message.set(this.translate.instant('callback.missingCode'));
       return;
